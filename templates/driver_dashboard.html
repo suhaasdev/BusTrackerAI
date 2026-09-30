@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% block title %}Driver Dashboard{% endblock %}
+{% block content %}
+<div class="container py-4">
+<h3>🧑‍✈️ Driver Dashboard</h3>
+<div id="box"><p class="text-secondary">Loading assigned bus…</p></div>
+<div class="card p-3 mt-2"><div class="d-flex justify-content-between align-items-center"><h6 class="mb-0">🗺️ Route & current location (Leaflet)</h6><button class="btn btn-sm btn-outline-primary" onclick="load()">Refresh map</button></div>
+<div id="dmap" class="map-box card mt-2" style="min-height:300px"></div>
+<div id="routeInfo" class="small text-secondary mt-1">Loading route…</div></div>
+<div class="row g-3 mt-1">
+<div class="col-lg-6"><div class="card p-3"><h6>Share live location</h6>
+<p class="small text-secondary">Browser geolocation → Flask API → MongoDB → passenger map. If denied, enter manually (demo).</p>
+<div class="row g-2">
+<div class="col-6"><input id="lat" class="form-control" placeholder="Latitude e.g. 18.1219"></div>
+<div class="col-6"><input id="lon" class="form-control" placeholder="Longitude e.g. 83.4024"></div>
+<div class="col-6"><input id="spd" class="form-control" placeholder="Speed km/h" value="42"></div>
+<div class="col-6"><input id="loc" class="form-control" placeholder="Nearby place e.g. Gajapathinagaram"></div>
+</div>
+<div class="d-flex gap-1 mt-2"><button class="btn btn-primary btn-sm" onclick="gps()">Use my GPS</button><button class="btn btn-success btn-sm" onclick="pushLoc()">Send location</button></div>
+<div id="locMsg" class="small mt-1"></div></div></div>
+<div class="col-lg-6"><div class="card p-3"><h6>Passenger manifest (today)</h6><div id="manifest" class="small">—</div></div>
+<div class="card p-3 mt-2"><h6>Report trip/bus issue</h6><form class="d-flex gap-1" onsubmit="return report(event)"><input id="issue" class="form-control form-control-sm" placeholder="e.g. tyre check at depot"><button class="btn btn-sm btn-outline-danger">Report</button></form></div></div>
+</div>
+</div>
+{% endblock %}
+{% block scripts %}
+<script>
+let BUS=null,TRIP=null,ROUTE=null,dmap=null,dmarkers=null;
+const CITY={"vizianagaram":[18.1066,83.3956],"visakhapatnam":[17.6868,83.2185],"vizag":[17.6868,83.2185],"srikakulam":[18.2949,83.8937],"anakapalle":[17.6916,83.0038],"gajuwaka":[17.6685,83.2185],"vijayawada":[16.5062,80.6480],"gajapathinagaram":[18.2827,83.3285],"pusapatirega":[18.0300,83.3500],"rajam":[18.4500,83.6600],"eluru":[16.7100,81.1000],"madhurawada":[17.7900,83.3500],"tagarapuvalasa":[17.9200,83.4200]};
+function cFor(s,o,d,i,n){const k=String(s||"").toLowerCase().trim();if(CITY[k])return CITY[k];
+ const a=CITY[String(o||"").toLowerCase()]||[18.10,83.39],e=CITY[String(d||"").toLowerCase()]||[17.68,83.21];
+ const t=n<=1?0.5:i/(n-1);return [a[0]+(e[0]-a[0])*t,a[1]+(e[1]-a[1])*t];}
+function drawDriverMap(tracking){
+ if(!BUS)return;
+ if(!dmap){dmap=L.map("dmap").setView([18.0,83.3],9);L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",{maxZoom:18,attribution:"© OpenStreetMap"}).addTo(dmap);}
+ if(dmarkers)dmarkers.remove(); dmarkers=L.layerGroup().addTo(dmap);
+ const stops=(ROUTE&&ROUTE.stops&&ROUTE.stops.length?ROUTE.stops:[BUS.source,BUS.destination]);
+ const pts=stops.map((s,i)=>cFor(s,BUS.source,BUS.destination,i,stops.length));
+ pts.forEach((p,i)=>{L.circleMarker(p,{radius:i===0||i===pts.length-1?9:7,color:"#0B1F3A",fillColor:i===0||i===pts.length-1?"#0B1F3A":"#F59E0B",fillOpacity:1}).addTo(dmarkers).bindPopup(`<b>${i+1}. ${stops[i]}</b>`);});
+ L.polyline(pts,{color:"#38BDF8",weight:4}).addTo(dmarkers);
+ if(tracking&&tracking.latitude){const bi=L.divIcon({html:'<div style="background:#155EEF;color:#fff;border-radius:50%;width:32px;height:32px;display:flex;align-items:center;justify-content:center;border:3px solid #fff">🚌</div>',iconSize:[32,32],iconAnchor:[16,16]});
+  L.marker([tracking.latitude,tracking.longitude],{icon:bi}).addTo(dmarkers).bindPopup(`<b>${BUS.bus_number}</b><br>${tracking.current_location||""}<br>${tracking.speed||""} km/h`).openPopup();
+  try{dmap.fitBounds(L.latLngBounds([...pts,[tracking.latitude,tracking.longitude]]).pad(0.25));}catch{}
+ } else {try{dmap.fitBounds(L.latLngBounds(pts).pad(0.3));}catch{}}
+ routeInfo.innerHTML=`Route: <b>${stops.join(" → ")}</b> · ${(ROUTE&&ROUTE.distance_km)||"~65"} km · current: <b>${(tracking&&tracking.current_location)||"not shared yet"}</b>`;
+}
+async function load(){
+ const r=await api("/api/driver/assigned");
+ if(!r.success){box.innerHTML=`<div class="alert alert-danger">${r.message}</div>`;return;}
+ BUS=r.data.bus; TRIP=r.data.trip; ROUTE=r.data.route||{}; const route=r.data.route||{};
+ box.innerHTML=`<div class="card p-3">
+ <div class="d-flex justify-content-between flex-wrap"><div>
+ <b>Assigned bus: ${BUS.bus_number}</b> (${BUS.operator} · ${BUS.bus_type})<br>
+ <span class="small text-secondary">Route: ${BUS.source} → ${BUS.destination} · ${(route.stops||[]).join(" → ")} · Dep ${BUS.departure_time}</span><br>
+ <span class="badge ${TRIP&&TRIP.status==="RUNNING"?"badge-confirmed":"bg-secondary"}">Trip: ${TRIP?TRIP.status:"NOT STARTED"}</span></div>
+  <div class="d-flex gap-1 align-items-start">${TRIP&&TRIP.status==="RUNNING"?`<button class="btn btn-danger" onclick="endTrip()">END TRIP</button>`:`<button class="btn btn-success" onclick="startTrip()">START TRIP</button>`}</div></div></div>`;
+ loadManifest(); drawDriverMap(null);
+ try{const t=await api("/api/tracking/"+encodeURIComponent(BUS.bus_number)); if(t.success) drawDriverMap(t.data.tracking);}catch{}
+}
+async function startTrip(){const r=await api("/api/trips/start",{method:"POST",body:JSON.stringify({bus_id:BUS.bus_number})});toast(r.message,r.success);load();}
+async function endTrip(){const r=await api("/api/trips/end",{method:"POST",body:JSON.stringify({})});toast(r.message,r.success);load();}
+function gps(){ if(!navigator.geolocation){locMsg.textContent="Geolocation not supported.";return;}
+ navigator.geolocation.getCurrentPosition(p=>{lat.value=p.coords.latitude.toFixed(5);lon.value=p.coords.longitude.toFixed(5);locMsg.textContent="GPS fix acquired.";},()=>{locMsg.textContent="GPS denied — enter manually.";}); }
+async function pushLoc(){const r=await api("/api/trips/location",{method:"POST",body:JSON.stringify({bus_id:BUS.bus_number,latitude:parseFloat(lat.value),longitude:parseFloat(lon.value),speed:parseFloat(spd.value||"40"),current_location:loc.value||"en route"})});toast(r.message,r.success);locMsg.textContent=r.message;
+ if(r.success){try{const t=await api("/api/tracking/"+encodeURIComponent(BUS.bus_number)); if(t.success) drawDriverMap(t.data.tracking);}catch{}}}
+async function loadManifest(){const r=await api(`/api/driver/manifest?bus_id=${BUS?BUS.bus_number:""}&date=${todayISO()}`);if(r.success){manifest.innerHTML=r.data.count?r.data.manifest.map(m=>`<div class="border-bottom py-1"><b>${m.booking_id}</b> seats ${m.seats.join(",")} · ${m.passengers.map(p=>p.name).join(", ")}</div>`).join(""):"No confirmed passengers for today.";}}
+async function report(e){e.preventDefault();const r=await api("/api/trips/report",{method:"POST",body:JSON.stringify({bus_id:BUS.bus_number,text:issue.value})});toast(r.message,r.success);issue.value="";return false;}
+load();
+</script>
+{% endblock %}

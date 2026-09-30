@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_standard" name="shell-type"/><title>BusTrackerAI - Intelligent Transit Platform</title><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Plus+Jakarta+Sans:wght@600;700;800&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{colors:{"on-tertiary-container":"#f2e8ff","secondary-container":"#c8dbfe","secondary-fixed":"#d6e3ff","inverse-surface":"#2d3133","background":"#f7f9fb","tertiary-fixed-dim":"#d2bbff","surface-container-lowest":"#ffffff","on-primary":"#ffffff","on-tertiary-fixed":"#25005a","on-tertiary":"#ffffff","surface-tint":"#0052dc","primary-fixed":"#dbe1ff","primary-fixed-dim":"#b4c5ff","on-surface":"#191c1e","primary":"#0047c1","on-error-container":"#93000a","error":"#ba1a1a","tertiary-fixed":"#eaddff","on-primary-fixed":"#00174b","error-container":"#ffdad6","surface-bright":"#f7f9fb","on-secondary-fixed-variant":"#364764","surface-container-low":"#f2f4f6","on-surface-variant":"#434655","outline":"#737687","surface":"#f7f9fb","on-tertiary-fixed-variant":"#5a00c6","on-background":"#191c1e","surface-variant":"#e0e3e5","tertiary-container":"#803ff1","on-secondary-fixed":"#071c36","tertiary":"#6718d8","inverse-on-surface":"#eff1f3","on-error":"#ffffff","surface-container-highest":"#e0e3e5","secondary-fixed-dim":"#b5c7ea","surface-container-high":"#e6e8ea","inverse-primary":"#b4c5ff","primary-container":"#155eef","surface-container":"#eceef0","on-secondary-container":"#4e607e","surface-dim":"#d8dadc","on-primary-container":"#e7eaff","on-secondary":"#ffffff","secondary":"#4d5f7d","on-primary-fixed-variant":"#003da9","outline-variant":"#c3c6d8"},borderRadius:{DEFAULT:"0.25rem",lg:"0.5rem",xl:"0.75rem",full:"9999px"},spacing:{"space-xs":"0.25rem","space-sm":"0.5rem",gutter:"1.5rem","margin-mobile":"1rem","space-xl":"2rem",margin:"2rem","space-md":"1rem","space-lg":"1.5rem","gutter-mobile":"0.75rem"},fontFamily:{"headline-lg":["Plus Jakarta Sans"],"label-lg":["Inter"],"body-lg":["Inter"],"body-sm":["Inter"],"headline-xl-mobile":["Plus Jakarta Sans"],"display-lg":["Plus Jakarta Sans"],"body-md":["Inter"],"headline-sm":["Plus Jakarta Sans"],"headline-xl":["Plus Jakarta Sans"],"headline-md":["Plus Jakarta Sans"],"label-md":["Inter"],"label-sm":["Inter"]},fontSize:{"headline-lg":["24px",{lineHeight:"32px",letterSpacing:"-0.01em",fontWeight:"700"}],"label-lg":["14px",{lineHeight:"20px",letterSpacing:"0.01em",fontWeight:"600"}],"body-lg":["18px",{lineHeight:"28px",fontWeight:"400"}],"body-sm":["12px",{lineHeight:"16px",fontWeight:"400"}],"headline-xl-mobile":["28px",{lineHeight:"36px",letterSpacing:"-0.015em",fontWeight:"700"}],"display-lg":["48px",{lineHeight:"56px",letterSpacing:"-0.02em",fontWeight:"800"}],"body-md":["14px",{lineHeight:"20px",fontWeight:"400"}],"headline-sm":["16px",{lineHeight:"24px",fontWeight:"600"}],"headline-xl":["36px",{lineHeight:"44px",letterSpacing:"-0.02em",fontWeight:"700"}],"headline-md":["20px",{lineHeight:"28px",letterSpacing:"-0.005em",fontWeight:"600"}],"label-md":["12px",{lineHeight:"16px",letterSpacing:"0.02em",fontWeight:"600"}],"label-sm":["10px",{lineHeight:"14px",letterSpacing:"0.04em",fontWeight:"700"}]}}}}</script></head><body class="bg-surface font-body-md text-on-surface antialiased"><header class="fixed top-0 w-full z-50 shadow-[0_4px_20px_rgba(11,31,58,0.15)]"><div class="w-full bg-[#0B1F3A] border-b border-[#1E293B]"><div class="max-w-7xl mx-auto px-gutter h-16 flex items-center justify-between gap-space-md"><div class="flex items-center gap-space-md shrink-0"><img alt="BusTrackerAI Logo" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1Ulxk7KCpKIIbXxkHTYOtDVwo4mKP4rSm5VbFqGV2SibAoPmZGm193L5z-UWeTq-kS9XcoZz9RhsJC5WehsZx1zT6bzI4zngWCn4ltpj4x_AX0R0hLI7RCmUsWIi2TZN2Y6oPjz273J6m-CWvLzjXKXyrZoOgPnZkAcmrTzdD5qRcUR1i-jPCtL4ZMS_V22hL5uHj04cho-Isw3oawdEP-sDCK5p9Jy1TkHasOm9mhqAnU9vc7TRi4I2A"/><div class="flex flex-col"><div class="flex items-center gap-space-xs"><span class="font-headline-sm text-headline-sm text-surface-container-lowest font-bold tracking-tight">BusTracker</span><span class="font-headline-sm text-headline-sm text-tertiary-fixed font-bold">AI</span></div><span class="font-label-sm text-label-sm text-secondary-fixed-dim uppercase tracking-wider">Transit Telemetry Matrix</span></div></div><nav class="hidden xl:flex items-center gap-space-xs" data-active-classes="bg-primary-container text-on-primary font-bold rounded-lg"><a class="px-space-md py-space-sm font-label-lg text-label-lg text-secondary-fixed rounded-lg hover:bg-white/10 hover:text-surface-container-lowest transition-colors" data-path="home" href="#">Home</a><a class="px-space-md py-space-sm font-label-lg text-label-lg text-secondary-fixed rounded-lg hover:bg-white/10 hover:text-surface-container-lowest transition-colors" data-path="search-buses" href="#">Search Buses</a><a aria-current="page" class="px-space-md py-space-sm transition-colors bg-primary-container text-on-primary font-bold rounded-lg" data-path="live-tracking" href="#">Live Tracking</a><a class="px-space-md py-space-sm font-label-lg text-label-lg text-secondary-fixed rounded-lg hover:bg-white/10 hover:text-surface-container-lowest transition-colors" data-path="seat-booking" href="#">Seat Booking</a><a class="px-space-md py-space-sm font-label-lg text-label-lg text-secondary-fixed rounded-lg hover:bg-white/10 hover:text-surface-container-lowest transition-colors" data-path="ai-assistant" href="#">AI Assistant</a><a class="px-space-md py-space-sm font-label-lg text-label-lg text-secondary-fixed rounded-lg hover:bg-white/10 hover:text-surface-container-lowest transition-colors" data-path="admin-portal" href="#">Admin Portal</a></nav><div class="flex items-center gap-space-sm shrink-0"><div class="hidden sm:flex items-center gap-space-xs px-space-md py-space-xs rounded-full bg-surface-container-lowest/10 border border-white/10"><span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span><span class="font-label-sm text-label-sm text-surface-container-lowest font-medium">142 Buses Live</span></div><button class="relative p-space-xs text-secondary-fixed hover:text-surface-container-lowest rounded-full transition-colors"><span class="material-symbols-outlined text-[22px]">notifications</span><span class="absolute top-1 right-1 w-2.5 h-2.5 bg-error rounded-full ring-2 ring-[#0B1F3A]"></span></button><div class="flex items-center gap-space-xs bg-surface-container-lowest/5 p-1 rounded-xl border border-white/10"><div class="flex items-center gap-space-xs px-space-sm py-1 rounded-lg bg-primary-container text-on-primary"><span class="material-symbols-outlined text-[16px]">route</span><span class="font-label-sm text-label-sm font-semibold">User Demo (Vizag Route)</span></div><button class="px-space-sm py-1 font-label-sm text-label-sm text-secondary-fixed-dim hover:text-surface-container-lowest transition-colors">Admin Switch</button></div><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center shrink-0"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></div><div class="w-full bg-[#122748] border-b border-[#1E293B] text-surface-container-lowest"><div class="max-w-7xl mx-auto px-gutter h-10 flex items-center justify-between text-body-sm font-body-sm"><div class="flex items-center gap-space-md"><div class="flex items-center gap-space-xs text-secondary-fixed"><span class="material-symbols-outlined text-[16px] text-tertiary-fixed">near_me</span><span class="font-medium">Active Corridor:</span><span class="px-space-xs py-0.5 rounded bg-surface-container-lowest/10 text-surface-container-lowest font-mono font-semibold text-label-sm">RTC Complex → Gajuwaka Express</span></div><div class="hidden md:flex items-center gap-space-xs text-secondary-fixed-dim"><span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span><span>Telemetry Sync: Stable (0.4s)</span></div></div><div class="flex items-center gap-space-lg"><div class="hidden lg:flex items-center gap-space-xs text-tertiary-fixed-dim font-label-sm"><span class="material-symbols-outlined text-[16px] text-tertiary-fixed">auto_awesome</span><span>Predictive ETA AI Active</span></div><div class="flex items-center gap-space-xs text-error-container hover:text-surface-container-lowest cursor-pointer transition-colors"><span class="material-symbols-outlined text-[16px] text-error">emergency</span><span class="font-label-sm text-label-sm font-bold tracking-wide">Transit SOS Support: 1800-BUS-HELP</span></div></div></div></div></header><main class="w-full pt-[104px] bg-surface min-h-[calc(100vh-280px)]"><div class="flex flex-col w-full">
+<!-- Command Strip / Dispatch Status Bar -->
+<div class="w-full bg-surface-container-low px-gutter py-space-sm shadow-sm">
+<div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-space-sm">
+<div class="flex items-center gap-space-sm min-w-0">
+<span class="inline-flex items-center justify-center w-8 h-8 rounded-lg bg-primary-container text-on-primary shadow-sm shrink-0">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">directions_bus</span>
+</span>
+<div class="min-w-0">
+<div class="flex items-center gap-space-xs flex-wrap">
+<span class="font-headline-sm text-headline-sm text-on-surface font-bold truncate">Bus AP31BT101</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">• ABC Travels (AC Seater)</span>
+<span class="px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 font-label-sm text-label-sm inline-flex items-center gap-1.5 font-bold">
+<span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+              ON TIME
+            </span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant flex items-center gap-1.5 truncate">
+<span class="material-symbols-outlined text-[15px] text-primary">trip_origin</span>
+            Vizianagaram RTC Complex 
+            <span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+            Visakhapatnam Dwaraka RTC
+            <span class="text-outline font-label-sm">(65 km Corridor)</span>
+</p>
+</div>
+</div>
+<div class="flex items-center gap-space-md ml-auto">
+<div class="hidden sm:flex items-center gap-space-xs px-space-sm py-1 rounded-full bg-surface shadow-sm">
+<span class="material-symbols-outlined text-[16px] text-primary">sensors</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">IoT Link: <strong class="text-on-surface">4G Dual SIM (99.4%)</strong></span>
+</div>
+<button class="flex items-center gap-space-xs px-space-md py-1.5 rounded-full bg-surface-container text-on-surface shadow-sm transition-all hover:bg-surface-container-high" id="liveSyncBtn">
+<span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-ping" id="syncPulse"></span>
+<span class="font-label-sm text-label-sm font-semibold tracking-wide">Live Telemetry (3s)</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Primary Container: Telemetry Dash & Radar Canvas -->
+<div class="max-w-7xl mx-auto w-full px-gutter py-space-md flex flex-col gap-space-md">
+<!-- 4-Column High Density Stat Cluster -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-space-sm">
+<!-- Stat 1: Current Pos -->
+<div class="p-space-md rounded-xl bg-surface-container-lowest shadow-sm flex flex-col justify-between relative overflow-hidden group hover:shadow-md transition-shadow">
+<div class="absolute -right-4 -bottom-4 w-20 h-20 rounded-full bg-emerald-50/70 pointer-events-none"></div>
+<div class="flex items-center justify-between mb-space-xs">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant font-bold">Current Corridor Geo</span>
+<span class="material-symbols-outlined text-[18px] text-emerald-600">fmd_good</span>
+</div>
+<div>
+<div class="font-headline-sm text-headline-sm text-on-surface font-extrabold truncate">Gajapathinagaram</div>
+<div class="font-body-sm text-body-sm text-emerald-700 font-semibold flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+            Bypass Node • KM 24.8
+          </div>
+</div>
+<div class="mt-space-xs pt-space-xs flex justify-between items-center text-outline font-label-sm text-label-sm">
+<span>Lat: 18.1219° N</span>
+<span>Lon: 83.4024° E</span>
+</div>
+</div>
+<!-- Stat 2: Predicted AI ETA -->
+<div class="p-space-md rounded-xl bg-surface-container-lowest shadow-sm flex flex-col justify-between relative overflow-hidden group hover:shadow-md transition-shadow">
+<div class="absolute -right-3 -bottom-3 w-20 h-20 rounded-full bg-purple-50 pointer-events-none"></div>
+<div class="flex items-center justify-between mb-space-xs">
+<div class="flex items-center gap-1">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-purple-700 font-bold">AI ETA Model</span>
+<span class="material-symbols-outlined text-[15px] text-purple-600 animate-spin" style="animation-duration: 9s;">auto_awesome</span>
+</div>
+<span class="px-1.5 py-0.5 rounded bg-purple-100 text-purple-800 font-label-sm text-label-sm font-bold">98.4% Confidence</span>
+</div>
+<div>
+<div class="flex items-baseline gap-1">
+<span class="font-headline-xl text-headline-xl text-purple-900 font-black leading-none">35</span>
+<span class="font-label-lg text-label-lg text-purple-700 font-bold">mins remaining</span>
+</div>
+<div class="font-body-sm text-body-sm text-on-surface-variant mt-1 flex items-center gap-1">
+<span>Dwaraka Arrival:</span>
+<strong class="text-on-surface">10:05 AM IST</strong>
+</div>
+</div>
+<div class="mt-space-xs pt-space-xs flex justify-between items-center text-outline font-label-sm text-label-sm">
+<span>Variance: ±1.2m</span>
+<span class="text-emerald-700 font-bold">Headway Smooth</span>
+</div>
+</div>
+<!-- Stat 3: Speed & Telematics -->
+<div class="p-space-md rounded-xl bg-surface-container-lowest shadow-sm flex flex-col justify-between relative overflow-hidden group hover:shadow-md transition-shadow">
+<div class="flex items-center justify-between mb-space-xs">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant font-bold">Cruising Velocity</span>
+<span class="material-symbols-outlined text-[18px] text-primary">speed</span>
+</div>
+<div>
+<div class="flex items-baseline gap-1">
+<span class="font-headline-xl text-headline-xl text-on-surface font-black leading-none" id="liveSpeedDisplay">42</span>
+<span class="font-label-lg text-label-lg text-on-surface-variant font-medium">km/h</span>
+</div>
+<div class="w-full bg-surface-container-high rounded-full h-1.5 mt-2 overflow-hidden">
+<div class="bg-primary h-full rounded-full transition-all duration-700" style="width: 70%;"></div>
+</div>
+</div>
+<div class="mt-space-xs pt-space-xs flex justify-between items-center text-outline font-label-sm text-label-sm">
+<span class="text-emerald-700 font-medium flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">verified</span> Safe Speed Band
+          </span>
+<span>Max Cap: 60 km/h</span>
+</div>
+</div>
+<!-- Stat 4: Immediate Next Stop -->
+<div class="p-space-md rounded-xl bg-surface-container-lowest shadow-sm flex flex-col justify-between relative overflow-hidden group hover:shadow-md transition-shadow">
+<div class="flex items-center justify-between mb-space-xs">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant font-bold">Upcoming Node</span>
+<span class="material-symbols-outlined text-[18px] text-amber-600">signpost</span>
+</div>
+<div>
+<div class="font-headline-sm text-headline-sm text-on-surface font-extrabold truncate">Pusapatirega</div>
+<div class="font-body-sm text-body-sm text-amber-800 font-semibold flex items-center gap-1 mt-0.5">
+<span class="material-symbols-outlined text-[15px]">timer</span>
+            Arr. in 14 mins (09:20 AM)
+          </div>
+</div>
+<div class="mt-space-xs pt-space-xs flex justify-between items-center text-outline font-label-sm text-label-sm">
+<span>Transit boarding: 4 pax</span>
+<span>Platform 02</span>
+</div>
+</div>
+</div>
+<!-- Central Split Layout: Vector Radar Map (Left) + Intelligence Stream (Right) -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-space-md items-start">
+<!-- Interactive Map & Visual Route Radar Canvas (8 Cols) -->
+<div class="lg:col-span-8 flex flex-col gap-space-sm">
+<div class="relative w-full h-[580px] bg-slate-950 rounded-2xl overflow-hidden shadow-xl flex flex-col justify-between select-none">
+<!-- Mock Map Background Styling & Route Vector Layer -->
+<div class="absolute inset-0 opacity-40 bg-[radial-gradient(#1e293b_1px,transparent_1px)] [background-size:24px_24px]"></div>
+<!-- Simulated Coastal Transit Topography & GIS Highway Grid -->
+<svg class="absolute inset-0 w-full h-full pointer-events-none" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<!-- Route Line Glow Filter -->
+<filter height="140%" id="glow" width="140%" x="-20%" y="-20%">
+<fegaussianblur result="blur" stddeviation="6"></fegaussianblur>
+<fecomposite in="SourceGraphic" in2="blur" operator="over"></fecomposite>
+</filter>
+<!-- Animated Linear Gradient for Highway Track -->
+<lineargradient id="routeGradient" x1="0%" x2="100%" y1="0%" y2="100%">
+<stop offset="0%" stop-color="#10B981"></stop>
+<stop offset="42%" stop-color="#38BDF8"></stop>
+<stop offset="100%" stop-color="#155EEF"></stop>
+</lineargradient>
+</defs>
+<!-- Coastal Contour Decorative Guides -->
+<path d="M 400 0 Q 480 180 540 320 T 780 580" fill="none" opacity="0.4" stroke="#1e293b" stroke-linecap="round" stroke-width="38"></path>
+<path d="M 400 0 Q 480 180 540 320 T 780 580" fill="none" opacity="0.6" stroke="#0f172a" stroke-dasharray="6,6" stroke-width="2"></path>
+<!-- Real-Time Vector Route Line: Vizianagaram -> Visakhapatnam -->
+<!-- Base corridor shadow -->
+<path d="M 80 80 Q 230 140 360 250 T 640 500" fill="none" filter="url(#glow)" opacity="0.3" stroke="#0284c7" stroke-width="10"></path>
+<!-- Active Neon Transit Path -->
+<path d="M 80 80 Q 230 140 360 250 T 640 500" fill="none" id="transitPath" stroke="url(#routeGradient)" stroke-linecap="round" stroke-width="5"></path>
+<!-- Passed Distance (Solid Emerald Segment) -->
+<path d="M 80 80 Q 230 140 360 250" fill="none" opacity="0.8" stroke="#10B981" stroke-dasharray="2,2" stroke-width="5"></path>
+<!-- Route Stop Markers on Vector Path -->
+<!-- Stop 1: Origin Vizianagaram (80, 80) -->
+<g transform="translate(80, 80)">
+<circle fill="#10B981" opacity="0.2" r="9"></circle>
+<circle fill="#10B981" r="5"></circle>
+<circle fill="#ffffff" r="2"></circle>
+</g>
+<!-- Stop 2: Gajapathinagaram Current Loc (360, 250) -->
+<g class="transition-transform duration-1000 ease-in-out" id="activeBusGroup" transform="translate(360, 250)">
+<!-- Radar Ripple Circles -->
+<circle class="animate-ping" fill="#38BDF8" opacity="0.15" r="36" style="animation-duration: 2.4s;"></circle>
+<circle fill="#0284c7" opacity="0.25" r="22"></circle>
+<!-- Outer Bus Marker Halo -->
+<circle fill="#155EEF" r="15"></circle>
+<circle fill="#0B1F3A" r="13"></circle>
+<!-- Icon inside marker -->
+<text fill="#38BDF8" font-family="'Material Symbols Outlined'" font-size="14" text-anchor="middle" x="0" y="4">directions_bus</text>
+</g>
+<!-- Stop 3: Pusapatirega (480, 360) -->
+<g transform="translate(480, 360)">
+<circle fill="#F59E0B" opacity="0.25" r="8"></circle>
+<circle fill="#F59E0B" r="4"></circle>
+<circle fill="#ffffff" r="1.5"></circle>
+</g>
+<!-- Stop 4: Destination Visakhapatnam Dwaraka (640, 500) -->
+<g transform="translate(640, 500)">
+<circle fill="#155EEF" opacity="0.2" r="12"></circle>
+<circle fill="#155EEF" r="6"></circle>
+<circle fill="#ffffff" r="2.5"></circle>
+</g>
+</svg>
+<!-- Interactive Node Anchors (Labels & Floating Badges) -->
+<!-- Origin Pill -->
+<div class="absolute left-6 top-6 bg-slate-900/90 backdrop-blur px-3 py-1.5 rounded-lg shadow-lg flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+<div>
+<div class="font-headline-sm text-label-sm text-slate-200 font-bold leading-none">Vizianagaram RTC</div>
+<div class="font-body-sm text-[10px] text-slate-400">Departed 08:30 AM • On-Time</div>
+</div>
+</div>
+<!-- Active Bus Floating Radar Callout Tag -->
+<div class="absolute left-[385px] top-[210px] hidden md:flex flex-col bg-slate-900/95 backdrop-blur-md p-2.5 rounded-xl shadow-2xl z-10">
+<div class="flex items-center gap-1.5 pb-1">
+<span class="w-2 h-2 rounded-full bg-sky-400 animate-ping"></span>
+<span class="font-label-sm text-label-sm text-sky-400 font-bold uppercase tracking-wider">Live Bus Telemetry</span>
+</div>
+<div class="font-body-sm text-body-sm text-white font-medium">Gajapathinagaram Junction</div>
+<div class="flex items-center gap-3 text-slate-400 font-label-sm text-[11px] mt-1">
+<span class="flex items-center gap-0.5 text-slate-200"><span class="material-symbols-outlined text-[14px] text-sky-400">speed</span> 42 km/h</span>
+<span class="flex items-center gap-0.5"><span class="material-symbols-outlined text-[14px] text-emerald-400">compass_calibration</span> Heading SSE</span>
+<span class="text-purple-300 font-mono">XGB-ETA</span>
+</div>
+</div>
+<!-- Stop 3 Callout -->
+<div class="absolute left-[350px] bottom-[180px] bg-slate-900/85 backdrop-blur px-2.5 py-1 rounded-lg shadow flex items-center gap-1.5">
+<span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span>
+<span class="font-label-sm text-label-sm text-slate-200 font-medium">Pusapatirega (14m)</span>
+</div>
+<!-- Destination Callout -->
+<div class="absolute right-6 bottom-16 bg-slate-900/90 backdrop-blur px-3 py-2 rounded-xl shadow-lg flex items-center gap-2">
+<span class="material-symbols-outlined text-[20px] text-sky-400">pin_drop</span>
+<div>
+<div class="font-headline-sm text-label-sm text-slate-200 font-bold leading-none">Visakhapatnam (Dwaraka)</div>
+<div class="font-body-sm text-[11px] text-sky-400 font-medium">Terminal ETA: 10:05 AM</div>
+</div>
+</div>
+<!-- Top-Right Radar Layer Controls -->
+<div class="relative z-10 m-4 flex justify-between items-start pointer-events-none">
+<div class="flex items-center gap-2 pointer-events-auto">
+<span class="px-2.5 py-1 rounded-md bg-slate-900/80 backdrop-blur text-sky-300 font-mono text-label-sm flex items-center gap-1.5 shadow">
+<span class="material-symbols-outlined text-[14px]">radar</span>
+                GPS Matrix: Active (24 Sats Locked)
+              </span>
+</div>
+<!-- Map View Toggles -->
+<div class="flex flex-col gap-1.5 pointer-events-auto bg-slate-900/90 backdrop-blur p-1 rounded-xl shadow-lg">
+<button class="p-2 text-slate-300 hover:text-white hover:bg-slate-800 rounded-lg transition-colors flex items-center justify-center" id="centerBusBtn" title="Center on Vehicle">
+<span class="material-symbols-outlined text-[20px]">my_location</span>
+</button>
+<button class="p-2 text-slate-300 hover:text-white hover:bg-slate-800 rounded-lg transition-colors flex items-center justify-center" id="zoomInBtn" title="Zoom in">
+<span class="material-symbols-outlined text-[20px]">add</span>
+</button>
+<button class="p-2 text-slate-300 hover:text-white hover:bg-slate-800 rounded-lg transition-colors flex items-center justify-center" id="zoomOutBtn" title="Zoom out">
+<span class="material-symbols-outlined text-[20px]">remove</span>
+</button>
+<button class="p-2 text-emerald-400 hover:bg-slate-800 rounded-lg transition-colors flex items-center justify-center" id="trafficToggle" title="Toggle Real-Time Traffic Layer">
+<span class="material-symbols-outlined text-[20px]">traffic</span>
+</button>
+</div>
+</div>
+<!-- Bottom Map Status Glass Strip -->
+<div class="relative z-10 m-4 bg-slate-900/85 backdrop-blur-md rounded-xl p-space-sm flex flex-wrap items-center justify-between gap-space-sm text-slate-300 font-label-sm text-label-sm shadow">
+<div class="flex items-center gap-space-md">
+<span class="flex items-center gap-1.5 text-slate-200">
+<span class="w-2 h-2 rounded-full bg-sky-400"></span>
+                Route Track: <strong class="text-white">NH-26 Coastal Tollway</strong>
+</span>
+<span class="hidden sm:inline text-slate-400">|</span>
+<span class="hidden sm:flex items-center gap-1 text-slate-400">
+                Road Status: <strong class="text-emerald-400">Dry &amp; Free-Flowing</strong>
+</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="px-2 py-0.5 rounded bg-slate-800 text-slate-400 text-xs font-mono">Last Ping: 1.2s ago</span>
+<button class="px-2 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold transition-colors">Street View</button>
+</div>
+</div>
+</div>
+<!-- Linear Stop Progression Bar -->
+<div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm">
+<div class="flex items-center justify-between mb-space-sm">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant font-bold">Corridor Itinerary Checkpoints</span>
+<span class="font-label-sm text-label-sm text-primary font-bold">24.8 / 65.0 km Completed</span>
+</div>
+<div class="relative flex items-center justify-between">
+<div class="absolute left-0 right-0 top-1/2 -translate-y-1/2 h-1 bg-surface-container-high z-0"></div>
+<div class="absolute left-0 top-1/2 -translate-y-1/2 h-1 bg-emerald-500 z-0 transition-all duration-500" style="width: 38%;"></div>
+<!-- Point 1 -->
+<div class="relative z-10 flex flex-col items-center text-center">
+<div class="w-6 h-6 rounded-full bg-emerald-600 text-white flex items-center justify-center shadow-sm">
+<span class="material-symbols-outlined text-[14px]">check</span>
+</div>
+<span class="font-label-sm text-label-sm font-bold text-on-surface mt-1">Vizianagaram</span>
+<span class="font-body-sm text-[11px] text-on-surface-variant">08:30 AM</span>
+</div>
+<!-- Point 2 (Current) -->
+<div class="relative z-10 flex flex-col items-center text-center">
+<div class="w-7 h-7 rounded-full bg-primary-container text-white flex items-center justify-center ring-4 ring-primary-fixed shadow-md animate-pulse">
+<span class="material-symbols-outlined text-[16px]">navigation</span>
+</div>
+<span class="font-label-sm text-label-sm font-extrabold text-primary mt-1">Gajapathinagaram</span>
+<span class="font-body-sm text-[11px] text-emerald-700 font-bold">Now Passing</span>
+</div>
+<!-- Point 3 -->
+<div class="relative z-10 flex flex-col items-center text-center">
+<div class="w-6 h-6 rounded-full bg-surface-container-highest text-on-surface-variant flex items-center justify-center">
+<span class="w-2 h-2 rounded-full bg-outline"></span>
+</div>
+<span class="font-label-sm text-label-sm font-semibold text-on-surface mt-1">Pusapatirega</span>
+<span class="font-body-sm text-[11px] text-on-surface-variant">09:20 AM</span>
+</div>
+<!-- Point 4 (Destination) -->
+<div class="relative z-10 flex flex-col items-center text-center">
+<div class="w-6 h-6 rounded-full bg-surface-container-highest text-on-surface-variant flex items-center justify-center">
+<span class="material-symbols-outlined text-[14px]">flag</span>
+</div>
+<span class="font-label-sm text-label-sm font-semibold text-on-surface mt-1">Visakhapatnam</span>
+<span class="font-body-sm text-[11px] text-on-surface-variant">10:05 AM</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Panel: Telemetry, AI Engine, Driver & Booking CTA (4 Cols) -->
+<div class="lg:col-span-4 flex flex-col gap-space-sm">
+<!-- AI Predictive Delay & Conditions Card (Special Violet Theme) -->
+<div class="rounded-xl p-space-md bg-purple-50 shadow-sm relative overflow-hidden">
+<div class="flex items-center gap-space-xs mb-space-xs text-purple-900">
+<span class="material-symbols-outlined text-[20px] text-purple-700">smart_toy</span>
+<span class="font-headline-sm text-headline-sm font-bold">Predictive AI Headway</span>
+</div>
+<p class="font-body-sm text-body-sm text-purple-950 mb-space-sm leading-relaxed">
+            Zero traffic incidents detected along NH-26 corridor. Weather is fully clear (31°C), dry road grip index is 0.94. Automated speed model projects zero delay into Visakhapatnam entry.
+          </p>
+<div class="p-space-xs rounded-lg bg-surface-container-lowest/80 flex items-center justify-between text-purple-900">
+<span class="font-label-sm text-label-sm font-medium">Toll Plaza Wait (Nathavalasa)</span>
+<span class="font-label-sm text-label-sm font-bold text-emerald-700">&lt; 1 min (FASTag Green)</span>
+</div>
+</div>
+<!-- Real-Time Speed & Acceleration Vector Gauge Card -->
+<div class="rounded-xl p-space-md bg-surface-container-lowest shadow-sm flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant font-bold">Kinetic Telemetry</span>
+<span class="px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 font-label-sm text-[11px] font-bold">Smooth G-Force</span>
+</div>
+<!-- Speed Wave / Telemetry Sparkline SVG -->
+<div class="w-full h-24 bg-surface-container-low rounded-lg p-2 flex flex-col justify-between">
+<div class="flex items-center justify-between text-outline font-label-sm text-[10px]">
+<span>Last 10 Minutes Speed Trend (km/h)</span>
+<span>Avg: 44.2 km/h</span>
+</div>
+<svg class="w-full h-12" preserveaspectratio="none" viewbox="0 0 240 40">
+<path d="M 0 30 Q 30 15 60 22 T 120 18 T 180 25 T 240 16" fill="none" stroke="#155EEF" stroke-width="2.5"></path>
+<path d="M 0 30 Q 30 15 60 22 T 120 18 T 180 25 T 240 16 L 240 40 L 0 40 Z" fill="#155EEF" fill-opacity="0.1"></path>
+<circle cx="240" cy="16" fill="#155EEF" r="3.5"></circle>
+</svg>
+<div class="flex items-center justify-between text-on-surface-variant font-label-sm text-[11px] pt-1">
+<span>08:30 (Dep)</span>
+<span>08:45</span>
+<span>09:00</span>
+<span class="text-primary font-bold">Live</span>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-space-xs pt-1">
+<div class="p-2 rounded-lg bg-surface-container-low flex flex-col">
+<span class="text-outline font-label-sm text-[11px]">Braking Stability</span>
+<span class="font-headline-sm text-headline-sm text-on-surface font-bold">Optimal (99%)</span>
+</div>
+<div class="p-2 rounded-lg bg-surface-container-low flex flex-col">
+<span class="text-outline font-label-sm text-[11px]">Bus Fuel Level</span>
+<span class="font-headline-sm text-headline-sm text-on-surface font-bold">78% (Diesel)</span>
+</div>
+</div>
+</div>
+<!-- Driver Crew & Safety SOS Card -->
+<div class="rounded-xl p-space-md bg-surface-container-lowest shadow-sm flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant font-bold">Assigned Crew</span>
+<span class="px-2 py-0.5 rounded-full bg-surface-container-high text-on-surface font-label-sm text-[11px] font-semibold">RTC Verified</span>
+</div>
+<div class="flex items-center gap-space-sm">
+<div class="w-12 h-12 rounded-full bg-surface-container-high flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[28px] text-on-surface-variant">person</span>
+</div>
+<div class="min-w-0 flex-1">
+<div class="font-headline-sm text-headline-sm text-on-surface font-bold truncate">K. Ramana</div>
+<div class="font-body-sm text-body-sm text-on-surface-variant">Duty Badge #4021 • 12 Yrs Exp</div>
+</div>
+<button class="w-9 h-9 rounded-full bg-surface-container-low hover:bg-surface-container text-primary flex items-center justify-center shadow-sm transition-colors" title="Contact Driver Console">
+<span class="material-symbols-outlined text-[20px]">call</span>
+</button>
+</div>
+<div class="pt-space-xs flex gap-space-xs">
+<button class="flex-1 py-2 px-3 rounded-lg bg-red-100 hover:bg-red-200 text-red-900 font-label-sm text-label-sm font-bold flex items-center justify-center gap-1.5 transition-colors" id="sosEmergencyBtn">
+<span class="material-symbols-outlined text-[16px] text-red-600">e911_emergency</span>
+              Transit SOS Support
+            </button>
+<button class="py-2 px-3 rounded-lg bg-surface-container-low hover:bg-surface-container-high text-on-surface font-label-sm text-label-sm font-semibold flex items-center justify-center gap-1 transition-colors">
+<span class="material-symbols-outlined text-[16px]">share</span>
+              Track Link
+            </button>
+</div>
+</div>
+<!-- Seat Booking Upsell CTA Card -->
+<div class="rounded-xl p-space-md bg-gradient-to-br from-[#0B1F3A] to-[#155EEF] text-white shadow-md flex flex-col gap-space-sm">
+<div class="flex items-start justify-between">
+<div>
+<span class="px-2 py-0.5 rounded bg-white/20 text-white font-label-sm text-label-sm font-bold tracking-wide">
+                Live Inventory
+              </span>
+<div class="font-headline-lg text-headline-lg font-black mt-1">18 Seats Left</div>
+</div>
+<div class="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center">
+<span class="material-symbols-outlined text-[24px] text-sky-300">airline_seat_recline_normal</span>
+</div>
+</div>
+<p class="font-body-sm text-body-sm text-slate-200">
+            Boarding from Pusapatirega or downstream stops? Reserve instantly before seat allocation closes in 8 mins.
+          </p>
+<a class="w-full py-2.5 px-space-md rounded-lg bg-white text-primary font-label-lg text-label-lg font-bold flex items-center justify-center gap-2 shadow hover:bg-slate-100 transition-colors" data-path="seat-booking" href="#">
+<span>Select &amp; Book Seats (From ₹140)</span>
+<span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</a>
+</div>
+</div>
+</div>
+<!-- Live Telemetry Stream Terminal & Technical Footnotes -->
+<div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm flex flex-col gap-space-xs">
+<div class="flex items-center justify-between border-b border-surface-container pb-space-xs">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-[18px] text-primary">terminal</span>
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface font-bold">IoT Fleet Telemetry Event Stream</span>
+</div>
+<span class="text-outline font-label-sm text-label-sm">Protocol: MQTT / GeoJSON Broker v3.1</span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-space-sm text-on-surface-variant font-label-sm text-label-sm pt-space-xs">
+<div class="flex items-center gap-2">
+<span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+<span>[09:02:14] Heartbeat ACK: Lat 18.1219, Lon 83.4024</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="w-1.5 h-1.5 rounded-full bg-sky-500"></span>
+<span>[09:02:11] Speed update: 42 km/h (Engine Temp: 88°C)</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="w-1.5 h-1.5 rounded-full bg-purple-500"></span>
+<span>[09:02:08] AI recalculation: Headway optimal (+0.0 min)</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Interactive JavaScript Behavior for Radar Simulation -->
+<script>
+    (function initRadarSimulation() {
+      // Dynamic Speed Variance simulation
+      const speedDisplay = document.getElementById('liveSpeedDisplay');
+      const liveSyncBtn = document.getElementById('liveSyncBtn');
+      const busGroup = document.getElementById('activeBusGroup');
+      const sosBtn = document.getElementById('sosEmergencyBtn');
+      const trafficToggle = document.getElementById('trafficToggle');
+
+      let currentSpeed = 42;
+      let syncActive = true;
+
+      // Pulse mock data every 3.5 seconds
+      setInterval(() => {
+        if (!syncActive) return;
+        // Minor realistic drift between 39 and 46 km/h
+        const jitter = Math.floor(Math.random() * 5) - 2;
+        currentSpeed = Math.max(38, Math.min(48, currentSpeed + jitter));
+        if (speedDisplay) {
+          speedDisplay.textContent = currentSpeed;
+        }
+      }, 3500);
+
+      if (liveSyncBtn) {
+        liveSyncBtn.addEventListener('click', () => {
+          syncActive = !syncActive;
+          const pulse = document.getElementById('syncPulse');
+          if (syncActive) {
+            pulse.className = 'w-2.5 h-2.5 rounded-full bg-emerald-500 animate-ping';
+            liveSyncBtn.querySelector('span:last-child').textContent = 'Live Telemetry (3s)';
+          } else {
+            pulse.className = 'w-2.5 h-2.5 rounded-full bg-amber-500';
+            liveSyncBtn.querySelector('span:last-child').textContent = 'Sync Paused';
+          }
+        });
+      }
+
+      if (sosBtn) {
+        sosBtn.addEventListener('click', () => {
+          alert('Transit SOS Protocol Triggered: Connecting to Vizag Central Control Deck (1800-BUS-HELP). GPS coordinates dispatched.');
+        });
+      }
+
+      if (trafficToggle) {
+        trafficToggle.addEventListener('click', () => {
+          trafficToggle.classList.toggle('text-emerald-400');
+          trafficToggle.classList.toggle('text-sky-400');
+        });
+      }
+
+      // Map Center Vehicle button micro-interaction
+      const centerBusBtn = document.getElementById('centerBusBtn');
+      if (centerBusBtn && busGroup) {
+        centerBusBtn.addEventListener('click', () => {
+          busGroup.classList.add('scale-125');
+          setTimeout(() => {
+            busGroup.classList.remove('scale-125');
+          }, 400);
+        });
+      }
+    })();
+  </script>
+</div></main><footer class="w-full bg-surface-container-lowest border-t border-surface-container"><div class="max-w-7xl mx-auto px-gutter py-space-xl"><div class="grid grid-cols-1 md:grid-cols-4 gap-space-lg mb-space-lg"><div class="flex flex-col gap-space-sm"><div class="flex items-center gap-space-xs"><span class="font-headline-sm text-headline-sm text-primary font-bold">BusTracker</span><span class="font-headline-sm text-headline-sm text-tertiary font-bold">AI</span></div><p class="font-body-sm text-body-sm text-on-surface-variant">Intelligent multi-modal transit intelligence system with automated headway prediction, dynamic seating telemetry, and smart fare clearing.</p><div class="flex items-center gap-space-xs text-emerald-700 font-label-sm text-label-sm"><span class="w-2 h-2 rounded-full bg-emerald-500"></span><span>Operational Telemetry: 99.98% Core Uptime</span></div></div><div class="flex flex-col gap-space-xs"><span class="font-label-md text-label-md text-on-surface uppercase tracking-wider font-bold mb-space-xs">System Endpoints</span><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors" href="#">GET /api/v1/telemetry/live-matrix</a><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors" href="#">POST /api/v1/seats/lock-reservation</a><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors" href="#">WS /sockets/fleet-dispatch/vizag</a><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors" href="#">GET /api/v1/ai/route-forecast</a></div><div class="flex flex-col gap-space-xs"><span class="font-label-md text-label-md text-on-surface uppercase tracking-wider font-bold mb-space-xs">Engineering Specs (Viva)</span><div class="font-body-sm text-body-sm text-on-surface-variant flex flex-col gap-1"><span><strong>Backend:</strong> Python 3.11 / Flask Microservices</span><span><strong>Primary DB:</strong> MongoDB GeoJSON Collections</span><span><strong>Realtime:</strong> WebSockets / Redis Broker</span><span><strong>AI Engine:</strong> XGBoost ETA &amp; Heuristics</span></div></div><div class="flex flex-col gap-space-xs"><span class="font-label-md text-label-md text-on-surface uppercase tracking-wider font-bold mb-space-xs">Emergency Dispatch</span><div class="p-space-sm bg-surface-container-low rounded-xl border border-surface-container flex flex-col gap-1"><span class="font-label-sm text-label-sm text-on-surface font-semibold">Vizag Central Command Unit</span><span class="font-body-sm text-body-sm text-on-surface-variant">RTC Complex Terminal, Control Deck 04</span><span class="font-label-sm text-label-sm text-primary font-bold mt-1">Hotline: +91 891 254-8900</span></div></div></div><div class="pt-space-md border-t border-surface-container flex flex-col sm:flex-row items-center justify-between gap-space-sm font-body-sm text-body-sm text-on-surface-variant"><span>© 2025 BusTrackerAI Fleet Technologies. All rights reserved. Engineering Capstone Project.</span><div class="flex items-center gap-space-md"><a class="hover:text-primary transition-colors" href="#">Privacy Policy</a><a class="hover:text-primary transition-colors" href="#">Transit Service Level Agreement</a><a class="hover:text-primary transition-colors" href="#">Viva Presentation Specs</a></div></div></div></footer></body></html>

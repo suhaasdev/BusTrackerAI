@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block title %}Boarding Pass{% endblock %}
+{% block content %}
+<div class="container py-4">
+<div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
+<h3>Passenger Boarding Pass</h3>
+<div class="d-flex gap-1"><button class="btn btn-outline-secondary btn-sm" onclick="window.print()">Print</button><a id="trackBtn" class="btn btn-primary btn-sm" href="#">Track Bus Live</a></div>
+</div>
+<div id="box" class="mt-3"><p class="text-secondary">Loading ticket…</p></div>
+</div>
+{% endblock %}
+{% block scripts %}
+<script>
+const BID="{{ booking_id }}";
+(async()=>{
+ const r=await api("/api/bookings/"+encodeURIComponent(BID));
+ if(!r.success){box.innerHTML=`<div class="alert alert-danger">${r.message}</div>`;return;}
+ const b=r.data.booking;
+ trackBtn.href="/tracking/"+encodeURIComponent(b.bus_number||b.bus_id);
+ box.innerHTML=`
+ <div class="card p-4">
+  <div class="d-flex justify-content-between flex-wrap">
+   <div><h4>${b.source} → ${b.destination}</h4><div class="text-secondary">${b.bus_number} · ${b.travel_date} · Dep ${b.departure_time} · Arr ${b.arrival_time}</div></div>
+   <div class="text-end"><span class="badge ${b.status==="CONFIRMED"?"badge-confirmed":"badge-cancelled"} fs-6">${b.status}</span><br><b class="font-monospace">PNR ${b.booking_id}</b></div>
+  </div>
+  <hr class="ticket">
+  <div class="row g-3">
+   <div class="col-md-7">${(b.passengers||[]).map((p,i)=>`<div class="border rounded p-2 mb-1"><b>${p.name}</b> <small class="text-secondary">Age ${p.age} · ${p.gender||""}</small><span class="badge bg-primary float-end">Seat ${(b.seats||[])[i]||""}</span></div>`).join("")}
+    <div class="small text-secondary mt-2">Fare: ${(b.seats||[]).length} × ₹${b.fare_per_seat} = ₹${b.base_fare} + GST ₹${b.gst} = <b>₹${b.total_amount}</b></div></div>
+   <div class="col-md-5"><div class="qrbox p-3 text-center">▦▦ QR · ${b.booking_id}<br><small>conductor scan · HMAC signed (demo)</small><br><b class="fs-5">${(b.seats||[]).join(" · ")}</b></div>
+   <div class="small text-secondary mt-2">Free cancellation until 1 hr before departure. Show this pass at boarding.</div>
+   ${b.status==="CONFIRMED"?`<button class="btn btn-outline-danger btn-sm mt-2" onclick="cancelB('${b.booking_id}')">Cancel booking</button>`:""}</div>
+  </div>
+ </div>`;
+})();
+async function cancelB(id){ if(!confirm("Cancel?"))return; const r=await api(`/api/bookings/${id}/cancel`,{method:"PUT"}); toast(r.message,r.success); if(r.success)location.reload(); }
+</script>
+{% endblock %}

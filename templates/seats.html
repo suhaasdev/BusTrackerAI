@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+{% block title %}Select Seats{% endblock %}
+{% block content %}
+<div class="container py-4">
+<div id="head"></div>
+<div class="row g-3 mt-1">
+<div class="col-lg-7">
+<div class="card p-3">
+<div class="d-flex gap-3 small mb-2"><span><span class="badge bg-success">Available</span></span><span><span class="badge bg-primary">Selected (<span id="cnt">0</span>)</span></span><span><span class="badge bg-secondary">Booked</span></span><span class="ms-auto text-secondary">Tap seat to toggle</span></div>
+<div class="alert alert-light small">DRIVER CABIN · Capt. on duty <span class="float-end">ENTRY GATE</span></div>
+<div id="grid" class="d-flex flex-column gap-2"></div>
+<div class="small text-secondary mt-2">* Rear Safety Door · Atomic lock: backend re-validates every seat at confirm.</div>
+</div>
+<div class="card p-3 mt-3 bg-primary text-white"><b>TELEMETRY FARE BREAKDOWN</b><div id="fare" class="small">Select seats…</div><h4 id="total" class="mb-0">₹0</h4></div>
+</div>
+<div class="col-lg-5">
+<div class="card p-3"><h5>Traveler Manifest</h5><div id="forms" class="d-flex flex-column gap-2"></div>
+<label class="form-label small mt-2">Contact email</label><input id="email" class="form-control" value="student.demo@bustrackerai.edu">
+<button id="bookBtn" class="btn btn-primary mt-3" onclick="book()" disabled>Select seats to book</button>
+<div class="small text-secondary mt-1">Mock payment simulator · GST 5% added server-side.</div></div>
+</div>
+</div>
+</div>
+{% endblock %}
+{% block scripts %}
+<script>
+const BUS_ID="{{ bus_id }}";
+const q=new URLSearchParams(location.search); const DATE=q.get("date")||todayISO();
+let bus=null, selected=[];
+const ROWS="ABCDEFGHIJ".split("");
+function seatId(r,c){return r+(c+1);}
+(async()=>{
+ const r=await api(`/api/buses/${encodeURIComponent(BUS_ID)}?date=${DATE}`);
+ if(!r.success){document.getElementById("head").innerHTML=`<div class="alert alert-danger">${r.message}</div>`;return;}
+ bus=r.data.bus;
+ document.getElementById("head").innerHTML=`<h3>Express Line ${bus.bus_number} <span class="badge bg-light text-dark">2×2 AC Seater</span></h3><div class="text-secondary">${bus.source} → ${bus.destination} · Departure ${bus.departure_time} (${bus.status}) · Date ${DATE}</div>`;
+ render();
+})();
+function render(){
+ const booked=new Set((bus.booked_seats||[]).map(s=>s.toUpperCase()));
+ let html="";
+ ROWS.forEach(r=>{
+  html+=`<div class="row g-2 align-items-center"><div class="col-5"><div class="row g-2">`;
+  [0,1].forEach(c=>{const id=seatId(r,c);html+=cell(id,booked);});
+  html+=`</div></div><div class="col-2 text-center text-secondary small">${r}</div><div class="col-5"><div class="row g-2">`;
+  [2,3].forEach(c=>{const id=seatId(r,c);html+=cell(id,booked);});
+  html+=`</div></div></div>`;});
+ document.getElementById("grid").innerHTML=html;
+ update();
+}
+function cell(id,booked){
+ if(booked.has(id)) return `<div class="col-6"><div class="seat seat-booked">🔒<small>${id}</small></div></div>`;
+ const sel=selected.includes(id);
+ return `<div class="col-6"><div class="seat ${sel?"seat-selected":"seat-available"}" onclick="toggle('${id}')">${sel?"✓":"💺"}<small>${id}</small></div></div>`;
+}
+function toggle(id){
+ if(selected.includes(id)) selected=selected.filter(s=>s!==id);
+ else { if(selected.length>=6){toast("Max 6 seats per booking",false);return;} selected.push(id); }
+ selected.sort(); renderForms(); render();
+}
+function renderForms(){
+ document.getElementById("forms").innerHTML=selected.map((s,i)=>`
+ <div class="border rounded p-2"><b class="badge bg-primary">Seat ${s}</b> ${i===0?"Primary":"Co-passenger"}
+ <div class="row g-1 mt-1"><div class="col-6"><input class="form-control form-control-sm" id="nm_${s}" placeholder="Full name"></div>
+ <div class="col-3"><input class="form-control form-control-sm" id="ag_${s}" type="number" placeholder="Age"></div>
+ <div class="col-3"><select class="form-select form-select-sm" id="gd_${s}"><option>Male</option><option>Female</option><option>Other</option></select></div>
+ <div class="col-12 mt-1"><input class="form-control form-control-sm" id="ph_${s}" placeholder="Phone"></div></div></div>`).join("")||"<span class='text-secondary small'>No seats selected.</span>";
+}
+function update(){
+ document.getElementById("cnt").textContent=selected.length;
+ document.getElementById("grid").querySelectorAll(".seat").forEach(()=>{});
+ const fare=bus?+bus.fare:0, base=fare*selected.length, gst=Math.round(base*0.05), total=base+gst;
+ document.getElementById("fare").textContent=selected.length?`Selected ${selected.join(", ")} (${selected.length}) · Base ${selected.length}×₹${fare}=₹${base} · GST 5% ₹${gst}`:"Select seats…";
+ document.getElementById("total").textContent="₹"+total;
+ const b=document.getElementById("bookBtn"); b.disabled=!selected.length;
+ b.textContent=selected.length?`Confirm & Book (₹${total})`:"Select seats to book";
+ // re-render grid selection visuals without full reload
+ const booked=new Set((bus.booked_seats||[]).map(s=>s.toUpperCase()));
+ let html=""; ROWS.forEach(r=>{ html+=`<div class="row g-2 align-items-center"><div class="col-5"><div class="row g-2">`; [0,1].forEach(c=>{html+=cell(seatId(r,c),booked);}); html+=`</div></div><div class="col-2 text-center text-secondary small">${r}</div><div class="col-5"><div class="row g-2">`; [2,3].forEach(c=>{html+=cell(seatId(r,c),booked);}); html+=`</div></div></div>`;});
+ document.getElementById("grid").innerHTML=html;
+}
+async function book(){
+ if(!store.user){toast("Please login first",false);location.href="/login?next="+encodeURIComponent(location.pathname+location.search);return;}
+ const passengers=selected.map(s=>({name:document.getElementById("nm_"+s).value.trim(),age:parseInt(document.getElementById("ag_"+s).value||"0"),gender:document.getElementById("gd_"+s).value,phone:document.getElementById("ph_"+s).value.trim()}));
+ if(passengers.some(p=>!p.name||!p.age)){toast("Each seat needs name + age",false);return;}
+ const r=await api("/api/bookings",{method:"POST",body:JSON.stringify({bus_id:bus.bus_number,travel_date:DATE,seats:selected,passengers})});
+ if(!r.success){toast(r.message,false); if(r.error==="SEAT_TAKEN"){const rr=await api(`/api/buses/${encodeURIComponent(BUS_ID)}?date=${DATE}`); if(rr.success){bus=rr.data.bus;selected=[];renderForms();update();}} return;}
+ toast("Booking confirmed!"); location.href="/booking/"+r.data.booking.booking_id;
+}
+renderForms();
+</script>
+{% endblock %}

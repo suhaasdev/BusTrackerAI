@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block title %}AI Assistant{% endblock %}
+{% block content %}
+<div class="container py-4">
+<div class="alert alert-light small">BusTrackerAI Engine · <b style="color:#7C3AED">AI Assistant (rule-based prototype + real DB)</b> · REST: POST /api/ai/chat · zero-hallucination: answers only from live MongoDB data</div>
+<div class="row g-3">
+<div class="col-lg-4">
+<div class="card p-3"><h6>Try asking</h6><div class="d-flex flex-column gap-1">
+<button class="btn btn-sm btn-outline-primary text-start" onclick="ask('Find buses from Vizianagaram to Visakhapatnam')">Find buses from Vizianagaram to Visakhapatnam</button>
+<button class="btn btn-sm btn-outline-primary text-start" onclick="ask('Which bus is cheapest?')">Find the cheapest bus</button>
+<button class="btn btn-sm btn-outline-primary text-start" onclick="ask('I need to reach Visakhapatnam before 10 AM')">Bus arriving before 10 AM</button>
+<button class="btn btn-sm btn-outline-primary text-start" onclick="ask('Where is bus AP31BT101?')">Where is bus AP31BT101?</button>
+<button class="btn btn-sm btn-outline-primary text-start" onclick="ask('Which bus has the most available seats?')">Most available seats?</button>
+</div></div>
+</div>
+<div class="col-lg-8">
+<div class="card"><div class="card-header bg-white"><b style="color:#7C3AED">✦ BusTrackerAI Neural Concierge</b> <small class="text-secondary">grounded in live data</small></div>
+<div id="thread" class="card-body d-flex flex-column gap-2" style="min-height:340px;max-height:480px;overflow:auto">
+<div class="chat-ai p-3"><b style="color:#7C3AED">Welcome to Intelligent Transit Concierge</b><br><span class="small">I check live timetables, fares, seats and GPS — then recommend. Ask anything below.</span></div>
+</div>
+<form class="card-footer d-flex gap-2" onsubmit="return send(event)">
+<input id="inp" class="form-control" placeholder="Ask e.g. 'Cheapest AC ride', 'Where is my bus?'">
+<button class="btn btn-ai">Send ➤</button>
+</form></div>
+</div>
+</div>
+</div>
+{% endblock %}
+{% block scripts %}
+<script>
+function bubble(text,me){const d=document.createElement("div");d.className=me?"chat-user p-2 px-3 align-self-end":"chat-ai p-3";d.style.maxWidth="90%";d.textContent=text;thread.appendChild(d);thread.scrollTop=thread.scrollHeight;}
+function ask(t){inp.value=t;send(null);}
+async function send(e){e&&e.preventDefault();const m=inp.value.trim();if(!m)return;bubble(m,true);inp.value="";
+ const r=await api("/api/ai/chat",{method:"POST",body:JSON.stringify({message:m})});
+ bubble(r.success?r.data.response:r.message,false);}
+</script>
+{% endblock %}

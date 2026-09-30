@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title %}My Bookings{% endblock %}
+{% block content %}
+<div class="container py-4">
+<h3>My Bookings</h3>
+<div id="list" class="d-flex flex-column gap-2 mt-3"><p class="text-secondary">Loading…</p></div>
+</div>
+{% endblock %}
+{% block scripts %}
+<script>
+(async()=>{
+ const r=await api("/api/bookings");
+ if(!r.success){list.innerHTML=`<div class="alert alert-danger">${r.message}</div>`;return;}
+ if(!r.data.count){list.innerHTML=`<div class="alert alert-info">No bookings yet. <a href="/search">Search buses</a></div>`;return;}
+ list.innerHTML=r.data.bookings.map(b=>`
+ <div class="card p-3 d-flex flex-row justify-content-between align-items-center flex-wrap gap-2">
+  <div><b>#${b.booking_id}</b> <span class="badge ${b.status==="CONFIRMED"?"badge-confirmed":"badge-cancelled"}">${b.status}</span><br>
+  <span>${b.source} → ${b.destination} · ${b.travel_date} · ${b.bus_number} · seats ${(b.seats||[]).join(", ")} · ₹${b.total_amount}</span></div>
+  <div class="d-flex gap-1"><a class="btn btn-sm btn-primary" href="/booking/${b.booking_id}">Ticket</a>
+  ${b.status==="CONFIRMED"?`<button class="btn btn-sm btn-outline-danger" onclick="cancelB('${b.booking_id}')">Cancel</button>`:""}</div>
+ </div>`).join("");
+})();
+async function cancelB(id){ if(!confirm("Cancel booking "+id+"? Seat(s) will be released."))return;
+ const r=await api(`/api/bookings/${id}/cancel`,{method:"PUT"}); toast(r.message,r.success); if(r.success)location.reload(); }
+</script>
+{% endblock %}

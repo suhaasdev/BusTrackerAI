@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}Contact{% endblock %}
+{% block content %}
+<div class="container py-5 col-lg-6">
+<h2>Contact</h2>
+<div class="card p-4">
+<p><b>Vizag Central Command Unit</b><br>RTC Complex Terminal, Control Deck 04</p>
+<p>Hotline: <b class="text-primary">+91 891 254-8900</b> · SOS: 1800-BUS-HELP</p>
+<form onsubmit="event.preventDefault();toast('Message noted. We will reach out.');">
+<input class="form-control mb-2" placeholder="Your name" required>
+<input class="form-control mb-2" placeholder="Email" type="email" required>
+<textarea class="form-control mb-2" placeholder="Message" rows="4" required></textarea>
+<button class="btn btn-primary">Send</button>
+</form>
+</div>
+</div>
+{% endblock %}

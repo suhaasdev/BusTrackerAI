@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block title %}Login{% endblock %}
+{% block content %}
+<div class="container py-5">
+<div class="row g-4">
+<div class="col-lg-6">
+<div class="card p-4 shadow">
+<h4>Authenticate Session</h4>
+<p class="text-secondary small">Passengers and drivers use the same login — role routes you to the right dashboard.</p>
+<div class="alert alert-info small">Demo: passenger <b>user@bustrackerai.edu / Commuter#2025</b> · driver <b>driver@bustrackerai.edu / Driver#2025</b>
+<button class="btn btn-sm btn-outline-primary ms-2" onclick="fill('user@bustrackerai.edu','Commuter#2025')">Fill passenger</button>
+<button class="btn btn-sm btn-outline-warning ms-1" onclick="fill('driver@bustrackerai.edu','Driver#2025')">Fill driver</button></div>
+<form onsubmit="return doLogin(event)">
+<div class="mb-2"><label class="form-label">Email</label><input id="email" class="form-control" value="user@bustrackerai.edu" required></div>
+<div class="mb-2"><label class="form-label">Password</label><input id="pwd" type="password" class="form-control" value="Commuter#2025" required></div>
+<button class="btn btn-primary w-100">Sign In to BusTrackerAI →</button>
+</form>
+<p class="mt-2 small">No account? <a href="/register">Register</a> · Driver? <a href="/driver/login">Driver login</a></p>
+</div>
+</div>
+<div class="col-lg-6">
+<div class="card p-4">
+<h5>Why authenticate?</h5>
+<ul class="small text-secondary">
+<li>Real-time headway & stop alerts</li>
+<li>AI route & crowd optimization (prototype)</li>
+<li>Instant digital QR boarding pass</li>
+<li>Atomic seat-lock guarantee (no double booking)</li>
+</ul>
+<div class="alert alert-light small font-monospace">Passwords are Werkzeug-hashed; JWT (24h) + server session; RBAC passenger/driver.</div>
+</div>
+</div>
+</div>
+</div>
+{% endblock %}
+{% block scripts %}
+<script>
+function fill(e,p){document.getElementById("email").value=e;document.getElementById("pwd").value=p;}
+async function doLogin(e){e.preventDefault();
+ const r=await api("/api/auth/login",{method:"POST",body:JSON.stringify({email:document.getElementById("email").value,password:document.getElementById("pwd").value})});
+ if(!r.success){toast(r.message,false);return false;}
+ store.token=r.data.token; store.user=r.data.user; await refreshNav(); toast("Login successful");
+ location.href=r.data.role==="driver"?"/driver/dashboard":"/dashboard"; return false;}
+</script>
+{% endblock %}

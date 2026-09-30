@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block title %}Driver Login{% endblock %}
+{% block content %}
+<div class="container py-5 col-lg-5">
+<div class="card p-4 shadow border-warning">
+<h4><i class="fa-solid fa-id-card text-warning me-2"></i>Driver Login</h4>
+<p class="small text-secondary">Drivers: use your assigned crew email. Demo: <b>driver@bustrackerai.edu / Driver#2025</b></p>
+<form onsubmit="return doLogin(event)">
+<div class="mb-2"><label class="form-label">Email</label><input id="email" class="form-control" value="driver@bustrackerai.edu" required></div>
+<div class="mb-2"><label class="form-label">Password</label><input id="pwd" type="password" class="form-control" value="Driver#2025" required></div>
+<button class="btn btn-warning w-100 fw-bold">Sign in as Driver →</button>
+</form>
+</div>
+</div>
+{% endblock %}
+{% block scripts %}
+<script>
+async function doLogin(e){e.preventDefault();
+ const r=await api("/api/auth/login",{method:"POST",body:JSON.stringify({email:document.getElementById("email").value,password:document.getElementById("pwd").value})});
+ if(!r.success){toast(r.message,false);return false;}
+ if(r.data.role!=="driver"){toast("This account is not a driver.",false);return false;}
+ store.token=r.data.token; store.user=r.data.user; location.href="/driver/dashboard"; return false;}
+</script>
+{% endblock %}

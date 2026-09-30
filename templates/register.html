@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block title %}Register{% endblock %}
+{% block content %}
+<div class="container py-5 col-lg-6">
+<div class="card p-4 shadow">
+<h4>New Registration</h4>
+<form onsubmit="return doReg(event)">
+<div class="row g-2">
+<div class="col-md-6"><label class="form-label">Full name</label><input id="name" class="form-control" required></div>
+<div class="col-md-6"><label class="form-label">Role</label><select id="role" class="form-select"><option value="passenger">Passenger</option><option value="driver">Driver</option></select></div>
+<div class="col-md-6"><label class="form-label">Email</label><input id="email" type="email" class="form-control" required></div>
+<div class="col-md-6"><label class="form-label">Phone</label><input id="phone" class="form-control" placeholder="9876543210"></div>
+<div class="col-md-6"><label class="form-label">Password (6+ chars)</label><input id="p1" type="password" class="form-control" required></div>
+<div class="col-md-6"><label class="form-label">Confirm password</label><input id="p2" type="password" class="form-control" required></div>
+</div>
+<button class="btn btn-primary w-100 mt-3">Register & unlock transit hub</button>
+</form>
+<p class="small mt-2"><a href="/login">Back to login</a></p>
+</div>
+</div>
+{% endblock %}
+{% block scripts %}
+<script>
+async function doReg(e){e.preventDefault();
+ const p1=document.getElementById("p1").value,p2=document.getElementById("p2").value;
+ if(p1!==p2){toast("Passwords do not match",false);return false;}
+ const r=await api("/api/auth/register",{method:"POST",body:JSON.stringify({name:document.getElementById("name").value,email:document.getElementById("email").value,phone:document.getElementById("phone").value,password:p1,role:document.getElementById("role").value})});
+ if(!r.success){toast(r.message,false);return false;}
+ toast("Registered! Please login."); location.href="/login"; return false;}
+</script>
+{% endblock %}

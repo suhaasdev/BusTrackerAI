@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_standard" name="shell-type"/><title>BusTrackerAI - Intelligent Transit Platform</title><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Plus+Jakarta+Sans:wght@600;700;800&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{colors:{"on-tertiary-container":"#f2e8ff","secondary-container":"#c8dbfe","secondary-fixed":"#d6e3ff","inverse-surface":"#2d3133","background":"#f7f9fb","tertiary-fixed-dim":"#d2bbff","surface-container-lowest":"#ffffff","on-primary":"#ffffff","on-tertiary-fixed":"#25005a","on-tertiary":"#ffffff","surface-tint":"#0052dc","primary-fixed":"#dbe1ff","primary-fixed-dim":"#b4c5ff","on-surface":"#191c1e","primary":"#0047c1","on-error-container":"#93000a","error":"#ba1a1a","tertiary-fixed":"#eaddff","on-primary-fixed":"#00174b","error-container":"#ffdad6","surface-bright":"#f7f9fb","on-secondary-fixed-variant":"#364764","surface-container-low":"#f2f4f6","on-surface-variant":"#434655","outline":"#737687","surface":"#f7f9fb","on-tertiary-fixed-variant":"#5a00c6","on-background":"#191c1e","surface-variant":"#e0e3e5","tertiary-container":"#803ff1","on-secondary-fixed":"#071c36","tertiary":"#6718d8","inverse-on-surface":"#eff1f3","on-error":"#ffffff","surface-container-highest":"#e0e3e5","secondary-fixed-dim":"#b5c7ea","surface-container-high":"#e6e8ea","inverse-primary":"#b4c5ff","primary-container":"#155eef","surface-container":"#eceef0","on-secondary-container":"#4e607e","surface-dim":"#d8dadc","on-primary-container":"#e7eaff","on-secondary":"#ffffff","secondary":"#4d5f7d","on-primary-fixed-variant":"#003da9","outline-variant":"#c3c6d8"},borderRadius:{DEFAULT:"0.25rem",lg:"0.5rem",xl:"0.75rem",full:"9999px"},spacing:{"space-xs":"0.25rem","space-sm":"0.5rem",gutter:"1.5rem","margin-mobile":"1rem","space-xl":"2rem",margin:"2rem","space-md":"1rem","space-lg":"1.5rem","gutter-mobile":"0.75rem"},fontFamily:{"headline-lg":["Plus Jakarta Sans"],"label-lg":["Inter"],"body-lg":["Inter"],"body-sm":["Inter"],"headline-xl-mobile":["Plus Jakarta Sans"],"display-lg":["Plus Jakarta Sans"],"body-md":["Inter"],"headline-sm":["Plus Jakarta Sans"],"headline-xl":["Plus Jakarta Sans"],"headline-md":["Plus Jakarta Sans"],"label-md":["Inter"],"label-sm":["Inter"]},fontSize:{"headline-lg":["24px",{lineHeight:"32px",letterSpacing:"-0.01em",fontWeight:"700"}],"label-lg":["14px",{lineHeight:"20px",letterSpacing:"0.01em",fontWeight:"600"}],"body-lg":["18px",{lineHeight:"28px",fontWeight:"400"}],"body-sm":["12px",{lineHeight:"16px",fontWeight:"400"}],"headline-xl-mobile":["28px",{lineHeight:"36px",letterSpacing:"-0.015em",fontWeight:"700"}],"display-lg":["48px",{lineHeight:"56px",letterSpacing:"-0.02em",fontWeight:"800"}],"body-md":["14px",{lineHeight:"20px",fontWeight:"400"}],"headline-sm":["16px",{lineHeight:"24px",fontWeight:"600"}],"headline-xl":["36px",{lineHeight:"44px",letterSpacing:"-0.02em",fontWeight:"700"}],"headline-md":["20px",{lineHeight:"28px",letterSpacing:"-0.005em",fontWeight:"600"}],"label-md":["12px",{lineHeight:"16px",letterSpacing:"0.02em",fontWeight:"600"}],"label-sm":["10px",{lineHeight:"14px",letterSpacing:"0.04em",fontWeight:"700"}]}}}}</script></head><body class="bg-surface font-body-md text-on-surface antialiased"><header class="fixed top-0 w-full z-50 shadow-[0_4px_20px_rgba(11,31,58,0.15)]"><div class="w-full bg-[#0B1F3A] border-b border-[#1E293B]"><div class="max-w-7xl mx-auto px-gutter h-16 flex items-center justify-between gap-space-md"><div class="flex items-center gap-space-md shrink-0"><img alt="BusTrackerAI Logo" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1Ulxk7KCpKIIbXxkHTYOtDVwo4mKP4rSm5VbFqGV2SibAoPmZGm193L5z-UWeTq-kS9XcoZz9RhsJC5WehsZx1zT6bzI4zngWCn4ltpj4x_AX0R0hLI7RCmUsWIi2TZN2Y6oPjz273J6m-CWvLzjXKXyrZoOgPnZkAcmrTzdD5qRcUR1i-jPCtL4ZMS_V22hL5uHj04cho-Isw3oawdEP-sDCK5p9Jy1TkHasOm9mhqAnU9vc7TRi4I2A"/><div class="flex flex-col"><div class="flex items-center gap-space-xs"><span class="font-headline-sm text-headline-sm text-surface-container-lowest font-bold tracking-tight">BusTracker</span><span class="font-headline-sm text-headline-sm text-tertiary-fixed font-bold">AI</span></div><span class="font-label-sm text-label-sm text-secondary-fixed-dim uppercase tracking-wider">Transit Telemetry Matrix</span></div></div><nav class="hidden xl:flex items-center gap-space-xs" data-active-classes="bg-primary-container text-on-primary font-bold rounded-lg"><a class="px-space-md py-space-sm font-label-lg text-label-lg text-secondary-fixed rounded-lg hover:bg-white/10 hover:text-surface-container-lowest transition-colors" data-path="home" href="#">Home</a><a class="px-space-md py-space-sm font-label-lg text-label-lg text-secondary-fixed rounded-lg hover:bg-white/10 hover:text-surface-container-lowest transition-colors" data-path="search-buses" href="#">Search Buses</a><a class="px-space-md py-space-sm font-label-lg text-label-lg text-secondary-fixed rounded-lg hover:bg-white/10 hover:text-surface-container-lowest transition-colors" data-path="live-tracking" href="#">Live Tracking</a><a class="px-space-md py-space-sm font-label-lg text-label-lg text-secondary-fixed rounded-lg hover:bg-white/10 hover:text-surface-container-lowest transition-colors" data-path="seat-booking" href="#">Seat Booking</a><a class="px-space-md py-space-sm font-label-lg text-label-lg text-secondary-fixed rounded-lg hover:bg-white/10 hover:text-surface-container-lowest transition-colors" data-path="ai-assistant" href="#">AI Assistant</a><a class="px-space-md py-space-sm font-label-lg text-label-lg text-secondary-fixed rounded-lg hover:bg-white/10 hover:text-surface-container-lowest transition-colors" data-path="admin-portal" href="#">Admin Portal</a></nav><div class="flex items-center gap-space-sm shrink-0"><div class="hidden sm:flex items-center gap-space-xs px-space-md py-space-xs rounded-full bg-surface-container-lowest/10 border border-white/10"><span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span><span class="font-label-sm text-label-sm text-surface-container-lowest font-medium">142 Buses Live</span></div><button class="relative p-space-xs text-secondary-fixed hover:text-surface-container-lowest rounded-full transition-colors"><span class="material-symbols-outlined text-[22px]">notifications</span><span class="absolute top-1 right-1 w-2.5 h-2.5 bg-error rounded-full ring-2 ring-[#0B1F3A]"></span></button><div class="flex items-center gap-space-xs bg-surface-container-lowest/5 p-1 rounded-xl border border-white/10"><div class="flex items-center gap-space-xs px-space-sm py-1 rounded-lg bg-primary-container text-on-primary"><span class="material-symbols-outlined text-[16px]">route</span><span class="font-label-sm text-label-sm font-semibold">User Demo (Vizag Route)</span></div><button class="px-space-sm py-1 font-label-sm text-label-sm text-secondary-fixed-dim hover:text-surface-container-lowest transition-colors">Admin Switch</button></div><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center shrink-0"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></div><div class="w-full bg-[#122748] border-b border-[#1E293B] text-surface-container-lowest"><div class="max-w-7xl mx-auto px-gutter h-10 flex items-center justify-between text-body-sm font-body-sm"><div class="flex items-center gap-space-md"><div class="flex items-center gap-space-xs text-secondary-fixed"><span class="material-symbols-outlined text-[16px] text-tertiary-fixed">near_me</span><span class="font-medium">Active Corridor:</span><span class="px-space-xs py-0.5 rounded bg-surface-container-lowest/10 text-surface-container-lowest font-mono font-semibold text-label-sm">RTC Complex → Gajuwaka Express</span></div><div class="hidden md:flex items-center gap-space-xs text-secondary-fixed-dim"><span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span><span>Telemetry Sync: Stable (0.4s)</span></div></div><div class="flex items-center gap-space-lg"><div class="hidden lg:flex items-center gap-space-xs text-tertiary-fixed-dim font-label-sm"><span class="material-symbols-outlined text-[16px] text-tertiary-fixed">auto_awesome</span><span>Predictive ETA AI Active</span></div><div class="flex items-center gap-space-xs text-error-container hover:text-surface-container-lowest cursor-pointer transition-colors"><span class="material-symbols-outlined text-[16px] text-error">emergency</span><span class="font-label-sm text-label-sm font-bold tracking-wide">Transit SOS Support: 1800-BUS-HELP</span></div></div></div></div></header><main class="w-full pt-[104px] bg-surface min-h-[calc(100vh-280px)]"><div class="flex flex-col w-full">
+<div class="w-full max-w-7xl mx-auto px-gutter py-space-lg flex flex-col gap-space-lg">
+<!-- Breadcrumbs & System Status Bar -->
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-space-md">
+<div class="flex flex-col gap-space-xs">
+<div class="flex items-center gap-space-xs font-label-md text-label-md text-on-surface-variant">
+<span class="hover:text-primary cursor-pointer transition-colors">Dashboard</span>
+<span class="material-symbols-outlined text-[14px]">chevron_right</span>
+<span class="hover:text-primary cursor-pointer transition-colors">Bookings</span>
+<span class="material-symbols-outlined text-[14px]">chevron_right</span>
+<span class="text-on-surface font-semibold">Pass #BT202609300001</span>
+</div>
+<div class="flex flex-wrap items-center gap-space-sm">
+<h1 class="font-headline-lg text-headline-lg text-on-surface font-bold tracking-tight">Passenger Boarding Pass &amp; Audit Manifest</h1>
+<div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 text-emerald-700">
+<span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+<span class="font-label-sm text-label-sm font-bold tracking-wider uppercase">CONFIRMED &amp; ISSUED</span>
+</div>
+</div>
+</div>
+<!-- Action Cluster -->
+<div class="flex items-center flex-wrap gap-space-sm shrink-0">
+<button class="inline-flex items-center gap-space-xs px-space-md py-2 rounded-lg bg-surface-container hover:bg-surface-container-high text-on-surface font-label-lg text-label-lg shadow-sm transition-all active:scale-[0.98]" onclick="window.print()">
+<span class="material-symbols-outlined text-[18px]">print</span>
+<span>Print Pass</span>
+</button>
+<button class="inline-flex items-center gap-space-xs px-space-md py-2 rounded-lg bg-surface-container hover:bg-surface-container-high text-on-surface font-label-lg text-label-lg shadow-sm transition-all active:scale-[0.98]" id="pdfDownloadBtn">
+<span class="material-symbols-outlined text-[18px]">file_download</span>
+<span>Download PDF</span>
+</button>
+<a class="inline-flex items-center gap-space-xs px-space-lg py-2 rounded-lg bg-primary-container hover:bg-primary text-on-primary font-label-lg text-label-lg shadow-md transition-all active:scale-[0.98]" href="#">
+<span class="material-symbols-outlined text-[18px]">navigation</span>
+<span>Track Bus Live</span>
+</a>
+</div>
+</div>
+<!-- Live Telemetry Announcement Strip -->
+<div class="w-full bg-secondary-container/30 rounded-xl p-space-sm flex flex-col md:flex-row items-center justify-between gap-space-sm shadow-sm">
+<div class="flex items-center gap-space-sm">
+<div class="w-8 h-8 rounded-lg bg-primary-container text-on-primary flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[18px]">sensors</span>
+</div>
+<div class="flex items-center flex-wrap gap-space-xs font-body-sm text-body-sm text-on-surface">
+<span class="font-bold text-primary">Live Headway Telemetry:</span>
+<span>AP31BT101 is moving at <strong>42 km/h</strong></span>
+<span class="text-outline">•</span>
+<span>Approaching: <strong>Pusapatirega Toll Plaza</strong></span>
+<span class="text-outline">•</span>
+<span class="text-emerald-700 font-semibold">Headway On-Time (+0.4 min variance)</span>
+</div>
+</div>
+<div class="flex items-center gap-space-sm">
+<span class="font-label-sm text-label-sm text-on-surface-variant font-mono">XGBoost Loss: 0.012s</span>
+<span class="inline-flex items-center px-2 py-0.5 rounded-full bg-surface-container-lowest font-label-sm text-label-sm text-primary font-semibold">Stream #VK-9021</span>
+</div>
+</div>
+<!-- Main Two-Column Workbench -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-space-lg items-start">
+<!-- LEFT COLUMN: Verified Digital Boarding Pass (65% / 8 cols) -->
+<div class="lg:col-span-8 flex flex-col gap-space-lg">
+<!-- Boarding Pass Container with Perforation Notch Effect -->
+<div class="relative bg-surface-container-lowest rounded-2xl shadow-xl overflow-hidden">
+<!-- Top Accent Band -->
+<div class="h-2 w-full bg-gradient-to-r from-primary-container via-sky-400 to-tertiary-container"></div>
+<!-- Header Area -->
+<div class="p-space-lg bg-gradient-to-b from-surface-container-low/50 to-surface-container-lowest flex flex-col md:flex-row justify-between gap-space-md items-start md:items-center">
+<div class="flex items-center gap-space-md">
+<div class="w-12 h-12 rounded-xl bg-primary flex items-center justify-center text-on-primary shadow-md">
+<span class="material-symbols-outlined text-[28px]">directions_bus</span>
+</div>
+<div class="flex flex-col">
+<div class="flex items-center gap-space-xs">
+<span class="font-headline-md text-headline-md text-on-surface font-bold">ABC Travels Express</span>
+<span class="px-2 py-0.5 rounded bg-primary-fixed text-on-primary-fixed font-label-sm text-label-sm font-bold uppercase">EV AC Seater</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Fleet Vehicle: AP31BT101 • Air Suspension • 2x2 Clean Air Edition</span>
+</div>
+</div>
+<!-- Booking Token Details -->
+<div class="flex flex-col md:items-end">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-widest font-bold">PNR RECORD LOCATOR</span>
+<span class="font-headline-md text-headline-md font-mono text-primary font-bold tracking-tight">BT202609300001</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Issued: 30 Sep 2026, 08:14:22 AM IST</span>
+</div>
+</div>
+<!-- Route Geography Matrix -->
+<div class="px-space-lg py-space-md bg-surface-container-lowest">
+<div class="p-space-lg rounded-xl bg-surface-container-low flex flex-col md:flex-row items-stretch justify-between gap-space-lg relative overflow-hidden">
+<div class="absolute right-0 top-0 translate-x-8 -translate-y-8 w-44 h-44 rounded-full bg-primary/5 pointer-events-none"></div>
+<!-- Origin Block -->
+<div class="flex flex-col gap-1 min-w-[200px]">
+<div class="flex items-center gap-1.5 text-primary">
+<span class="material-symbols-outlined text-[18px]">radio_button_checked</span>
+<span class="font-label-sm text-label-sm font-bold uppercase tracking-wider">BOARDING POINT</span>
+</div>
+<span class="font-headline-lg text-headline-lg text-on-surface font-bold">08:30 AM</span>
+<span class="font-headline-sm text-headline-sm text-on-surface font-semibold">Vizianagaram Jn.</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">RTC Central Complex, Bay #04</span>
+<div class="mt-2 inline-flex items-center gap-1 text-label-sm font-label-sm text-on-surface-variant bg-surface-container px-2 py-0.5 rounded w-fit">
+<span class="material-symbols-outlined text-[14px]">pin_drop</span>
+<span>Depot Lat 18.1124° N</span>
+</div>
+</div>
+<!-- Route Vector Visualization -->
+<div class="flex-1 flex flex-col justify-center items-center px-space-sm my-auto">
+<div class="w-full flex items-center justify-between text-label-sm font-label-sm text-on-surface-variant mb-1.5">
+<span class="font-semibold text-primary">Direct Express NH-26</span>
+<span class="font-mono">65.4 km</span>
+<span class="font-semibold text-emerald-700">90 Mins Non-Stop</span>
+</div>
+<!-- SVG Timeline Vector -->
+<div class="w-full flex items-center relative py-2">
+<div class="w-full h-1.5 bg-surface-container-high rounded-full overflow-hidden relative">
+<div class="h-full bg-gradient-to-r from-primary-container via-sky-400 to-primary w-2/5 rounded-full"></div>
+</div>
+<!-- Marker dot -->
+<div class="absolute left-[40%] -top-1 w-4 h-4 rounded-full bg-primary-container shadow-md flex items-center justify-center">
+<div class="w-2 h-2 rounded-full bg-surface-container-lowest animate-ping"></div>
+</div>
+</div>
+<div class="flex items-center gap-space-sm mt-1 text-label-sm font-label-sm text-on-surface-variant">
+<span class="inline-flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+<span>Bypass via Gajapathinagaram</span>
+</span>
+<span>•</span>
+<span>Toll Headway Validated</span>
+</div>
+</div>
+<!-- Destination Block -->
+<div class="flex flex-col gap-1 min-w-[200px] md:text-right">
+<div class="flex items-center gap-1.5 text-emerald-700 md:justify-end">
+<span class="material-symbols-outlined text-[18px]">location_on</span>
+<span class="font-label-sm text-label-sm font-bold uppercase tracking-wider">DESTINATION</span>
+</div>
+<span class="font-headline-lg text-headline-lg text-on-surface font-bold">10:00 AM</span>
+<span class="font-headline-sm text-headline-sm text-on-surface font-semibold">Visakhapatnam</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Dwaraka RTC Complex, Platform #12</span>
+<div class="mt-2 inline-flex items-center gap-1 text-label-sm font-label-sm text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded w-fit md:ml-auto">
+<span class="material-symbols-outlined text-[14px]">verified</span>
+<span>ETA Accuracy: 99.4%</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Perforated Cut-Out Divider with Dashes -->
+<div class="relative w-full py-2 flex items-center justify-between overflow-hidden">
+<!-- Left notch cutout -->
+<div class="w-6 h-6 rounded-full bg-surface -ml-3 shadow-inner"></div>
+<!-- Dashed perforation line -->
+<div class="flex-1 border-b-2 border-dashed border-outline-variant/40 mx-2"></div>
+<!-- Right notch cutout -->
+<div class="w-6 h-6 rounded-full bg-surface -mr-3 shadow-inner"></div>
+</div>
+<!-- Passenger Manifest & Amenities Matrix -->
+<div class="p-space-lg grid grid-cols-1 md:grid-cols-12 gap-space-lg">
+<!-- Passenger Seat List (7 cols) -->
+<div class="md:col-span-7 flex flex-col gap-space-md">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm font-bold text-on-surface-variant uppercase tracking-wider">RESERVED TRAVELERS (2 SEATS)</span>
+<span class="font-label-sm text-label-sm text-primary font-semibold">Upper Deck / Front Bay</span>
+</div>
+<!-- Passenger 1 -->
+<div class="p-space-md rounded-xl bg-surface-container-low flex items-center justify-between gap-space-sm hover:shadow-sm transition-shadow">
+<div class="flex items-center gap-space-sm">
+<div class="w-10 h-10 rounded-full bg-primary-fixed flex items-center justify-center text-on-primary-fixed font-bold font-label-lg text-label-lg">
+                    RS
+                  </div>
+<div class="flex flex-col">
+<span class="font-headline-sm text-headline-sm text-on-surface font-bold">P. Rahul Sharma</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Age 22 • Male • Student ID: AU-ENG-9102</span>
+</div>
+</div>
+<div class="flex flex-col items-end">
+<div class="px-3 py-1 rounded-lg bg-primary-container text-on-primary font-headline-sm text-headline-sm font-mono font-bold shadow-sm">
+                    Seat A1
+                  </div>
+<span class="font-label-sm text-label-sm text-on-surface-variant mt-0.5">Window (Left)</span>
+</div>
+</div>
+<!-- Passenger 2 -->
+<div class="p-space-md rounded-xl bg-surface-container-low flex items-center justify-between gap-space-sm hover:shadow-sm transition-shadow">
+<div class="flex items-center gap-space-sm">
+<div class="w-10 h-10 rounded-full bg-tertiary-fixed flex items-center justify-center text-on-tertiary-fixed font-bold font-label-lg text-label-lg">
+                    SV
+                  </div>
+<div class="flex flex-col">
+<span class="font-headline-sm text-headline-sm text-on-surface font-bold">K. Sneha Varma</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Age 21 • Female • Govt ID Verified</span>
+</div>
+</div>
+<div class="flex flex-col items-end">
+<div class="px-3 py-1 rounded-lg bg-primary text-on-primary font-headline-sm text-headline-sm font-mono font-bold shadow-sm">
+                    Seat A2
+                  </div>
+<span class="font-label-sm text-label-sm text-on-surface-variant mt-0.5">Aisle (Left)</span>
+</div>
+</div>
+<!-- Onboard Amenities -->
+<div class="pt-space-xs flex items-center flex-wrap gap-space-sm text-on-surface-variant font-label-sm text-label-sm">
+<div class="flex items-center gap-1 bg-surface-container px-2.5 py-1 rounded-md">
+<span class="material-symbols-outlined text-[16px] text-primary">wifi</span>
+<span>5G Wi-Fi Active</span>
+</div>
+<div class="flex items-center gap-1 bg-surface-container px-2.5 py-1 rounded-md">
+<span class="material-symbols-outlined text-[16px] text-primary">power</span>
+<span>Type-C Fast Charge</span>
+</div>
+<div class="flex items-center gap-1 bg-surface-container px-2.5 py-1 rounded-md">
+<span class="material-symbols-outlined text-[16px] text-primary">ac_unit</span>
+<span>Climate 23°C</span>
+</div>
+<div class="flex items-center gap-1 bg-surface-container px-2.5 py-1 rounded-md">
+<span class="material-symbols-outlined text-[16px] text-emerald-600">health_and_safety</span>
+<span>First-Aid Ready</span>
+</div>
+</div>
+</div>
+<!-- Authentic Conductor Scanner & HMAC Box (5 cols) -->
+<div class="md:col-span-5 bg-surface-container-low rounded-xl p-space-md flex flex-col items-center justify-between gap-space-md text-center">
+<div class="w-full flex items-center justify-between">
+<span class="font-label-sm text-label-sm font-bold uppercase tracking-wider text-on-surface-variant">CONDUCTOR INSPECTION SCAN</span>
+<span class="material-symbols-outlined text-primary text-[18px]">qr_code_scanner</span>
+</div>
+<!-- High Contrast Stylized SVG QR Code -->
+<div class="p-3 bg-surface-container-lowest rounded-xl shadow-md flex items-center justify-center relative">
+<svg class="w-36 h-36" fill="currentColor" viewbox="0 0 100 100">
+<!-- QR Corner Markers -->
+<path d="M10 10h24v24H10zM14 14v16h16V14H14z" fill="#0B1F3A"></path>
+<rect fill="#155EEF" height="8" width="8" x="18" y="18"></rect>
+<path d="M66 10h24v24H66zM70 14v16h16V14H70z" fill="#0B1F3A"></path>
+<rect fill="#155EEF" height="8" width="8" x="74" y="18"></rect>
+<path d="M10 66h24v24H10zM14 70v16h16V70H14z" fill="#0B1F3A"></path>
+<rect fill="#155EEF" height="8" width="8" x="18" y="74"></rect>
+<!-- Data Matrices Pattern -->
+<rect fill="#0B1F3A" height="4" width="4" x="38" y="12"></rect>
+<rect fill="#0B1F3A" height="4" width="4" x="46" y="12"></rect>
+<rect fill="#0B1F3A" height="4" width="4" x="54" y="12"></rect>
+<rect fill="#155EEF" height="4" width="8" x="38" y="20"></rect>
+<rect fill="#0B1F3A" height="4" width="8" x="50" y="24"></rect>
+<rect fill="#0B1F3A" height="6" width="6" x="12" y="38"></rect>
+<rect fill="#0B1F3A" height="4" width="8" x="22" y="42"></rect>
+<rect fill="#155EEF" height="8" width="4" x="34" y="38"></rect>
+<rect fill="#0B1F3A" height="4" width="16" x="42" y="38"></rect>
+<rect fill="#0B1F3A" height="8" width="8" x="62" y="38"></rect>
+<rect fill="#155EEF" height="4" width="12" x="74" y="42"></rect>
+<rect fill="#0B1F3A" height="12" width="4" x="38" y="50"></rect>
+<rect fill="#155EEF" height="8" width="8" x="46" y="46"></rect>
+<rect fill="#0B1F3A" height="6" width="6" x="58" y="52"></rect>
+<rect fill="#0B1F3A" height="4" width="16" x="70" y="50"></rect>
+<rect fill="#0B1F3A" height="6" width="6" x="42" y="66"></rect>
+<rect fill="#0B1F3A" height="4" width="12" x="52" y="66"></rect>
+<rect fill="#155EEF" height="12" width="4" x="68" y="62"></rect>
+<rect fill="#0B1F3A" height="8" width="8" x="76" y="70"></rect>
+<rect fill="#155EEF" height="4" width="14" x="42" y="78"></rect>
+<rect fill="#0B1F3A" height="8" width="8" x="60" y="80"></rect>
+<rect fill="#0B1F3A" height="4" width="16" x="72" y="84"></rect>
+</svg>
+<!-- Verification Watermark Badge -->
+<div class="absolute -bottom-2 px-2 py-0.5 rounded-full bg-emerald-600 text-white font-label-sm text-label-sm shadow flex items-center gap-1">
+<span class="material-symbols-outlined text-[12px]">done_all</span>
+<span>HMAC-SHA256 SIGNED</span>
+</div>
+</div>
+<div class="flex flex-col gap-0.5">
+<span class="font-label-sm text-label-sm font-mono text-on-surface font-semibold">TOKEN: 8f02ba94a3ef...78bc</span>
+<span class="font-label-sm text-label-sm text-emerald-700 font-semibold">Valid on Bus Conductor Terminals</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant text-[11px] leading-tight">Digital inspection certified for Vizag-VZM smart corridor bypass audit.</span>
+</div>
+</div>
+</div>
+<!-- Fare & Audit Ledger Section -->
+<div class="bg-surface-container-low px-space-lg py-space-md border-t-0 flex flex-col md:flex-row items-start md:items-center justify-between gap-space-md">
+<div class="flex flex-col gap-1 max-w-md">
+<span class="font-label-sm text-label-sm font-bold text-on-surface-variant uppercase tracking-wider">CANCELLATION POLICY GUARANTEE</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+                Free 100% refund cancellation window open until <strong>07:30 AM (1 hr prior to departure)</strong>. Auto-credited to source UPI handle within 15 minutes.
+              </p>
+</div>
+<!-- Ledger Breakdown Pill -->
+<div class="flex items-center gap-space-lg bg-surface-container-lowest p-space-md rounded-xl shadow-sm shrink-0">
+<div class="flex flex-col text-right">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Base Fare (2 Seats × ₹120)</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Integrated CGST + SGST (5%)</span>
+<span class="font-label-md text-label-md font-bold text-on-surface mt-1">Total Paid (Settled)</span>
+</div>
+<div class="flex flex-col text-right font-mono font-bold">
+<span class="font-label-sm text-label-sm text-on-surface">₹240.00</span>
+<span class="font-label-sm text-label-sm text-on-surface">₹12.00</span>
+<span class="font-headline-sm text-headline-sm text-primary mt-1">₹252.00</span>
+</div>
+</div>
+</div>
+<!-- Barcode Footer Strip -->
+<div class="px-space-lg py-3 bg-surface-container-high/60 flex flex-col md:flex-row items-center justify-between gap-2">
+<!-- Simulated Standard Barcode Elements -->
+<div class="flex items-center gap-0.5 h-7">
+<div class="w-1 h-full bg-on-surface"></div>
+<div class="w-0.5 h-full bg-on-surface"></div>
+<div class="w-2 h-full bg-on-surface"></div>
+<div class="w-0.5 h-full bg-on-surface"></div>
+<div class="w-1.5 h-full bg-on-surface"></div>
+<div class="w-1 h-full bg-on-surface"></div>
+<div class="w-3 h-full bg-on-surface"></div>
+<div class="w-0.5 h-full bg-on-surface"></div>
+<div class="w-2 h-full bg-on-surface"></div>
+<div class="w-1 h-full bg-on-surface"></div>
+<div class="w-0.5 h-full bg-on-surface"></div>
+<div class="w-2 h-full bg-on-surface"></div>
+<div class="w-1.5 h-full bg-on-surface"></div>
+<div class="w-0.5 h-full bg-on-surface"></div>
+<div class="w-3 h-full bg-on-surface"></div>
+<div class="w-1 h-full bg-on-surface"></div>
+<div class="w-2 h-full bg-on-surface"></div>
+<div class="w-0.5 h-full bg-on-surface"></div>
+<div class="w-1 h-full bg-on-surface"></div>
+<div class="w-2.5 h-full bg-on-surface"></div>
+<div class="w-0.5 h-full bg-on-surface"></div>
+<div class="w-1 h-full bg-on-surface"></div>
+<div class="w-2 h-full bg-on-surface"></div>
+<div class="w-1.5 h-full bg-on-surface"></div>
+</div>
+<div class="flex items-center gap-space-md font-mono text-label-sm text-on-surface-variant">
+<span>UPI REF: TXN_9921048821</span>
+<span>•</span>
+<span>GATEWAY: HDFC_INSTANT_CLEAR</span>
+<span>•</span>
+<span>CONCURRENT CONTEXT #VIVA_2026</span>
+</div>
+</div>
+</div>
+<!-- Bus Route Map Preview Card -->
+<div class="bg-surface-container-lowest rounded-2xl p-space-lg shadow-md flex flex-col gap-space-md">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-primary text-[20px]">map</span>
+<span class="font-headline-sm text-headline-sm text-on-surface font-bold">Interactive Route Segment Telemetry</span>
+</div>
+<div class="flex items-center gap-space-xs text-on-surface-variant font-label-sm text-label-sm">
+<span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+<span>Live GPS Broadcast (Frequency: 1.0s)</span>
+</div>
+</div>
+<!-- Static Map Component -->
+<div class="w-full h-52 bg-cover bg-center rounded-xl relative shadow-inner overflow-hidden flex items-end p-space-md" data-location="Vizianagaram to Visakhapatnam, Andhra Pradesh, India" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDE5uePiswebJO3h96ip6f59jjPkPujrRkqPo9rHNMJ6DgEpkVxr61p79Ct-XEHQkrZFHUyj6aaOBIWql_-afhknZmxLAfH_9AW7LQVh-rFEFxb70mZoAf9rctF9UdfSXrzh52t0KM99SgzfFHcJD-Smm2LzE4XzrfD2G0nMisp2Igiei6-asxYdDKKBotVIGXW9gu8QLlxEtSamF8X768DTCObhjjkhMgSh-S5OItxKrlNLnzCnCas')">
+<div class="bg-surface-container-lowest/90 backdrop-blur-md rounded-xl p-space-sm flex items-center justify-between w-full shadow-lg">
+<div class="flex items-center gap-space-sm">
+<div class="w-8 h-8 rounded-lg bg-emerald-600 text-white flex items-center justify-center">
+<span class="material-symbols-outlined text-[18px]">speed</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface font-bold">Current Speed: 42 km/h</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant text-[11px]">Road Segment: Anandapuram Bypass Express Lane</span>
+</div>
+</div>
+<button class="px-space-md py-1.5 bg-primary-container hover:bg-primary text-on-primary rounded-lg font-label-sm text-label-sm font-semibold transition-colors">
+                Enlarge GPS View
+              </button>
+</div>
+</div>
+</div>
+</div>
+<!-- RIGHT COLUMN: Booking History Feed & Technical Viva Module (35% / 4 cols) -->
+<div class="lg:col-span-4 flex flex-col gap-space-lg">
+<!-- Filter Tabs & Booking History List -->
+<div class="bg-surface-container-lowest rounded-2xl p-space-md shadow-md flex flex-col gap-space-md">
+<div class="flex items-center justify-between pb-space-xs">
+<span class="font-headline-sm text-headline-sm text-on-surface font-bold">Booking History</span>
+<span class="font-label-sm text-label-sm px-2 py-0.5 rounded-full bg-surface-container font-mono text-on-surface-variant font-semibold">3 Journeys Total</span>
+</div>
+<!-- Interactive Filter Tabs -->
+<div class="grid grid-cols-4 gap-1 p-1 bg-surface-container-low rounded-xl" id="historyTabs">
+<button class="tab-btn px-2 py-1.5 rounded-lg text-center font-label-sm text-label-sm font-bold bg-surface-container-lowest text-primary shadow-sm transition-all" data-tab="all" onclick="switchTab('all')">
+              All (3)
+            </button>
+<button class="tab-btn px-2 py-1.5 rounded-lg text-center font-label-sm text-label-sm text-on-surface-variant hover:text-on-surface transition-all" data-tab="upcoming" onclick="switchTab('upcoming')">
+              Upcoming
+            </button>
+<button class="tab-btn px-2 py-1.5 rounded-lg text-center font-label-sm text-label-sm text-on-surface-variant hover:text-on-surface transition-all" data-tab="completed" onclick="switchTab('completed')">
+              Past (2)
+            </button>
+<button class="tab-btn px-2 py-1.5 rounded-lg text-center font-label-sm text-label-sm text-on-surface-variant hover:text-on-surface transition-all" data-tab="cancelled" onclick="switchTab('cancelled')">
+              Void (0)
+            </button>
+</div>
+<!-- Cards Stack -->
+<div class="flex flex-col gap-space-sm" id="bookingFeedContainer">
+<!-- Card 1: Active Journey (Selected State) -->
+<div class="booking-card upcoming p-space-md rounded-xl bg-primary-fixed/30 flex flex-col gap-space-xs shadow-sm hover:shadow-md transition-all cursor-pointer relative overflow-hidden">
+<div class="w-1.5 h-full bg-primary absolute left-0 top-0"></div>
+<div class="flex items-center justify-between pl-1">
+<span class="font-label-sm text-label-sm font-mono font-bold text-primary">#BT202609300001</span>
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 font-label-sm text-label-sm font-bold">
+<span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+                  Active Now
+                </span>
+</div>
+<div class="flex items-center justify-between pl-1">
+<div class="flex flex-col">
+<span class="font-headline-sm text-headline-sm text-on-surface font-bold">Vizianagaram → Vizag</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Today, 08:30 AM • ABC Travels</span>
+</div>
+<div class="text-right">
+<span class="font-headline-sm text-headline-sm text-primary font-mono font-bold">₹252</span>
+<span class="block font-label-sm text-label-sm text-on-surface-variant">2 Seats (A1, A2)</span>
+</div>
+</div>
+<div class="mt-1 pl-1 flex items-center justify-between pt-1">
+<span class="font-label-sm text-label-sm text-primary font-bold flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">visibility</span>
+                  Viewing Active Ticket
+                </span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Platform #04</span>
+</div>
+</div>
+<!-- Card 2: Completed Journey 1 -->
+<div class="booking-card completed p-space-md rounded-xl bg-surface-container-low flex flex-col gap-space-xs hover:bg-surface-container transition-all">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm font-mono text-on-surface-variant font-semibold">#BT202609140089</span>
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-surface-container font-label-sm text-label-sm text-on-surface-variant font-semibold">
+<span class="w-1.5 h-1.5 rounded-full bg-slate-400"></span>
+                  Completed
+                </span>
+</div>
+<div class="flex items-center justify-between">
+<div class="flex flex-col">
+<span class="font-headline-sm text-headline-sm text-on-surface font-semibold">Visakhapatnam → VZM</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">14 Sep 2026 • Super Luxury</span>
+</div>
+<div class="text-right">
+<span class="font-headline-sm text-headline-sm text-on-surface font-mono font-bold">₹150</span>
+<span class="block font-label-sm text-label-sm text-on-surface-variant">Seat B4</span>
+</div>
+</div>
+<div class="mt-1 flex items-center justify-between pt-2">
+<button class="font-label-sm text-label-sm text-primary hover:underline font-bold flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">receipt_long</span>
+                  Invoice
+                </button>
+<button class="font-label-sm text-label-sm text-primary-container hover:text-primary font-bold flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">replay</span>
+                  Book Again
+                </button>
+</div>
+</div>
+<!-- Card 3: Completed Journey 2 -->
+<div class="booking-card completed p-space-md rounded-xl bg-surface-container-low flex flex-col gap-space-xs hover:bg-surface-container transition-all">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm font-mono text-on-surface-variant font-semibold">#BT202608280045</span>
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-surface-container font-label-sm text-label-sm text-on-surface-variant font-semibold">
+<span class="w-1.5 h-1.5 rounded-full bg-slate-400"></span>
+                  Completed
+                </span>
+</div>
+<div class="flex items-center justify-between">
+<div class="flex flex-col">
+<span class="font-headline-sm text-headline-sm text-on-surface font-semibold">Anakapalle → Gajuwaka</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">28 Aug 2026 • Coastal Metro</span>
+</div>
+<div class="text-right">
+<span class="font-headline-sm text-headline-sm text-on-surface font-mono font-bold">₹85</span>
+<span class="block font-label-sm text-label-sm text-on-surface-variant">Seat C2</span>
+</div>
+</div>
+<div class="mt-1 flex items-center justify-between pt-2">
+<button class="font-label-sm text-label-sm text-primary hover:underline font-bold flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">receipt_long</span>
+                  Invoice
+                </button>
+<button class="font-label-sm text-label-sm text-primary-container hover:text-primary font-bold flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">replay</span>
+                  Book Again
+                </button>
+</div>
+</div>
+</div>
+</div>
+<!-- Conductor Dial & On-Duty Emergency Card -->
+<div class="bg-surface-container-lowest rounded-2xl p-space-md shadow-md flex flex-col gap-space-sm">
+<div class="flex items-center gap-space-sm">
+<div class="w-10 h-10 rounded-full bg-emerald-100 text-emerald-800 flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[20px]">support_agent</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase font-bold tracking-wider">ASSIGNED BUS CREW</span>
+<span class="font-headline-sm text-headline-sm text-on-surface font-bold">Capt. K. Appa Rao</span>
+</div>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+            In-flight conductor assigned for Bus #AP31BT101. Dial directly for luggage compartment assistance or emergency halts.
+          </p>
+<div class="grid grid-cols-2 gap-space-sm pt-space-xs">
+<a class="inline-flex items-center justify-center gap-1.5 py-2 px-3 rounded-xl bg-emerald-50 hover:bg-emerald-100 text-emerald-800 font-label-sm text-label-sm font-bold transition-colors" href="tel:+919848022319">
+<span class="material-symbols-outlined text-[16px]">call</span>
+<span>+91 98480 22319</span>
+</a>
+<button class="inline-flex items-center justify-center gap-1.5 py-2 px-3 rounded-xl bg-surface-container hover:bg-surface-container-high text-on-surface font-label-sm text-label-sm font-bold transition-colors">
+<span class="material-symbols-outlined text-[16px]">chat</span>
+<span>Crew Radio</span>
+</button>
+</div>
+</div>
+<!-- Viva Engineering Specs / MongoDB ACID Ledger Callout -->
+<div class="bg-surface-container-low rounded-2xl p-space-md flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-1.5 text-primary">
+<span class="material-symbols-outlined text-[18px]">terminal</span>
+<span class="font-label-sm text-label-sm font-bold uppercase tracking-wider">Viva Engineering Architecture</span>
+</div>
+<span class="font-label-sm text-label-sm px-2 py-0.5 rounded bg-surface-container font-mono text-on-surface-variant">v2.4</span>
+</div>
+<div class="font-body-sm text-body-sm text-on-surface-variant flex flex-col gap-1.5">
+<div class="p-2 rounded-lg bg-surface-container-lowest font-mono text-[11px] leading-relaxed text-on-surface">
+<span class="text-primary font-bold">MongoDB Collection:</span> `bookings`<br/>
+<span class="text-primary font-bold">Txn Isolation:</span> ACID multi-doc session lock<br/>
+<span class="text-primary font-bold">HMAC Signature:</span> `hash_hmac('sha256', ticket_id, secret)`<br/>
+<span class="text-primary font-bold">Headway Model:</span> XGBoost with Kalman filter telemetry
+            </div>
+<p class="text-[12px] leading-tight text-on-surface-variant">
+              Prevents double-booking during concurrent user seat checkouts with 120-second Redis atomic lock TTL.
+            </p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<script>
+  function switchTab(tabType) {
+    const tabs = document.querySelectorAll('.tab-btn');
+    tabs.forEach(tab => {
+      if (tab.getAttribute('data-tab') === tabType) {
+        tab.className = 'tab-btn px-2 py-1.5 rounded-lg text-center font-label-sm text-label-sm font-bold bg-surface-container-lowest text-primary shadow-sm transition-all';
+      } else {
+        tab.className = 'tab-btn px-2 py-1.5 rounded-lg text-center font-label-sm text-label-sm text-on-surface-variant hover:text-on-surface transition-all';
+      }
+    });
+
+    const cards = document.querySelectorAll('.booking-card');
+    cards.forEach(card => {
+      if (tabType === 'all') {
+        card.style.display = 'flex';
+      } else if (tabType === 'upcoming') {
+        card.style.display = card.classList.contains('upcoming') ? 'flex' : 'none';
+      } else if (tabType === 'completed') {
+        card.style.display = card.classList.contains('completed') ? 'flex' : 'none';
+      } else if (tabType === 'cancelled') {
+        card.style.display = 'none';
+      }
+    });
+  }
+
+  document.getElementById('pdfDownloadBtn')?.addEventListener('click', () => {
+    const originalText = document.getElementById('pdfDownloadBtn').innerHTML;
+    document.getElementById('pdfDownloadBtn').innerHTML = '<span class="material-symbols-outlined text-[18px] animate-spin">refresh</span><span>Generating PDF...</span>';
+    setTimeout(() => {
+      document.getElementById('pdfDownloadBtn').innerHTML = '<span class="material-symbols-outlined text-[18px] text-emerald-600">check_circle</span><span>Downloaded</span>';
+      setTimeout(() => {
+        document.getElementById('pdfDownloadBtn').innerHTML = originalText;
+      }, 2000);
+    }, 1000);
+  });
+</script></main><footer class="w-full bg-surface-container-lowest border-t border-surface-container"><div class="max-w-7xl mx-auto px-gutter py-space-xl"><div class="grid grid-cols-1 md:grid-cols-4 gap-space-lg mb-space-lg"><div class="flex flex-col gap-space-sm"><div class="flex items-center gap-space-xs"><span class="font-headline-sm text-headline-sm text-primary font-bold">BusTracker</span><span class="font-headline-sm text-headline-sm text-tertiary font-bold">AI</span></div><p class="font-body-sm text-body-sm text-on-surface-variant">Intelligent multi-modal transit intelligence system with automated headway prediction, dynamic seating telemetry, and smart fare clearing.</p><div class="flex items-center gap-space-xs text-emerald-700 font-label-sm text-label-sm"><span class="w-2 h-2 rounded-full bg-emerald-500"></span><span>Operational Telemetry: 99.98% Core Uptime</span></div></div><div class="flex flex-col gap-space-xs"><span class="font-label-md text-label-md text-on-surface uppercase tracking-wider font-bold mb-space-xs">System Endpoints</span><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors" href="#">GET /api/v1/telemetry/live-matrix</a><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors" href="#">POST /api/v1/seats/lock-reservation</a><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors" href="#">WS /sockets/fleet-dispatch/vizag</a><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors" href="#">GET /api/v1/ai/route-forecast</a></div><div class="flex flex-col gap-space-xs"><span class="font-label-md text-label-md text-on-surface uppercase tracking-wider font-bold mb-space-xs">Engineering Specs (Viva)</span><div class="font-body-sm text-body-sm text-on-surface-variant flex flex-col gap-1"><span><strong>Backend:</strong> Python 3.11 / Flask Microservices</span><span><strong>Primary DB:</strong> MongoDB GeoJSON Collections</span><span><strong>Realtime:</strong> WebSockets / Redis Broker</span><span><strong>AI Engine:</strong> XGBoost ETA &amp; Heuristics</span></div></div><div class="flex flex-col gap-space-xs"><span class="font-label-md text-label-md text-on-surface uppercase tracking-wider font-bold mb-space-xs">Emergency Dispatch</span><div class="p-space-sm bg-surface-container-low rounded-xl border border-surface-container flex flex-col gap-1"><span class="font-label-sm text-label-sm text-on-surface font-semibold">Vizag Central Command Unit</span><span class="font-body-sm text-body-sm text-on-surface-variant">RTC Complex Terminal, Control Deck 04</span><span class="font-label-sm text-label-sm text-primary font-bold mt-1">Hotline: +91 891 254-8900</span></div></div></div><div class="pt-space-md border-t border-surface-container flex flex-col sm:flex-row items-center justify-between gap-space-sm font-body-sm text-body-sm text-on-surface-variant"><span>© 2025 BusTrackerAI Fleet Technologies. All rights reserved. Engineering Capstone Project.</span><div class="flex items-center gap-space-md"><a class="hover:text-primary transition-colors" href="#">Privacy Policy</a><a class="hover:text-primary transition-colors" href="#">Transit Service Level Agreement</a><a class="hover:text-primary transition-colors" href="#">Viva Presentation Specs</a></div></div></div></footer></body></html>

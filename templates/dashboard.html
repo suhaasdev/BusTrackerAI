@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block title %}Passenger Dashboard{% endblock %}
+{% block content %}
+<div class="container py-4">
+<h3 id="welcome">Welcome</h3>
+<div class="row g-2 my-3" id="stats"></div>
+<div class="search-panel p-3 mb-3">
+<form class="row g-2" onsubmit="return go(event)">
+<div class="col-md-4"><input id="sFrom" class="form-control" value="Vizianagaram"></div>
+<div class="col-md-4"><input id="sTo" class="form-control" value="Visakhapatnam"></div>
+<div class="col-md-2"><input id="sDate" type="date" class="form-control"></div>
+<div class="col-md-2"><button class="btn btn-primary w-100">Search</button></div>
+</form>
+</div>
+<div class="row g-3">
+<div class="col-lg-6"><div class="card p-3"><h6>Upcoming journey</h6><div id="upcoming" class="small text-secondary">Loading…</div></div></div>
+<div class="col-lg-6"><div class="card p-3"><h6>AI recommendations</h6><div id="recs" class="small">Loading…</div><a href="/ai-assistant" class="btn btn-sm btn-ai mt-2">Ask AI assistant</a></div></div>
+<div class="col-12"><div class="card p-3"><h6>Recent bookings</h6><div id="recent"></div><a href="/bookings" class="btn btn-sm btn-outline-primary mt-2">View all bookings</a></div></div>
+</div>
+</div>
+{% endblock %}
+{% block scripts %}
+<script>
+document.getElementById("sDate").value=todayISO();
+function go(e){e.preventDefault();location.href=`/search?source=${encodeURIComponent(sFrom.value)}&destination=${encodeURIComponent(sTo.value)}&date=${sDate.value}`;return false;}
+(async()=>{
+ const me=await api("/api/users/profile");
+ if(me.success){document.getElementById("welcome").textContent=`Welcome, ${me.data.user.name}`;
+  const s=me.data.user.stats||{};
+  document.getElementById("stats").innerHTML=[["Active bookings",s.active??0],["Total trips",s.total??0],["Cancelled",s.cancelled??0]].map(x=>`<div class="col-md-4"><div class="card p-3 text-center"><b class="fs-4">${x[1]}</b><br><small class="text-secondary">${x[0]}</small></div></div>`).join("");}
+ const b=await api("/api/bookings");
+ if(b.success){
+  const act=b.data.bookings.filter(x=>x.status==="CONFIRMED");
+  document.getElementById("upcoming").innerHTML=act.length?act.slice(0,2).map(x=>`<div><b>${x.booking_id}</b> · ${x.source} → ${x.destination} · ${x.travel_date} · seats ${x.seats.join(",")}</div>`).join(""):"No upcoming journeys. <a href='/search'>Search buses</a>";
+  document.getElementById("recent").innerHTML=b.data.bookings.slice(0,5).map(x=>`<div class="d-flex justify-content-between border-bottom py-1 small"><span><b>${x.booking_id}</b> ${x.bus_number} ${x.source}→${x.destination} ${x.travel_date} [${x.seats.join(",")}]</span><span class="badge ${x.status==="CONFIRMED"?"badge-confirmed":"badge-cancelled"}">${x.status}</span></div>`).join("")||"<span class='text-secondary'>No bookings yet.</span>";
+ }
+ const r=await api("/api/ai/recommend",{method:"POST",body:JSON.stringify({source:"Vizianagaram",destination:"Visakhapatnam"})});
+ if(r.success){document.getElementById("recs").innerHTML=r.data.recommendations.map(x=>`<div>★ <b>${x.bus_number}</b> ${x.departure_time}→${x.arrival_time} Rs.${x.fare} (score ${x._ai_score})</div>`).join(""); }
+})();
+</script>
+{% endblock %}

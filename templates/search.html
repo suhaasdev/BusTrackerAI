@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% block title %}Search Buses{% endblock %}
+{% block content %}
+<div class="container py-4">
+<div class="search-panel p-3">
+<form class="row g-2 align-items-end" onsubmit="return run(event)">
+<div class="col-md-3"><label class="form-label small fw-bold">FROM</label><input id="fFrom" class="form-control"></div>
+<div class="col-md-3"><label class="form-label small fw-bold">TO</label><input id="fTo" class="form-control"></div>
+<div class="col-md-2"><label class="form-label small fw-bold">DATE</label><input id="fDate" type="date" class="form-control"></div>
+<div class="col-md-2"><label class="form-label small fw-bold">TYPE</label><select id="fType" class="form-select"><option value="all">All</option><option>AC</option><option>Non-AC</option><option>Sleeper</option><option>Express</option></select></div>
+<div class="col-md-2"><label class="form-label small fw-bold">SORT</label><select id="fSort" class="form-select"><option value="">Relevance</option><option value="departure">Earliest</option><option value="price_asc">Lowest fare</option><option value="price_desc">Highest fare</option></select></div>
+<div class="col-12"><button class="btn btn-primary">Search Buses</button> <span id="meta" class="small text-secondary ms-2"></span></div>
+</form>
+</div>
+<div id="list" class="mt-3 d-flex flex-column gap-3"><p class="text-secondary">Searching buses…</p></div>
+</div>
+{% endblock %}
+{% block scripts %}
+<script>
+const q=new URLSearchParams(location.search);
+fFrom.value=q.get("source")||"Vizianagaram"; fTo.value=q.get("destination")||"Visakhapatnam"; fDate.value=q.get("date")||todayISO();
+function run(e){e&&e.preventDefault();load();return false;}
+fType.onchange=load; fSort.onchange=load;
+async function load(){
+ document.getElementById("list").innerHTML="<p class='text-secondary'>Searching buses…</p>";
+ const p=new URLSearchParams({source:fFrom.value,destination:fTo.value,date:fDate.value,bus_type:fType.value,sort:fSort.value});
+ const r=await api("/api/buses?"+p.toString());
+ if(!r.success){document.getElementById("list").innerHTML=`<div class="alert alert-danger">${r.message}</div>`;return;}
+ document.getElementById("meta").textContent=`${r.data.count} service(s) · ${fFrom.value} → ${fTo.value} · ${fDate.value}`;
+ if(!r.data.count){document.getElementById("list").innerHTML=`<div class="alert alert-warning">No buses found. Try different stops/date.</div>`;return;}
+ document.getElementById("list").innerHTML=r.data.buses.map(b=>{
+  const st=(b.status||"ON_TIME").toUpperCase();
+  const badge=st.includes("DELAY")?"badge-delayed":st.includes("CANCEL")?"badge-cancelled":"badge-on_time";
+  return `<div class="card bus-card card-hover p-3">
+   <div class="d-flex justify-content-between flex-wrap gap-2">
+    <div><b class="text-primary">${b.bus_number}</b> <span class="badge bg-light text-dark">${b.bus_type}</span>
+     <div class="small text-secondary">${b.operator} · ${(b.route&&b.route.corridor)||""}</div>
+     <div class="mt-1"><b>${b.source} → ${b.destination}</b> <span class="small text-secondary">${(b.route&&b.route.stops||[]).join(" → ")}</span></div>
+     <div class="mt-1"><b>${b.departure_time}</b> <span class="text-secondary">→</span> <b>${b.arrival_time}</b>
+      <span class="badge ${badge} ms-2"><span class="status-dot ${st.includes("DELAY")?"dot-amber":"dot-green"}"></span>${st.replace("_"," ")}</span></div>
+    </div>
+    <div class="text-end"><div class="fare-big">₹${b.fare}<small class="fs-6 text-secondary">/seat</small></div>
+     <div class="small ${b.available_count>0?"text-success":"text-danger"} fw-bold">${b.available_count} seats available</div>
+     <div class="d-flex gap-1 mt-2 justify-content-end">
+      <a class="btn btn-sm btn-outline-primary" href="/bus/${b.bus_number}">Details</a>
+      <a class="btn btn-sm btn-outline-info" href="/tracking/${b.bus_number}">Track</a>
+      <a class="btn btn-sm btn-primary" href="/seats/${b.bus_number}?date=${encodeURIComponent(fDate.value)}">Book Seats</a>
+     </div></div>
+   </div></div>`;}).join("");
+}
+load();
+</script>
+{% endblock %}

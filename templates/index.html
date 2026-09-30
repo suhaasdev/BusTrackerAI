@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% block title %}Home{% endblock %}
+{% block content %}
+<header class="hero">
+  <div class="container py-5">
+    <span class="badge bg-light text-primary mb-3"><i class="fa-solid fa-satellite-dish me-1"></i>NEXT-GEN ROUTE TELEMETRY · AI ETA ACTIVE</span>
+    <h1 class="display-5">Travel Smarter with <span class="grad">BusTrackerAI</span></h1>
+    <p class="lead text-light opacity-75 col-lg-8">Search buses, discover routes, track your journey live and book seats with intelligent travel assistance. Passenger + Driver web platform · Flask REST API · MongoDB.</p>
+    <div class="d-flex gap-2 flex-wrap">
+      <a href="/search" class="btn btn-primary btn-lg"><i class="fa-solid fa-magnifying-glass me-1"></i>Search Buses</a>
+      <a href="/track" class="btn btn-outline-light btn-lg"><i class="fa-solid fa-location-crosshairs me-1"></i>Track a Bus</a>
+      <a href="/ai-assistant" class="btn btn-ai btn-lg"><i class="fa-solid fa-wand-magic-sparkles me-1"></i>AI Assistant</a>
+    </div>
+    <div class="row g-2 mt-4">
+      <div class="col-md-4"><div class="card bg-white bg-opacity-10 text-white border-0 p-3"><b>99.4%</b> on-time ETA (heuristic prototype)<br><small>Rule-based now, ML-ready</small></div></div>
+      <div class="col-md-4"><div class="card bg-white bg-opacity-10 text-white border-0 p-3"><b>Atomic seat lock</b> — no double booking<br><small>Backend is source of truth</small></div></div>
+      <div class="col-md-4"><div class="card bg-white bg-opacity-10 text-white border-0 p-3"><b>Driver live GPS</b> via browser geolocation<br><small>Simulated fallback for demo</small></div></div>
+    </div>
+  </div>
+</header>
+
+<div class="container" style="margin-top:-30px">
+  <div class="search-panel p-4 shadow">
+    <h5><i class="fa-solid fa-route text-primary me-2"></i>Inter-City Rapid Bus Search</h5>
+    <form class="row g-2" onsubmit="return goSearch(event)">
+      <div class="col-md-3"><label class="form-label small fw-bold">FROM</label><input id="hFrom" class="form-control" value="Vizianagaram" list="stops"></div>
+      <div class="col-md-1 text-center"><button type="button" class="btn btn-light mt-4" onclick="swapH()" title="Swap">⇄</button></div>
+      <div class="col-md-3"><label class="form-label small fw-bold">TO</label><input id="hTo" class="form-control" value="Visakhapatnam" list="stops"></div>
+      <div class="col-md-3"><label class="form-label small fw-bold">DATE</label><input id="hDate" type="date" class="form-control"></div>
+      <div class="col-md-2"><label class="form-label small">&nbsp;</label><button class="btn btn-primary w-100">Search</button></div>
+    </form>
+    <datalist id="stops"><option>Vizianagaram</option><option>Visakhapatnam</option><option>Srikakulam</option><option>Anakapalle</option><option>Vijayawada</option></datalist>
+  </div>
+
+  <h4 class="mt-5 mb-3">Four major features</h4>
+  <div class="row g-3">
+    <div class="col-md-3"><div class="card card-hover p-3 h-100"><i class="fa-solid fa-magnifying-glass fa-2x text-primary mb-2"></i><h6>Smart Bus Search</h6><small class="text-secondary">By source, destination, date, fare. Sort by price / departure.</small></div></div>
+    <div class="col-md-3"><div class="card card-hover p-3 h-100"><i class="fa-solid fa-satellite-dish fa-2x text-info mb-2"></i><h6>Live Bus Tracking</h6><small class="text-secondary">Location, status, ETA, distance. Leaflet map + driver GPS.</small></div></div>
+    <div class="col-md-3"><div class="card card-hover p-3 h-100"><i class="fa-solid fa-ticket fa-2x text-success mb-2"></i><h6>Easy Ticket Booking</h6><small class="text-secondary">Visual seat map, passenger details, QR ticket, history.</small></div></div>
+    <div class="col-md-3"><div class="card card-hover p-3 h-100"><i class="fa-solid fa-robot fa-2x mb-2" style="color:#7C3AED"></i><h6>AI Travel Assistant</h6><small class="text-secondary">Bus selection, cheapest/earliest, live ETA from real data.</small></div></div>
+  </div>
+
+  <h4 class="mt-5 mb-3">Popular corridors</h4>
+  <div id="popRoutes" class="row g-3"></div>
+</div>
+{% endblock %}
+{% block scripts %}
+<script>
+document.getElementById("hDate").value = todayISO();
+function swapH(){ const a=document.getElementById("hFrom"),b=document.getElementById("hTo"); const t=a.value;a.value=b.value;b.value=t; }
+function goSearch(e){ e.preventDefault();
+  const p=new URLSearchParams({source:document.getElementById("hFrom").value,destination:document.getElementById("hTo").value,date:document.getElementById("hDate").value});
+  location.href="/search?"+p.toString(); return false; }
+(async()=>{ const r=await api("/api/routes"); if(r.success){
+  document.getElementById("popRoutes").innerHTML=r.data.routes.slice(0,4).map(x=>`
+   <div class="col-md-3"><div class="card p-3"><b>${x.source} → ${x.destination}</b><br>
+   <small class="text-secondary">${(x.stops||[]).join(" · ")} · ${x.distance_km} km · ~${x.estimated_duration_minutes} min</small><br>
+   <a class="btn btn-sm btn-outline-primary mt-2" href="/search?source=${encodeURIComponent(x.source)}&destination=${encodeURIComponent(x.destination)}&date=${todayISO()}">Search</a></div></div>`).join("");
+}})();
+</script>
+{% endblock %}

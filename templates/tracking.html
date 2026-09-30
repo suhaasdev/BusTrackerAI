@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+{% block title %}Live Tracking{% endblock %}
+{% block content %}
+<div class="container py-4">
+<h3>Live Bus Tracking</h3>
+<div class="row g-2 align-items-end mb-2">
+<div class="col-md-4"><label class="form-label small">BUS NUMBER</label><input id="busIn" class="form-control" value="{{ bus_id }}"></div>
+<div class="col-md-2"><button class="btn btn-primary w-100" onclick="load()">Track</button></div>
+<div class="col-md-6 text-end small text-secondary">Driver GPS → Flask → MongoDB → this map · simulated fallback labelled.</div>
+</div>
+<div class="row g-3">
+<div class="col-lg-3">
+<div class="card p-3" id="statBox">Enter a bus number.</div>
+<div class="card p-3 mt-2"><h6>Upcoming stop</h6><div id="nextBox" class="small text-secondary">—</div>
+<a id="bookLink" href="#" class="btn btn-primary btn-sm mt-2">Book seats</a></div>
+</div>
+<div class="col-lg-9"><div id="map" class="map-box card"></div>
+<div class="card p-2 mt-2 small font-monospace" id="stream">event stream…</div></div>
+</div>
+</div>
+{% endblock %}
+{% block scripts %}
+<script>
+let map,marker,line,stopLayer,timer;
+const CITY_COORDS={"vizianagaram":[18.1066,83.3956],"visakhapatnam":[17.6868,83.2185],"vizag":[17.6868,83.2185],"srikakulam":[18.2949,83.8937],"anakapalle":[17.6916,83.0038],"gajuwaka":[17.6685,83.2185],"vijayawada":[16.5062,80.6480],"gajapathinagaram":[18.2827,83.3285],"pusapatirega":[18.0300,83.3500],"rajam":[18.4500,83.6600],"eluru":[16.7100,81.1000],"madhurawada":[17.7900,83.3500],"tagarapuvalasa":[17.9200,83.4200]};
+function coordsFor(stop,origin,dest,idx,total){
+ const k=String(stop||"").toLowerCase().trim();
+ if(CITY_COORDS[k]) return CITY_COORDS[k];
+ const o=CITY_COORDS[String(origin||"").toLowerCase()]||[18.10,83.39];
+ const d=CITY_COORDS[String(dest||"").toLowerCase()]||[17.68,83.21];
+ const t=total<=1?0.5:idx/(total-1);
+ return [o[0]+(d[0]-o[0])*t, o[1]+(d[1]-o[1])*t];
+}
+function initMap(lat,lon){
+ if(!map){map=L.map("map").setView([lat,lon],10);L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",{maxZoom:18,attribution:"© OpenStreetMap"}).addTo(map);}
+ else map.setView([lat,lon],10);
+}
+async function load(){
+ const id=document.getElementById("busIn").value.trim()||"AP31BT101";
+ const r=await api("/api/tracking/"+encodeURIComponent(id));
+ if(!r.success){document.getElementById("statBox").innerHTML=`<div class="alert alert-danger">${r.message}</div>`;return;}
+ const t=r.data.tracking,b=r.data.bus;
+ initMap(t.latitude,t.longitude);
+ if(marker)marker.remove(); if(line)line.remove(); if(stopLayer)stopLayer.remove();
+ const busIcon=L.divIcon({html:'<div style="background:#155EEF;color:#fff;border-radius:50%;width:34px;height:34px;display:flex;align-items:center;justify-content:center;font-size:18px;border:3px solid #fff;box-shadow:0 2px 8px rgba(0,0,0,.4)">🚌</div>',iconSize:[34,34],iconAnchor:[17,17]});
+ marker=L.marker([t.latitude,t.longitude],{icon:busIcon}).addTo(map).bindPopup(`<b>🚌 ${t.bus_number}</b><br>📍 ${t.current_location}<br>Speed ${t.speed} km/h · ${t.status}`).openPopup();
+ // route + stops from real route data
+ const stops=(b.route&&b.route.stops&&b.route.stops.length?b.route.stops:[b.source,b.destination]);
+ const pts=stops.map((s,i)=>coordsFor(s,b.source,b.destination,i,stops.length));
+ stopLayer=L.layerGroup().addTo(map);
+ pts.forEach((p,i)=>{
+  const isEnd=(i===0||i===pts.length-1);
+  L.circleMarker(p,{radius:isEnd?9:7,color:isEnd?"#0B1F3A":"#F59E0B",fillColor:isEnd?"#0B1F3A":"#F59E0B",fillOpacity:1,weight:2}).addTo(stopLayer)
+   .bindPopup(`<b>${i+1}. ${stops[i]}</b><br>${i===0?"Source":i===pts.length-1?"Destination":"Stop"}`);
+ });
+ line=L.polyline([pts[0],[t.latitude,t.longitude],pts[pts.length-1]],{color:"#38BDF8",weight:4}).addTo(map);
+ try{map.fitBounds(L.latLngBounds([...pts,[t.latitude,t.longitude]]).pad(0.25));}catch{}
+ document.getElementById("statBox").innerHTML=`
+  <div class="small text-secondary">CURRENT LOCATION</div><h5>${t.current_location}</h5>
+  <div class="small">Lat ${t.latitude} · Lon ${t.longitude}</div><hr>
+  <div class="small text-secondary">AI ETA (heuristic prototype)</div><h4 class="text-primary">${t.eta_minutes} min</h4>
+  <div class="small">Arrival ~${(t.eta_detail||{}).arrival_time||""} · conf ${(t.eta_detail||{}).confidence||""}%</div><hr>
+  <div class="small text-secondary">SPEED</div><h5>${t.speed} km/h</h5>
+  <span class="badge ${String(t.status).includes("DELAY")?"badge-delayed":"badge-on_time"}">${t.status}</span>
+  ${t.simulated?'<div class="badge bg-warning text-dark mt-1">simulated demo GPS</div>':""}`;
+ document.getElementById("nextBox").textContent=`${b.destination} · ${(b.route&&b.route.stops||[]).slice(-2).join(" → ")}`;
+ document.getElementById("bookLink").href=`/seats/${t.bus_number}?date=${todayISO()}`;
+ document.getElementById("stream").textContent=`[${new Date().toLocaleTimeString()}] heartbeat ${t.latitude},${t.longitude} · ${t.speed} km/h · ETA ${t.eta_minutes}m · ${(t.delay||{}).level||""}`;
+ clearInterval(timer); timer=setInterval(load,8000);
+ history.replaceState(null,"","/tracking/"+encodeURIComponent(id));
+}
+if(document.getElementById("busIn").value) load();
+</script>
+{% endblock %}

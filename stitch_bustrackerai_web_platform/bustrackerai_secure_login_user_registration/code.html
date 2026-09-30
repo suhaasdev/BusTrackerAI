@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_standard" name="shell-type"/><title>BusTrackerAI - Intelligent Transit Platform</title><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Plus+Jakarta+Sans:wght@600;700;800&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{colors:{"on-tertiary-container":"#f2e8ff","secondary-container":"#c8dbfe","secondary-fixed":"#d6e3ff","inverse-surface":"#2d3133","background":"#f7f9fb","tertiary-fixed-dim":"#d2bbff","surface-container-lowest":"#ffffff","on-primary":"#ffffff","on-tertiary-fixed":"#25005a","on-tertiary":"#ffffff","surface-tint":"#0052dc","primary-fixed":"#dbe1ff","primary-fixed-dim":"#b4c5ff","on-surface":"#191c1e","primary":"#0047c1","on-error-container":"#93000a","error":"#ba1a1a","tertiary-fixed":"#eaddff","on-primary-fixed":"#00174b","error-container":"#ffdad6","surface-bright":"#f7f9fb","on-secondary-fixed-variant":"#364764","surface-container-low":"#f2f4f6","on-surface-variant":"#434655","outline":"#737687","surface":"#f7f9fb","on-tertiary-fixed-variant":"#5a00c6","on-background":"#191c1e","surface-variant":"#e0e3e5","tertiary-container":"#803ff1","on-secondary-fixed":"#071c36","tertiary":"#6718d8","inverse-on-surface":"#eff1f3","on-error":"#ffffff","surface-container-highest":"#e0e3e5","secondary-fixed-dim":"#b5c7ea","surface-container-high":"#e6e8ea","inverse-primary":"#b4c5ff","primary-container":"#155eef","surface-container":"#eceef0","on-secondary-container":"#4e607e","surface-dim":"#d8dadc","on-primary-container":"#e7eaff","on-secondary":"#ffffff","secondary":"#4d5f7d","on-primary-fixed-variant":"#003da9","outline-variant":"#c3c6d8"},borderRadius:{DEFAULT:"0.25rem",lg:"0.5rem",xl:"0.75rem",full:"9999px"},spacing:{"space-xs":"0.25rem","space-sm":"0.5rem",gutter:"1.5rem","margin-mobile":"1rem","space-xl":"2rem",margin:"2rem","space-md":"1rem","space-lg":"1.5rem","gutter-mobile":"0.75rem"},fontFamily:{"headline-lg":["Plus Jakarta Sans"],"label-lg":["Inter"],"body-lg":["Inter"],"body-sm":["Inter"],"headline-xl-mobile":["Plus Jakarta Sans"],"display-lg":["Plus Jakarta Sans"],"body-md":["Inter"],"headline-sm":["Plus Jakarta Sans"],"headline-xl":["Plus Jakarta Sans"],"headline-md":["Plus Jakarta Sans"],"label-md":["Inter"],"label-sm":["Inter"]},fontSize:{"headline-lg":["24px",{lineHeight:"32px",letterSpacing:"-0.01em",fontWeight:"700"}],"label-lg":["14px",{lineHeight:"20px",letterSpacing:"0.01em",fontWeight:"600"}],"body-lg":["18px",{lineHeight:"28px",fontWeight:"400"}],"body-sm":["12px",{lineHeight:"16px",fontWeight:"400"}],"headline-xl-mobile":["28px",{lineHeight:"36px",letterSpacing:"-0.015em",fontWeight:"700"}],"display-lg":["48px",{lineHeight:"56px",letterSpacing:"-0.02em",fontWeight:"800"}],"body-md":["14px",{lineHeight:"20px",fontWeight:"400"}],"headline-sm":["16px",{lineHeight:"24px",fontWeight:"600"}],"headline-xl":["36px",{lineHeight:"44px",letterSpacing:"-0.02em",fontWeight:"700"}],"headline-md":["20px",{lineHeight:"28px",letterSpacing:"-0.005em",fontWeight:"600"}],"label-md":["12px",{lineHeight:"16px",letterSpacing:"0.02em",fontWeight:"600"}],"label-sm":["10px",{lineHeight:"14px",letterSpacing:"0.04em",fontWeight:"700"}]}}}}</script></head><body class="bg-surface font-body-md text-on-surface antialiased"><header class="fixed top-0 w-full z-50 shadow-[0_4px_20px_rgba(11,31,58,0.15)]"><div class="w-full bg-[#0B1F3A] border-b border-[#1E293B]"><div class="max-w-7xl mx-auto px-gutter h-16 flex items-center justify-between gap-space-md"><div class="flex items-center gap-space-md shrink-0"><img alt="BusTrackerAI Logo" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1Ulxk7KCpKIIbXxkHTYOtDVwo4mKP4rSm5VbFqGV2SibAoPmZGm193L5z-UWeTq-kS9XcoZz9RhsJC5WehsZx1zT6bzI4zngWCn4ltpj4x_AX0R0hLI7RCmUsWIi2TZN2Y6oPjz273J6m-CWvLzjXKXyrZoOgPnZkAcmrTzdD5qRcUR1i-jPCtL4ZMS_V22hL5uHj04cho-Isw3oawdEP-sDCK5p9Jy1TkHasOm9mhqAnU9vc7TRi4I2A"/><div class="flex flex-col"><div class="flex items-center gap-space-xs"><span class="font-headline-sm text-headline-sm text-surface-container-lowest font-bold tracking-tight">BusTracker</span><span class="font-headline-sm text-headline-sm text-tertiary-fixed font-bold">AI</span></div><span class="font-label-sm text-label-sm text-secondary-fixed-dim uppercase tracking-wider">Transit Telemetry Matrix</span></div></div><nav class="hidden xl:flex items-center gap-space-xs" data-active-classes="bg-primary-container text-on-primary font-bold rounded-lg"><a class="px-space-md py-space-sm font-label-lg text-label-lg text-secondary-fixed rounded-lg hover:bg-white/10 hover:text-surface-container-lowest transition-colors" data-path="home" href="#">Home</a><a class="px-space-md py-space-sm font-label-lg text-label-lg text-secondary-fixed rounded-lg hover:bg-white/10 hover:text-surface-container-lowest transition-colors" data-path="search-buses" href="#">Search Buses</a><a class="px-space-md py-space-sm font-label-lg text-label-lg text-secondary-fixed rounded-lg hover:bg-white/10 hover:text-surface-container-lowest transition-colors" data-path="live-tracking" href="#">Live Tracking</a><a class="px-space-md py-space-sm font-label-lg text-label-lg text-secondary-fixed rounded-lg hover:bg-white/10 hover:text-surface-container-lowest transition-colors" data-path="seat-booking" href="#">Seat Booking</a><a class="px-space-md py-space-sm font-label-lg text-label-lg text-secondary-fixed rounded-lg hover:bg-white/10 hover:text-surface-container-lowest transition-colors" data-path="ai-assistant" href="#">AI Assistant</a><a class="px-space-md py-space-sm font-label-lg text-label-lg text-secondary-fixed rounded-lg hover:bg-white/10 hover:text-surface-container-lowest transition-colors" data-path="admin-portal" href="#">Admin Portal</a></nav><div class="flex items-center gap-space-sm shrink-0"><div class="hidden sm:flex items-center gap-space-xs px-space-md py-space-xs rounded-full bg-surface-container-lowest/10 border border-white/10"><span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span><span class="font-label-sm text-label-sm text-surface-container-lowest font-medium">142 Buses Live</span></div><button class="relative p-space-xs text-secondary-fixed hover:text-surface-container-lowest rounded-full transition-colors"><span class="material-symbols-outlined text-[22px]">notifications</span><span class="absolute top-1 right-1 w-2.5 h-2.5 bg-error rounded-full ring-2 ring-[#0B1F3A]"></span></button><div class="flex items-center gap-space-xs bg-surface-container-lowest/5 p-1 rounded-xl border border-white/10"><div class="flex items-center gap-space-xs px-space-sm py-1 rounded-lg bg-primary-container text-on-primary"><span class="material-symbols-outlined text-[16px]">route</span><span class="font-label-sm text-label-sm font-semibold">User Demo (Vizag Route)</span></div><button class="px-space-sm py-1 font-label-sm text-label-sm text-secondary-fixed-dim hover:text-surface-container-lowest transition-colors">Admin Switch</button></div><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center shrink-0"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></div><div class="w-full bg-[#122748] border-b border-[#1E293B] text-surface-container-lowest"><div class="max-w-7xl mx-auto px-gutter h-10 flex items-center justify-between text-body-sm font-body-sm"><div class="flex items-center gap-space-md"><div class="flex items-center gap-space-xs text-secondary-fixed"><span class="material-symbols-outlined text-[16px] text-tertiary-fixed">near_me</span><span class="font-medium">Active Corridor:</span><span class="px-space-xs py-0.5 rounded bg-surface-container-lowest/10 text-surface-container-lowest font-mono font-semibold text-label-sm">RTC Complex → Gajuwaka Express</span></div><div class="hidden md:flex items-center gap-space-xs text-secondary-fixed-dim"><span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span><span>Telemetry Sync: Stable (0.4s)</span></div></div><div class="flex items-center gap-space-lg"><div class="hidden lg:flex items-center gap-space-xs text-tertiary-fixed-dim font-label-sm"><span class="material-symbols-outlined text-[16px] text-tertiary-fixed">auto_awesome</span><span>Predictive ETA AI Active</span></div><div class="flex items-center gap-space-xs text-error-container hover:text-surface-container-lowest cursor-pointer transition-colors"><span class="material-symbols-outlined text-[16px] text-error">emergency</span><span class="font-label-sm text-label-sm font-bold tracking-wide">Transit SOS Support: 1800-BUS-HELP</span></div></div></div></div></header><main class="w-full pt-[104px] bg-surface min-h-[calc(100vh-280px)]"><div class="flex flex-col w-full">
+<!-- Subtle Ambient Glow Orbs -->
+<div class="relative w-full overflow-hidden">
+<div class="absolute -top-32 -left-20 w-96 h-96 bg-primary-container/10 rounded-full blur-3xl pointer-events-none"></div>
+<div class="absolute top-48 right-0 w-[30rem] h-[30rem] bg-tertiary-container/10 rounded-full blur-3xl pointer-events-none"></div>
+<!-- Security & Architecture Status Banner -->
+<section class="max-w-7xl mx-auto px-gutter pt-space-lg pb-space-sm w-full">
+<div class="flex flex-wrap items-center justify-between gap-space-sm p-space-sm rounded-xl bg-surface-container-low shadow-sm">
+<div class="flex items-center gap-space-sm min-w-0">
+<span class="flex h-2.5 w-2.5 relative shrink-0">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+<span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
+</span>
+<div class="flex items-center gap-space-xs truncate text-body-sm font-body-sm text-on-surface-variant">
+<span class="font-semibold text-primary">Flask Security Layer:</span>
+<span class="font-mono text-body-sm text-on-surface">bcrypt (12 rounds) &amp; JWT/Flask-Session</span>
+<span class="text-outline">/</span>
+<span class="font-mono text-body-sm text-on-surface">RBAC: USER, ADMIN</span>
+</div>
+</div>
+<div class="flex items-center gap-space-sm">
+<div class="flex items-center gap-1 px-space-sm py-0.5 rounded-full bg-tertiary-fixed text-on-tertiary-fixed font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[14px]">school</span>
+<span>Academic Viva Capstone Matrix</span>
+</div>
+<div class="flex items-center gap-1 text-label-sm font-label-sm text-secondary">
+<span class="material-symbols-outlined text-[14px]">verified_user</span>
+<span>SHA-256 Checksums Valid</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Main Dual-State Authentication Section -->
+<section class="max-w-7xl mx-auto px-gutter py-space-md w-full">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-space-lg items-start">
+<!-- Left Column: Authentication Form Centerpiece (7 cols) -->
+<div class="lg:col-span-7 flex flex-col gap-space-md">
+<!-- Mode Switcher & Quick Fill Card -->
+<div class="p-space-lg rounded-2xl bg-surface-container-lowest shadow-md flex flex-col gap-space-md">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-sm pb-space-xs">
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-primary font-bold">Identity &amp; Access Gateway</span>
+<span class="font-headline-md text-headline-md text-on-surface font-bold">Authenticate Session</span>
+</div>
+<!-- Segmented Form View Controller -->
+<div class="inline-flex p-1 bg-surface-container-low rounded-xl" id="tab-controller" role="tablist">
+<button aria-selected="true" class="flex items-center gap-1.5 px-space-md py-1.5 rounded-lg font-label-lg text-label-lg transition-all bg-primary-container text-on-primary shadow-sm" id="tab-btn-login" onclick="switchAuthTab('login')" role="tab" type="button">
+<span class="material-symbols-outlined text-[18px]">lock_open</span>
+<span>Passenger Login</span>
+</button>
+<button aria-selected="false" class="flex items-center gap-1.5 px-space-md py-1.5 rounded-lg font-label-lg text-label-lg text-on-surface-variant hover:text-on-surface transition-all" id="tab-btn-register" onclick="switchAuthTab('register')" role="tab" type="button">
+<span class="material-symbols-outlined text-[18px]">person_add</span>
+<span>New Registration</span>
+</button>
+</div>
+</div>
+<!-- Quick Demo Role Switcher Pre-fills (Viva Examiners Feature) -->
+<div class="p-space-sm rounded-xl bg-surface-container-low flex flex-col gap-space-xs">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-on-surface-variant font-bold uppercase tracking-wider flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px] text-tertiary">bolt</span>
+                  One-Click Demo Fill (Viva Testing)
+                </span>
+<span class="text-body-sm font-body-sm text-secondary">Flask RBAC Fixtures</span>
+</div>
+<div class="flex flex-wrap items-center gap-space-xs">
+<button class="px-space-sm py-1.5 rounded-lg bg-surface-container-lowest text-on-surface hover:bg-secondary-container transition-all text-label-sm font-label-sm shadow-sm flex items-center gap-1" onclick="fillCredentials('user@bustrackerai.edu', 'Commuter#2025', 'USER')" type="button">
+<span class="material-symbols-outlined text-[14px] text-primary">person</span>
+<span>Demo Commuter (<span class="font-mono">user@bustrackerai.edu</span>)</span>
+</button>
+<button class="px-space-sm py-1.5 rounded-lg bg-surface-container-lowest text-on-surface hover:bg-secondary-container transition-all text-label-sm font-label-sm shadow-sm flex items-center gap-1" onclick="fillCredentials('admin@bustrackerai.edu', 'FleetMaster#2025', 'ADMIN')" type="button">
+<span class="material-symbols-outlined text-[14px] text-tertiary">admin_panel_settings</span>
+<span>Fleet Dispatcher Admin (<span class="font-mono">admin@bustrackerai.edu</span>)</span>
+</button>
+</div>
+</div>
+<!-- VIEW 1: Passenger Login Form -->
+<form class="flex flex-col gap-space-md" id="view-login" onsubmit="event.preventDefault(); simulateAuthSubmit('login');">
+<div class="flex flex-col gap-space-xs">
+<label class="font-label-md text-label-md text-on-surface font-semibold flex items-center justify-between" for="login-identifier">
+<span>Transit Identity (Email or +91 Mobile)</span>
+<span class="text-primary text-label-sm font-label-sm">FASTag Linked</span>
+</label>
+<div class="relative flex items-center">
+<span class="material-symbols-outlined absolute left-3 text-secondary text-[20px] pointer-events-none">directions_bus</span>
+<input class="w-full pl-10 pr-4 py-2.5 bg-surface-container-low rounded-xl text-on-surface placeholder:text-outline font-body-md text-body-md focus:outline-none focus:ring-2 focus:ring-primary-container focus:bg-surface-container-lowest transition-all" id="login-identifier" placeholder="user@bustrackerai.edu or 9876543210" required="" type="text" value="user@bustrackerai.edu"/>
+</div>
+</div>
+<div class="flex flex-col gap-space-xs">
+<div class="flex items-center justify-between">
+<label class="font-label-md text-label-md text-on-surface font-semibold" for="login-password">Security Token / Password</label>
+<a class="font-label-sm text-label-sm text-primary hover:underline" href="#forgot" onclick="event.preventDefault(); alert('Flask Token Reset link generated for current corridor dispatch.');">Forgot password?</a>
+</div>
+<div class="relative flex items-center">
+<span class="material-symbols-outlined absolute left-3 text-secondary text-[20px] pointer-events-none">key</span>
+<input class="w-full pl-10 pr-10 py-2.5 bg-surface-container-low rounded-xl text-on-surface placeholder:text-outline font-body-md text-body-md focus:outline-none focus:ring-2 focus:ring-primary-container focus:bg-surface-container-lowest transition-all font-mono" id="login-password" placeholder="••••••••••••" required="" type="password" value="Commuter#2025"/>
+<button class="absolute right-3 text-secondary hover:text-on-surface p-1" onclick="togglePasswordVisibility('login-password', this)" type="button">
+<span class="material-symbols-outlined text-[18px]">visibility</span>
+</button>
+</div>
+</div>
+<div class="flex items-center justify-between pt-space-xs">
+<label class="flex items-center gap-space-xs cursor-pointer select-none">
+<input checked="" class="w-4 h-4 rounded text-primary-container focus:ring-0 accent-primary" type="checkbox"/>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Remember device token (24h JWT auto-refresh)</span>
+</label>
+<span class="font-label-sm text-label-sm text-emerald-600 font-semibold flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">lock</span>
+                  SSL 256-bit
+                </span>
+</div>
+<button class="w-full py-3 px-space-lg rounded-xl bg-primary-container text-on-primary font-headline-sm text-headline-sm font-bold shadow-md hover:bg-primary transition-all flex items-center justify-center gap-space-xs group" id="btn-login-submit" type="submit">
+<span>Sign In to BusTrackerAI</span>
+<span class="material-symbols-outlined text-[20px] group-hover:translate-x-1 transition-transform">arrow_forward</span>
+</button>
+<div class="flex items-center gap-space-md my-space-xs">
+<span class="h-[1px] flex-1 bg-surface-container-high"></span>
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-secondary">Institutional SSO Clearing</span>
+<span class="h-[1px] flex-1 bg-surface-container-high"></span>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-space-sm">
+<button class="flex items-center justify-center gap-space-xs py-2 px-space-md rounded-xl bg-surface-container-low hover:bg-surface-container-high text-on-surface font-label-lg text-label-lg transition-colors shadow-sm" onclick="alert('Redirecting to Google Identity Services OAuth2 endpoint...');" type="button">
+<svg class="w-4 h-4" viewbox="0 0 24 24">
+<path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"></path>
+<path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"></path>
+<path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z" fill="#FBBC05"></path>
+<path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z" fill="#EA4335"></path>
+</svg>
+<span>Google Transit Auth</span>
+</button>
+<button class="flex items-center justify-center gap-space-xs py-2 px-space-md rounded-xl bg-surface-container-low hover:bg-surface-container-high text-on-surface font-label-lg text-label-lg transition-colors shadow-sm" onclick="alert('Connecting to Andhra University / JNTU FASTag Student Transit Node...');" type="button">
+<span class="material-symbols-outlined text-[18px] text-tertiary">badge</span>
+<span>Student ID / FASTag SSO</span>
+</button>
+</div>
+</form>
+<!-- VIEW 2: New Passenger Registration Form (Toggled or Viewable) -->
+<form class="hidden flex flex-col gap-space-md" id="view-register" onsubmit="event.preventDefault(); simulateAuthSubmit('register');">
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-space-sm">
+<div class="flex flex-col gap-space-xs">
+<label class="font-label-md text-label-md text-on-surface font-semibold" for="reg-name">Full Legal Name</label>
+<div class="relative flex items-center">
+<span class="material-symbols-outlined absolute left-3 text-secondary text-[18px]">badge</span>
+<input class="w-full pl-9 pr-3 py-2 bg-surface-container-low rounded-xl text-on-surface placeholder:text-outline font-body-md text-body-md focus:outline-none focus:ring-2 focus:ring-primary-container" id="reg-name" placeholder="Srikanth Varma" required="" type="text"/>
+</div>
+</div>
+<div class="flex flex-col gap-space-xs">
+<label class="font-label-md text-label-md text-on-surface font-semibold flex items-center justify-between" for="reg-roll">
+<span>Univ / Roll No.</span>
+<span class="font-label-sm text-label-sm text-tertiary font-bold">50% Fare Concession</span>
+</label>
+<div class="relative flex items-center">
+<span class="material-symbols-outlined absolute left-3 text-secondary text-[18px]">school</span>
+<input class="w-full pl-9 pr-3 py-2 bg-surface-container-low rounded-xl text-on-surface placeholder:text-outline font-body-md text-body-md focus:outline-none focus:ring-2 focus:ring-primary-container" id="reg-roll" placeholder="AU-ENG-2022-8491 (Optional)" type="text"/>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-space-sm">
+<div class="flex flex-col gap-space-xs">
+<label class="font-label-md text-label-md text-on-surface font-semibold" for="reg-phone">Mobile (+91 SMS OTP)</label>
+<div class="relative flex items-center">
+<span class="material-symbols-outlined absolute left-3 text-secondary text-[18px]">smartphone</span>
+<input class="w-full pl-9 pr-14 py-2 bg-surface-container-low rounded-xl text-on-surface placeholder:text-outline font-body-md text-body-md focus:outline-none focus:ring-2 focus:ring-primary-container" id="reg-phone" placeholder="98480 22338" required="" type="tel"/>
+<span class="absolute right-2 px-1.5 py-0.5 rounded bg-emerald-100 text-emerald-800 text-[10px] font-bold">VERIFY</span>
+</div>
+</div>
+<div class="flex flex-col gap-space-xs">
+<label class="font-label-md text-label-md text-on-surface font-semibold" for="reg-email">Email Address</label>
+<div class="relative flex items-center">
+<span class="material-symbols-outlined absolute left-3 text-secondary text-[18px]">mail</span>
+<input class="w-full pl-9 pr-3 py-2 bg-surface-container-low rounded-xl text-on-surface placeholder:text-outline font-body-md text-body-md focus:outline-none focus:ring-2 focus:ring-primary-container" id="reg-email" placeholder="srikanth@domain.com" required="" type="email"/>
+</div>
+</div>
+</div>
+<!-- Route Preference Corridor -->
+<div class="flex flex-col gap-space-xs">
+<label class="font-label-md text-label-md text-on-surface font-semibold" for="reg-corridor">Default Transit Corridor</label>
+<div class="relative flex items-center">
+<span class="material-symbols-outlined absolute left-3 text-secondary text-[18px]">alt_route</span>
+<select class="w-full pl-9 pr-8 py-2 bg-surface-container-low rounded-xl text-on-surface font-body-md text-body-md focus:outline-none focus:ring-2 focus:ring-primary-container appearance-none" id="reg-corridor">
+<option value="vizag-gajuwaka">RTC Complex ↔ Gajuwaka Steel Plant Express</option>
+<option value="vizag-vzm">Visakhapatnam ↔ Vizianagaram Junction (NH-16/NH-26)</option>
+<option value="vizag-airport">Madhurawada IT SEZ ↔ Visakhapatnam Int. Airport</option>
+<option value="vizag-bheemili">RK Beach Marine Drive ↔ Bheemunipatnam (Coastal Route)</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 text-secondary text-[18px] pointer-events-none">expand_more</span>
+</div>
+</div>
+<!-- Passwords with Strength Indicator -->
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-space-sm">
+<div class="flex flex-col gap-space-xs">
+<label class="font-label-md text-label-md text-on-surface font-semibold" for="reg-pwd">Create Password</label>
+<div class="relative flex items-center">
+<span class="material-symbols-outlined absolute left-3 text-secondary text-[18px]">key</span>
+<input class="w-full pl-9 pr-3 py-2 bg-surface-container-low rounded-xl text-on-surface font-body-md text-body-md focus:outline-none focus:ring-2 focus:ring-primary-container" id="reg-pwd" oninput="checkPasswordStrength(this.value)" placeholder="Min 8 chars, 1 uppercase" required="" type="password"/>
+</div>
+</div>
+<div class="flex flex-col gap-space-xs">
+<label class="font-label-md text-label-md text-on-surface font-semibold" for="reg-pwd-confirm">Confirm Password</label>
+<div class="relative flex items-center">
+<span class="material-symbols-outlined absolute left-3 text-secondary text-[18px]">check_circle</span>
+<input class="w-full pl-9 pr-3 py-2 bg-surface-container-low rounded-xl text-on-surface font-body-md text-body-md focus:outline-none focus:ring-2 focus:ring-primary-container" id="reg-pwd-confirm" placeholder="Re-enter password" required="" type="password"/>
+</div>
+</div>
+</div>
+<!-- Password Strength Bar (Bcrypt compliance) -->
+<div class="flex flex-col gap-1">
+<div class="flex items-center justify-between text-label-sm font-label-sm">
+<span class="text-secondary font-mono">Bcrypt Hash Entropy: <span class="font-bold text-amber-600" id="pwd-strength-label">Moderate (8 rounds equivalent)</span></span>
+<span class="text-on-surface-variant font-mono">12 Salting Passes</span>
+</div>
+<div class="w-full h-1.5 bg-surface-container rounded-full overflow-hidden flex">
+<div class="h-full w-1/3 bg-emerald-500 transition-all" id="pwd-bar-1"></div>
+<div class="h-full w-1/3 bg-emerald-500 transition-all" id="pwd-bar-2"></div>
+<div class="h-full w-1/3 bg-surface-container-highest transition-all" id="pwd-bar-3"></div>
+</div>
+</div>
+<label class="flex items-start gap-space-xs cursor-pointer select-none">
+<input checked="" class="w-4 h-4 mt-0.5 rounded text-primary-container focus:ring-0 accent-primary" required="" type="checkbox"/>
+<span class="font-body-sm text-body-sm text-on-surface-variant">I agree to the APSRTC/SmartTransit Telemetry Policy, automated GPS tracking terms, and Student Concession validation guidelines.</span>
+</label>
+<button class="w-full py-3 px-space-lg rounded-xl bg-tertiary text-on-tertiary font-headline-sm text-headline-sm font-bold shadow-md hover:bg-tertiary-container transition-all flex items-center justify-center gap-space-xs group" id="btn-reg-submit" type="submit">
+<span class="material-symbols-outlined text-[20px]">auto_awesome</span>
+<span>Complete Registration &amp; Unlock AI Transit Hub</span>
+</button>
+</form>
+<!-- Bottom Session Meta -->
+<div class="pt-space-xs flex items-center justify-between text-body-sm font-body-sm text-on-surface-variant">
+<span class="flex items-center gap-1 font-mono text-[11px]">
+<span class="material-symbols-outlined text-[14px] text-emerald-600">dns</span>
+                PyMongo Auth Pool: 20 active conns
+              </span>
+<span class="font-mono text-[11px] text-secondary">CORS Strict-Origin / CSRF Protected</span>
+</div>
+</div>
+</div>
+<!-- Right Column: Visual Feature Showcase & Micro-Metrics Panel (5 cols) -->
+<div class="lg:col-span-5 flex flex-col gap-space-md">
+<!-- Image Feature Highlight Card -->
+<div class="rounded-2xl bg-surface-container-lowest shadow-md overflow-hidden flex flex-col">
+<div class="relative w-full h-44 bg-surface-container">
+<img class="w-full h-full object-cover" data-alt="High-tech modern urban electric transit bus arriving at a clean futuristic terminal in Visakhapatnam with neon route displays, deep navy blue ambiance, sharp LED headlights, and travelers boarding smoothly under digital schedule displays." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBvUPCDvNPKNkCLiSa_y1CaaMPN3bdZqmBv5RjFBRgEPKIV1vQXx7Y3iFegNI9BM06BVJEvHJl91g9HksYlDFkZqWd55iTzWPagruvsC1Fa1nV3U4QTVaJ641CUROG_00hznmQ28D-ey9csabeu2ct6ZVv0LKgmC7z4jzaq1oox9p9WKoH9lgH9VtN0ulQI_3lyeWvCb2ugOHuZ2-p37I0n-abjsP1Wn8Qpv4Qscf8QEuKLCY6OE6D-"/>
+<div class="absolute inset-0 bg-gradient-to-t from-[#0B1F3A] via-[#0B1F3A]/40 to-transparent flex flex-col justify-end p-space-md text-surface-container-lowest">
+<div class="flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-emerald-500/20 backdrop-blur-sm border border-emerald-400/30 text-emerald-300 font-label-sm text-label-sm w-fit mb-1">
+<span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+<span>Active Live Fleet Telemetry</span>
+</div>
+<span class="font-headline-md text-headline-md text-white font-bold">Intelligent Commute Unlocked</span>
+<span class="font-body-sm text-body-sm text-secondary-fixed">Sub-second bus radar and machine learning headway forecast</span>
+</div>
+</div>
+<!-- Value Proposition Accordion / List -->
+<div class="p-space-lg flex flex-col gap-space-md">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-primary font-bold">Why Authenticate with BusTrackerAI?</span>
+<div class="flex flex-col gap-space-sm">
+<!-- Benefit 1 -->
+<div class="flex items-start gap-space-sm p-space-xs rounded-xl hover:bg-surface-container-low transition-colors">
+<div class="w-9 h-9 rounded-xl bg-primary/10 text-primary flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[20px]">radar</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-headline-sm text-headline-sm text-on-surface font-semibold">Real-Time Headway &amp; Stop Alerts</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Live GPS feeds refresh at 400ms intervals with automated push alarms when your bus is 2 stops away.</span>
+</div>
+</div>
+<!-- Benefit 2 -->
+<div class="flex items-start gap-space-sm p-space-xs rounded-xl hover:bg-surface-container-low transition-colors">
+<div class="w-9 h-9 rounded-xl bg-tertiary/10 text-tertiary flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[20px]">psychology</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-headline-sm text-headline-sm text-on-surface font-semibold">AI Route &amp; Crowd Optimization</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Predictive machine learning models advise alternate corridors before peak congestion creates transit bottlenecks.</span>
+</div>
+</div>
+<!-- Benefit 3 -->
+<div class="flex items-start gap-space-sm p-space-xs rounded-xl hover:bg-surface-container-low transition-colors">
+<div class="w-9 h-9 rounded-xl bg-secondary-container text-on-secondary-container flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[20px]">qr_code_2</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-headline-sm text-headline-sm text-on-surface font-semibold">Instant Digital QR Boarding Pass</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Zero-queue turnstile entry with offline encrypted cryptographic tokens on passenger smartphones.</span>
+</div>
+</div>
+<!-- Benefit 4 -->
+<div class="flex items-start gap-space-sm p-space-xs rounded-xl hover:bg-surface-container-low transition-colors">
+<div class="w-9 h-9 rounded-xl bg-emerald-100 text-emerald-800 flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[20px]">lock_clock</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-headline-sm text-headline-sm text-on-surface font-semibold">Atomic Lock Seat Guarantee</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">MongoDB ACID two-phase seat commits ensure no double-booking race condition during rush hours.</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Live Corridor Telemetry Micro-Stat Bar -->
+<div class="p-space-md bg-surface-container-low flex items-center justify-between">
+<div class="flex flex-col">
+<span class="font-headline-sm text-headline-sm font-bold text-on-surface">142</span>
+<span class="font-label-sm text-label-sm text-secondary">Active Buses Online</span>
+</div>
+<div class="h-8 w-[1px] bg-surface-container-highest"></div>
+<div class="flex flex-col">
+<span class="font-headline-sm text-headline-sm font-bold text-emerald-600">99.4%</span>
+<span class="font-label-sm text-label-sm text-secondary">On-Time Precision</span>
+</div>
+<div class="h-8 w-[1px] bg-surface-container-highest"></div>
+<div class="flex flex-col">
+<span class="font-headline-sm text-headline-sm font-bold text-primary">1,480+</span>
+<span class="font-label-sm text-label-sm text-secondary">Bookings Cleared Today</span>
+</div>
+</div>
+</div>
+<!-- Quick Help / SOS Terminal Callout -->
+<div class="p-space-md rounded-2xl bg-surface-container-lowest shadow-sm flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<div class="w-8 h-8 rounded-full bg-error-container text-on-error-container flex items-center justify-center">
+<span class="material-symbols-outlined text-[18px]">support_agent</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm font-bold text-on-surface">RTC Help Desk (Vizag Complex)</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Need assistance booking without smart device?</span>
+</div>
+</div>
+<a class="px-space-sm py-1.5 rounded-lg bg-surface-container-low text-primary hover:bg-surface-container-high transition-colors font-label-sm text-label-sm font-semibold" href="tel:18002874357">Toll-Free SOS</a>
+</div>
+</div>
+</div>
+</section>
+<!-- Viva Engineering Specs / Technical Blueprint Section -->
+<section class="max-w-7xl mx-auto px-gutter pt-space-lg pb-space-xl w-full">
+<div class="p-space-lg rounded-2xl bg-surface-container-lowest shadow-md flex flex-col gap-space-md">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-xs pb-space-xs">
+<div class="flex items-center gap-space-xs">
+<div class="w-8 h-8 rounded-lg bg-tertiary text-on-tertiary flex items-center justify-center font-bold">
+<span class="material-symbols-outlined text-[18px]">code</span>
+</div>
+<div class="flex flex-col">
+<span class="font-headline-sm text-headline-sm text-on-surface font-bold">Viva Engineering Inspection: Flask + PyMongo Architecture</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Production code mechanics demonstrated for external academic viva evaluation</span>
+</div>
+</div>
+<span class="font-mono text-label-sm text-label-sm text-secondary bg-surface-container-low px-space-sm py-1 rounded-md">Blueprint: auth_routes.py</span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-space-md">
+<!-- Column 1: Flask Auth Handler Code -->
+<div class="flex flex-col gap-space-xs p-space-md rounded-xl bg-surface-container-low">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm font-bold text-on-surface font-mono">1. Password Hashing (bcrypt)</span>
+<span class="px-1.5 py-0.5 rounded bg-primary-fixed text-on-primary-fixed text-[10px] font-mono">FLASK 3.11</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+              Passwords are salted and hashed using bcrypt (12 rounds) before database write. Passwords never reside in plaintext.
+            </p>
+<div class="p-space-xs rounded bg-[#0B1F3A] text-emerald-300 font-mono text-[11px] overflow-x-auto leading-relaxed">
+<span class="text-secondary-fixed"># auth_service.py</span><br/>
+              hashed = bcrypt.hashpw(<br/>
+                password.encode('utf-8'),<br/>
+                bcrypt.gensalt(rounds=12)<br/>
+              )<br/>
+              is_valid = bcrypt.checkpw(entered, db_hash)
+            </div>
+</div>
+<!-- Column 2: MongoDB Schema Schema Spec -->
+<div class="flex flex-col gap-space-xs p-space-md rounded-xl bg-surface-container-low">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm font-bold text-on-surface font-mono">2. PyMongo `users` Document</span>
+<span class="px-1.5 py-0.5 rounded bg-secondary-container text-on-secondary-container text-[10px] font-mono">BSON SCHEMA</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+              Indexed with unique compound constraints on <code class="font-mono text-primary text-[12px]">email</code> and <code class="font-mono text-primary text-[12px]">mobile_number</code>.
+            </p>
+<div class="p-space-xs rounded bg-[#0B1F3A] text-blue-200 font-mono text-[11px] overflow-x-auto leading-relaxed">
+              {<br/>
+                "_id": ObjectId("6651..."),<br/>
+                "email": "user@bustrackerai.edu",<br/>
+                "password_hash": "$2b$12$e...",<br/>
+                "role": "USER", <span class="text-tertiary-fixed">// or "ADMIN"</span><br/>
+                "student_concession": true,<br/>
+                "created_at": ISODate(...)<br/>
+              }
+            </div>
+</div>
+<!-- Column 3: RBAC Session Guard -->
+<div class="flex flex-col gap-space-xs p-space-md rounded-xl bg-surface-container-low">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm font-bold text-on-surface font-mono">3. Route Guard Decorator</span>
+<span class="px-1.5 py-0.5 rounded bg-tertiary-fixed text-on-tertiary-fixed text-[10px] font-mono">@role_required</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+              Standardized Python decorator ensures unauthorized endpoints redirect to <code>/auth/login</code> with an HTTP 403 response code.
+            </p>
+<div class="p-space-xs rounded bg-[#0B1F3A] text-purple-200 font-mono text-[11px] overflow-x-auto leading-relaxed">
+              @app.route('/api/fleet/dispatch')<br/>
+              @login_required<br/>
+              @role_required('ADMIN')<br/>
+              def dispatch_corridor():<br/>
+                return jsonify(status="ok")
+            </div>
+</div>
+</div>
+</div>
+</section>
+</div>
+<!-- Inline Script for Tab Switcher, Quick Pre-fill and Password Logic -->
+<script>
+    function switchAuthTab(target) {
+      const loginTab = document.getElementById('tab-btn-login');
+      const registerTab = document.getElementById('tab-btn-register');
+      const loginView = document.getElementById('view-login');
+      const registerView = document.getElementById('view-register');
+
+      if (target === 'login') {
+        loginTab.className = "flex items-center gap-1.5 px-space-md py-1.5 rounded-lg font-label-lg text-label-lg transition-all bg-primary-container text-on-primary shadow-sm";
+        loginTab.setAttribute('aria-selected', 'true');
+        registerTab.className = "flex items-center gap-1.5 px-space-md py-1.5 rounded-lg font-label-lg text-label-lg text-on-surface-variant hover:text-on-surface transition-all";
+        registerTab.setAttribute('aria-selected', 'false');
+
+        loginView.classList.remove('hidden');
+        registerView.classList.add('hidden');
+      } else {
+        registerTab.className = "flex items-center gap-1.5 px-space-md py-1.5 rounded-lg font-label-lg text-label-lg transition-all bg-tertiary text-on-tertiary shadow-sm";
+        registerTab.setAttribute('aria-selected', 'true');
+        loginTab.className = "flex items-center gap-1.5 px-space-md py-1.5 rounded-lg font-label-lg text-label-lg text-on-surface-variant hover:text-on-surface transition-all";
+        loginTab.setAttribute('aria-selected', 'false');
+
+        loginView.classList.add('hidden');
+        registerView.classList.remove('hidden');
+      }
+    }
+
+    function fillCredentials(email, pwd, role) {
+      switchAuthTab('login');
+      const emailInput = document.getElementById('login-identifier');
+      const pwdInput = document.getElementById('login-password');
+      if (emailInput && pwdInput) {
+        emailInput.value = email;
+        pwdInput.value = pwd;
+        
+        // Gentle highlight animation
+        emailInput.classList.add('bg-primary-fixed');
+        pwdInput.classList.add('bg-primary-fixed');
+        setTimeout(() => {
+          emailInput.classList.remove('bg-primary-fixed');
+          pwdInput.classList.remove('bg-primary-fixed');
+        }, 350);
+      }
+    }
+
+    function togglePasswordVisibility(fieldId, triggerBtn) {
+      const field = document.getElementById(fieldId);
+      const icon = triggerBtn.querySelector('.material-symbols-outlined');
+      if (field.type === 'password') {
+        field.type = 'text';
+        icon.textContent = 'visibility_off';
+      } else {
+        field.type = 'password';
+        icon.textContent = 'visibility';
+      }
+    }
+
+    function checkPasswordStrength(val) {
+      const bar1 = document.getElementById('pwd-bar-1');
+      const bar2 = document.getElementById('pwd-bar-2');
+      const bar3 = document.getElementById('pwd-bar-3');
+      const label = document.getElementById('pwd-label');
+
+      if (!val || val.length < 5) {
+        bar1.className = 'h-full w-1/3 bg-error transition-all';
+        bar2.className = 'h-full w-1/3 bg-surface-container-highest transition-all';
+        bar3.className = 'h-full w-1/3 bg-surface-container-highest transition-all';
+        if(label) label.textContent = 'Weak';
+      } else if (val.length < 8 || !/[A-Z]/.test(val)) {
+        bar1.className = 'h-full w-1/3 bg-amber-500 transition-all';
+        bar2.className = 'h-full w-1/3 bg-amber-500 transition-all';
+        bar3.className = 'h-full w-1/3 bg-surface-container-highest transition-all';
+        if(label) label.textContent = 'Moderate';
+      } else {
+        bar1.className = 'h-full w-1/3 bg-emerald-500 transition-all';
+        bar2.className = 'h-full w-1/3 bg-emerald-500 transition-all';
+        bar3.className = 'h-full w-1/3 bg-emerald-500 transition-all';
+        if(label) label.textContent = 'Strong (Ready for Bcrypt)';
+      }
+    }
+
+    function simulateAuthSubmit(type) {
+      const btn = type === 'login' ? document.getElementById('btn-login-submit') : document.getElementById('btn-reg-submit');
+      const originalText = btn.innerHTML;
+      btn.innerHTML = `<span class="material-symbols-outlined animate-spin text-[20px]">sync</span> Authenticating with Flask...`;
+      btn.disabled = true;
+
+      setTimeout(() => {
+        btn.innerHTML = `<span class="material-symbols-outlined text-[20px]">check</span> Token Issued (JWT: 200 OK)`;
+        btn.classList.add('bg-emerald-600');
+        setTimeout(() => {
+          btn.innerHTML = originalText;
+          btn.disabled = false;
+          btn.classList.remove('bg-emerald-600');
+          alert(type === 'login' ? 'Authenticated! Session established for BusTrackerAI corridor dispatch.' : 'Registration successful! Mongo document created with role USER.');
+        }, 900);
+      }, 700);
+    }
+  </script>
+</div></main><footer class="w-full bg-surface-container-lowest border-t border-surface-container"><div class="max-w-7xl mx-auto px-gutter py-space-xl"><div class="grid grid-cols-1 md:grid-cols-4 gap-space-lg mb-space-lg"><div class="flex flex-col gap-space-sm"><div class="flex items-center gap-space-xs"><span class="font-headline-sm text-headline-sm text-primary font-bold">BusTracker</span><span class="font-headline-sm text-headline-sm text-tertiary font-bold">AI</span></div><p class="font-body-sm text-body-sm text-on-surface-variant">Intelligent multi-modal transit intelligence system with automated headway prediction, dynamic seating telemetry, and smart fare clearing.</p><div class="flex items-center gap-space-xs text-emerald-700 font-label-sm text-label-sm"><span class="w-2 h-2 rounded-full bg-emerald-500"></span><span>Operational Telemetry: 99.98% Core Uptime</span></div></div><div class="flex flex-col gap-space-xs"><span class="font-label-md text-label-md text-on-surface uppercase tracking-wider font-bold mb-space-xs">System Endpoints</span><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors" href="#">GET /api/v1/telemetry/live-matrix</a><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors" href="#">POST /api/v1/seats/lock-reservation</a><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors" href="#">WS /sockets/fleet-dispatch/vizag</a><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors" href="#">GET /api/v1/ai/route-forecast</a></div><div class="flex flex-col gap-space-xs"><span class="font-label-md text-label-md text-on-surface uppercase tracking-wider font-bold mb-space-xs">Engineering Specs (Viva)</span><div class="font-body-sm text-body-sm text-on-surface-variant flex flex-col gap-1"><span><strong>Backend:</strong> Python 3.11 / Flask Microservices</span><span><strong>Primary DB:</strong> MongoDB GeoJSON Collections</span><span><strong>Realtime:</strong> WebSockets / Redis Broker</span><span><strong>AI Engine:</strong> XGBoost ETA &amp; Heuristics</span></div></div><div class="flex flex-col gap-space-xs"><span class="font-label-md text-label-md text-on-surface uppercase tracking-wider font-bold mb-space-xs">Emergency Dispatch</span><div class="p-space-sm bg-surface-container-low rounded-xl border border-surface-container flex flex-col gap-1"><span class="font-label-sm text-label-sm text-on-surface font-semibold">Vizag Central Command Unit</span><span class="font-body-sm text-body-sm text-on-surface-variant">RTC Complex Terminal, Control Deck 04</span><span class="font-label-sm text-label-sm text-primary font-bold mt-1">Hotline: +91 891 254-8900</span></div></div></div><div class="pt-space-md border-t border-surface-container flex flex-col sm:flex-row items-center justify-between gap-space-sm font-body-sm text-body-sm text-on-surface-variant"><span>© 2025 BusTrackerAI Fleet Technologies. All rights reserved. Engineering Capstone Project.</span><div class="flex items-center gap-space-md"><a class="hover:text-primary transition-colors" href="#">Privacy Policy</a><a class="hover:text-primary transition-colors" href="#">Transit Service Level Agreement</a><a class="hover:text-primary transition-colors" href="#">Viva Presentation Specs</a></div></div></div></footer></body></html>

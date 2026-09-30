@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_dashboard" name="shell-type"/><title>BusTrackerAI - Admin Fleet Portal</title><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Plus+Jakarta+Sans:wght@600;700;800&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{colors:{"on-tertiary-container":"#f2e8ff","secondary-container":"#c8dbfe","secondary-fixed":"#d6e3ff","inverse-surface":"#2d3133","background":"#f7f9fb","tertiary-fixed-dim":"#d2bbff","surface-container-lowest":"#ffffff","on-primary":"#ffffff","on-tertiary-fixed":"#25005a","on-tertiary":"#ffffff","surface-tint":"#0052dc","primary-fixed":"#dbe1ff","primary-fixed-dim":"#b4c5ff","on-surface":"#191c1e","primary":"#0047c1","on-error-container":"#93000a","error":"#ba1a1a","tertiary-fixed":"#eaddff","on-primary-fixed":"#00174b","error-container":"#ffdad6","surface-bright":"#f7f9fb","on-secondary-fixed-variant":"#364764","surface-container-low":"#f2f4f6","on-surface-variant":"#434655","outline":"#737687","surface":"#f7f9fb","on-tertiary-fixed-variant":"#5a00c6","on-background":"#191c1e","surface-variant":"#e0e3e5","tertiary-container":"#803ff1","on-secondary-fixed":"#071c36","tertiary":"#6718d8","inverse-on-surface":"#eff1f3","on-error":"#ffffff","surface-container-highest":"#e0e3e5","secondary-fixed-dim":"#b5c7ea","surface-container-high":"#e6e8ea","inverse-primary":"#b4c5ff","primary-container":"#155eef","surface-container":"#eceef0","on-secondary-container":"#4e607e","surface-dim":"#d8dadc","on-primary-container":"#e7eaff","on-secondary":"#ffffff","secondary":"#4d5f7d","on-primary-fixed-variant":"#003da9","outline-variant":"#c3c6d8"},borderRadius:{DEFAULT:"0.25rem",lg:"0.5rem",xl:"0.75rem",full:"9999px"},spacing:{"space-xs":"0.25rem","space-sm":"0.5rem",gutter:"1.5rem","margin-mobile":"1rem","space-xl":"2rem",margin:"2rem","space-md":"1rem","space-lg":"1.5rem","gutter-mobile":"0.75rem"},fontFamily:{"headline-lg":["Plus Jakarta Sans"],"label-lg":["Inter"],"body-lg":["Inter"],"body-sm":["Inter"],"headline-xl-mobile":["Plus Jakarta Sans"],"display-lg":["Plus Jakarta Sans"],"body-md":["Inter"],"headline-sm":["Plus Jakarta Sans"],"headline-xl":["Plus Jakarta Sans"],"headline-md":["Plus Jakarta Sans"],"label-md":["Inter"],"label-sm":["Inter"]},fontSize:{"headline-lg":["24px",{lineHeight:"32px",letterSpacing:"-0.01em",fontWeight:"700"}],"label-lg":["14px",{lineHeight:"20px",letterSpacing:"0.01em",fontWeight:"600"}],"body-lg":["18px",{lineHeight:"28px",fontWeight:"400"}],"body-sm":["12px",{lineHeight:"16px",fontWeight:"400"}],"headline-xl-mobile":["28px",{lineHeight:"36px",letterSpacing:"-0.015em",fontWeight:"700"}],"display-lg":["48px",{lineHeight:"56px",letterSpacing:"-0.02em",fontWeight:"800"}],"body-md":["14px",{lineHeight:"20px",fontWeight:"400"}],"headline-sm":["16px",{lineHeight:"24px",fontWeight:"600"}],"headline-xl":["36px",{lineHeight:"44px",letterSpacing:"-0.02em",fontWeight:"700"}],"headline-md":["20px",{lineHeight:"28px",letterSpacing:"-0.005em",fontWeight:"600"}],"label-md":["12px",{lineHeight:"16px",letterSpacing:"0.02em",fontWeight:"600"}],"label-sm":["10px",{lineHeight:"14px",letterSpacing:"0.04em",fontWeight:"700"}]}}}}</script></head><body class="bg-surface font-body-md text-on-surface antialiased"><aside class="fixed left-0 top-0 h-full w-64 bg-[#0B1F3A] text-surface-container-lowest z-50 flex flex-col"><div class="h-16 px-space-lg flex items-center gap-space-sm border-b border-[#1E293B]"><img alt="BusTrackerAI Logo" class="h-7 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1Ulxk7KCpKIIbXxkHTYOtDVwo4mKP4rSm5VbFqGV2SibAoPmZGm193L5z-UWeTq-kS9XcoZz9RhsJC5WehsZx1zT6bzI4zngWCn4ltpj4x_AX0R0hLI7RCmUsWIi2TZN2Y6oPjz273J6m-CWvLzjXKXyrZoOgPnZkAcmrTzdD5qRcUR1i-jPCtL4ZMS_V22hL5uHj04cho-Isw3oawdEP-sDCK5p9Jy1TkHasOm9mhqAnU9vc7TRi4I2A"/><span class="font-headline-sm text-headline-sm text-surface-container-lowest font-bold">AdminDeck</span></div><div class="px-space-md py-space-sm bg-[#122748] border-b border-[#1E293B] flex items-center justify-between"><span class="font-label-sm text-label-sm text-secondary-fixed-dim">FLEET MODE</span><span class="px-space-xs py-0.5 rounded text-[10px] font-bold bg-emerald-500/20 text-emerald-300">LIVE SYNC</span></div><nav class="flex-1 px-space-sm py-space-md space-y-1" data-active-classes="bg-primary-container text-on-primary font-bold"><a aria-current="page" class="flex items-center px-space-md py-space-sm rounded-lg transition-colors bg-primary-container text-on-primary font-bold" data-path="admin-portal" href="#"><span class="material-symbols-outlined mr-space-sm text-[20px]">grid_view</span>Fleet Overview</a><a class="flex items-center px-space-md py-space-sm rounded-lg text-secondary-fixed hover:bg-white/10 hover:text-surface-container-lowest font-label-md text-label-md transition-colors" data-path="admin-bus-management" href="#"><span class="material-symbols-outlined mr-space-sm text-[20px]">directions_bus</span>Bus &amp; Route Registry</a><a class="flex items-center px-space-md py-space-sm rounded-lg text-secondary-fixed hover:bg-white/10 hover:text-surface-container-lowest font-label-md text-label-md transition-colors" data-path="admin-telemetry" href="#"><span class="material-symbols-outlined mr-space-sm text-[20px]">satellite_alt</span>Telemetry &amp; GPS Logs</a><a class="flex items-center px-space-md py-space-sm rounded-lg text-secondary-fixed hover:bg-white/10 hover:text-surface-container-lowest font-label-md text-label-md transition-colors" data-path="admin-booking-manifest" href="#"><span class="material-symbols-outlined mr-space-sm text-[20px]">confirmation_number</span>Passenger Manifests</a><a class="flex items-center px-space-md py-space-sm rounded-lg text-secondary-fixed hover:bg-white/10 hover:text-surface-container-lowest font-label-md text-label-md transition-colors" data-path="admin-ai-heuristics" href="#"><span class="material-symbols-outlined mr-space-sm text-[20px]">psychology</span>AI Delay Model Tuning</a></nav><div class="p-space-md border-t border-[#1E293B] bg-[#08172c]"><div class="flex items-center gap-space-sm"><div class="w-8 h-8 rounded-full bg-tertiary-container flex items-center justify-center"><span class="material-symbols-outlined text-surface-container-lowest text-[18px]">terminal</span></div><div class="flex flex-col"><span class="font-label-sm text-label-sm text-surface-container-lowest font-semibold">Flask Core Server</span><span class="font-label-sm text-label-sm text-secondary-fixed-dim font-mono">MongoDB: Active</span></div></div></div></aside><div class="pl-64"><header class="fixed top-0 left-64 right-0 h-16 bg-[#0B1F3A] border-b border-[#1E293B] z-40 flex items-center justify-between px-gutter"><div class="flex items-center gap-space-md"><span class="font-headline-sm text-headline-sm text-surface-container-lowest font-bold">Operations Command Center</span><span class="hidden sm:inline-block px-space-sm py-0.5 rounded-full text-label-sm font-label-sm bg-surface-container-lowest/10 text-secondary-fixed">Vizag Division Dispatch</span></div><div class="flex items-center gap-space-md"><a class="font-label-sm text-label-sm text-secondary-fixed hover:text-surface-container-lowest transition-colors" data-path="home" href="#">Exit to Public Portal</a><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></header><main class="relative pt-16 bg-surface min-h-screen"><div class="flex flex-col w-full">
+<!-- Top Tactical Quick Stats Mosaic -->
+<section class="p-space-lg">
+<!-- Header Sub-Context -->
+<div class="flex flex-col md:flex-row md:items-end justify-between mb-space-lg gap-space-sm">
+<div>
+<div class="flex items-center gap-space-xs text-primary font-label-sm uppercase tracking-wider">
+<span class="inline-block w-2 h-2 rounded-full bg-primary-container animate-pulse"></span>
+<span>Tactical Operations Stream • Node 04 Vizag</span>
+</div>
+<h1 class="font-headline-xl text-headline-xl text-on-surface font-extrabold tracking-tight mt-1">
+          Fleet Operations Control Tower
+        </h1>
+</div>
+<div class="flex items-center gap-space-sm bg-surface-container-low px-space-md py-space-xs rounded-xl shadow-sm">
+<span class="material-symbols-outlined text-primary text-[20px]">sync</span>
+<span class="font-label-sm text-on-surface-variant font-mono">Last Ingest: <span class="text-on-surface font-bold" id="ingest-clock">10:42:19 AM</span></span>
+<span class="px-space-xs py-0.5 rounded text-[11px] font-bold bg-primary-container text-on-primary">REST 200 OK</span>
+</div>
+</div>
+<!-- 4 KPI Cards -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-space-md">
+<!-- KPI 1: Active Fleet -->
+<div class="relative overflow-hidden bg-surface-container-lowest p-space-lg rounded-xl shadow-sm hover:shadow-md transition-shadow group">
+<div class="absolute -right-6 -bottom-6 w-24 h-24 bg-secondary-fixed rounded-full blur-2xl opacity-60 pointer-events-none"></div>
+<div class="flex items-center justify-between mb-space-sm">
+<span class="font-label-sm uppercase tracking-wider text-on-surface-variant">Total Active Buses</span>
+<span class="w-8 h-8 rounded-lg bg-surface-container flex items-center justify-center text-primary group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-[20px]">directions_bus</span>
+</span>
+</div>
+<div class="flex items-baseline gap-space-xs">
+<span class="font-display-lg text-display-lg text-on-surface font-black">24</span>
+<span class="font-headline-md text-headline-md text-on-surface-variant font-bold">/ 28</span>
+</div>
+<div class="mt-space-sm flex items-center justify-between text-body-sm">
+<span class="text-on-surface-variant font-medium">85.7% On Road Utilization</span>
+<span class="px-2 py-0.5 rounded-full text-[11px] font-semibold bg-secondary-container text-on-secondary-container">4 In Maintenance</span>
+</div>
+<div class="w-full bg-surface-container-high h-1.5 rounded-full mt-space-md overflow-hidden">
+<div class="bg-primary-container h-full rounded-full" style="width: 85.7%"></div>
+</div>
+</div>
+<!-- KPI 2: Bookings -->
+<div class="relative overflow-hidden bg-surface-container-lowest p-space-lg rounded-xl shadow-sm hover:shadow-md transition-shadow group">
+<div class="absolute -right-6 -bottom-6 w-24 h-24 bg-primary-fixed rounded-full blur-2xl opacity-60 pointer-events-none"></div>
+<div class="flex items-center justify-between mb-space-sm">
+<span class="font-label-sm uppercase tracking-wider text-on-surface-variant">Today's Bookings</span>
+<span class="w-8 h-8 rounded-lg bg-surface-container flex items-center justify-center text-primary-container group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-[20px]">confirmation_number</span>
+</span>
+</div>
+<div class="flex items-baseline gap-space-xs">
+<span class="font-display-lg text-display-lg text-primary font-black">1,480</span>
+<span class="font-label-md text-label-md text-on-surface-variant">Pax</span>
+</div>
+<div class="mt-space-sm flex items-center gap-space-xs text-body-sm">
+<span class="flex items-center text-primary font-bold">
+<span class="material-symbols-outlined text-[16px]">trending_up</span> +18.4%
+          </span>
+<span class="text-on-surface-variant">vs yesterday (1,250)</span>
+</div>
+<div class="w-full bg-surface-container-high h-1.5 rounded-full mt-space-md overflow-hidden">
+<div class="bg-primary h-full rounded-full" style="width: 76%"></div>
+</div>
+</div>
+<!-- KPI 3: On-Time Rate -->
+<div class="relative overflow-hidden bg-surface-container-lowest p-space-lg rounded-xl shadow-sm hover:shadow-md transition-shadow group">
+<div class="absolute -right-6 -bottom-6 w-24 h-24 bg-secondary-fixed-dim rounded-full blur-2xl opacity-40 pointer-events-none"></div>
+<div class="flex items-center justify-between mb-space-sm">
+<span class="font-label-sm uppercase tracking-wider text-on-surface-variant">Fleet On-Time Rate</span>
+<span class="w-8 h-8 rounded-lg bg-surface-container flex items-center justify-center text-primary group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-[20px]">verified</span>
+</span>
+</div>
+<div class="flex items-baseline gap-space-xs">
+<span class="font-display-lg text-display-lg text-on-surface font-black">96.2%</span>
+</div>
+<div class="mt-space-sm flex items-center justify-between text-body-sm">
+<span class="text-on-surface-variant font-medium">Benchmark ≥95% Target</span>
+<span class="px-2 py-0.5 rounded-full text-[11px] font-bold bg-primary-fixed text-on-primary-fixed">High Performance</span>
+</div>
+<div class="w-full bg-surface-container-high h-1.5 rounded-full mt-space-md overflow-hidden">
+<div class="bg-primary-container h-full rounded-full" style="width: 96.2%"></div>
+</div>
+</div>
+<!-- KPI 4: Today Revenue -->
+<div class="relative overflow-hidden bg-surface-container-lowest p-space-lg rounded-xl shadow-sm hover:shadow-md transition-shadow group">
+<div class="absolute -right-6 -bottom-6 w-24 h-24 bg-tertiary-fixed rounded-full blur-2xl opacity-50 pointer-events-none"></div>
+<div class="flex items-center justify-between mb-space-sm">
+<span class="font-label-sm uppercase tracking-wider text-on-surface-variant">Revenue Today</span>
+<span class="w-8 h-8 rounded-lg bg-surface-container flex items-center justify-center text-tertiary group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-[20px]">payments</span>
+</span>
+</div>
+<div class="flex items-baseline gap-space-xs">
+<span class="font-display-lg text-display-lg text-on-surface font-black tracking-tight">₹1,77,600</span>
+</div>
+<div class="mt-space-sm flex items-center justify-between text-body-sm">
+<span class="text-on-surface-variant font-medium">Target: ₹2,10,000</span>
+<span class="font-label-sm font-semibold text-tertiary">84.5% Attained</span>
+</div>
+<div class="w-full bg-surface-container-high h-1.5 rounded-full mt-space-md overflow-hidden">
+<div class="bg-tertiary-container h-full rounded-full" style="width: 84.5%"></div>
+</div>
+</div>
+</div>
+</section>
+<!-- Live Fleet Operational Table -->
+<section class="px-space-lg pb-space-lg">
+<div class="bg-surface-container-lowest rounded-2xl shadow-sm overflow-hidden">
+<!-- Table Header & Controls -->
+<div class="p-space-lg flex flex-col md:flex-row md:items-center justify-between gap-space-md bg-surface-container-low">
+<div>
+<div class="flex items-center gap-space-sm">
+<span class="w-2.5 h-2.5 rounded-full bg-primary-container animate-ping"></span>
+<h2 class="font-headline-md text-headline-md text-on-surface font-bold">Active Fleet Operational Grid</h2>
+<span class="px-space-sm py-0.5 rounded text-[11px] font-bold bg-primary text-on-primary">24 Vehicles Online</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">Live telemetry sync every 3.2s via PyMongo replica set stream</p>
+</div>
+<!-- Filter & Search Bar -->
+<div class="flex items-center gap-space-sm flex-wrap">
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-2.5 text-on-surface-variant text-[18px]">search</span>
+<input class="pl-9 pr-space-md py-2 bg-surface-container-lowest rounded-lg font-body-sm text-body-sm text-on-surface placeholder:text-outline focus:outline-none shadow-sm w-64 focus:ring-2 focus:ring-primary-container/20" id="bus-search" placeholder="Search Bus, Driver, Route..." type="text"/>
+</div>
+<button class="px-space-md py-2 bg-surface-container text-on-surface font-label-md text-label-md rounded-lg hover:bg-surface-container-high transition-colors flex items-center gap-1 shadow-sm">
+<span class="material-symbols-outlined text-[18px]">filter_list</span>
+<span>Filter</span>
+</button>
+<button class="px-space-md py-2 bg-primary-container text-on-primary font-label-md text-label-md rounded-lg hover:bg-primary transition-colors flex items-center gap-1 shadow-sm" onclick="document.getElementById('add-bus-modal').classList.remove('hidden')">
+<span class="material-symbols-outlined text-[18px]">add_circle</span>
+<span>Add Bus</span>
+</button>
+</div>
+</div>
+<!-- Main Data Table -->
+<div class="overflow-x-auto">
+<table class="w-full text-left font-body-md text-body-md">
+<thead>
+<tr class="bg-surface-container-high text-on-surface-variant font-label-md text-label-md uppercase tracking-wider">
+<th class="py-space-md px-space-lg">Bus Unit &amp; ID</th>
+<th class="py-space-md px-space-md">Operator Name</th>
+<th class="py-space-md px-space-md">Active Route Corridor</th>
+<th class="py-space-md px-space-md">Departure</th>
+<th class="py-space-md px-space-md">Seat Occupancy</th>
+<th class="py-space-md px-space-md">Status Flag</th>
+<th class="py-space-md px-space-md">GPS Telemetry</th>
+<th class="py-space-md px-space-lg text-right">Operational Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-surface-container">
+<!-- Row 1 -->
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="py-space-md px-space-lg">
+<div class="flex items-center gap-space-sm">
+<div class="w-9 h-9 rounded-lg bg-surface-container flex items-center justify-center text-primary font-bold">
+<span class="material-symbols-outlined text-[20px]">directions_bus</span>
+</div>
+<div>
+<div class="font-headline-sm text-headline-sm text-on-surface font-bold">AP31BT101</div>
+<div class="font-body-sm text-body-sm text-on-surface-variant font-mono">Ashok Leyland 40-Lux</div>
+</div>
+</div>
+</td>
+<td class="py-space-md px-space-md">
+<span class="font-semibold text-on-surface">ABC Travels Ltd.</span>
+<span class="block text-body-sm text-on-surface-variant">Fleet ID: #TR-882</span>
+</td>
+<td class="py-space-md px-space-md">
+<div class="flex items-center gap-1 font-semibold text-on-surface">
+<span>Vizianagaram</span>
+<span class="material-symbols-outlined text-primary text-[16px]">arrow_forward</span>
+<span>Vizag</span>
+</div>
+<span class="text-body-sm text-on-surface-variant">NH-26 Express Corridor</span>
+</td>
+<td class="py-space-md px-space-md font-mono font-medium text-on-surface">
+                08:30 AM
+              </td>
+<td class="py-space-md px-space-md">
+<div class="flex items-center justify-between text-body-sm font-semibold mb-1">
+<span>22 / 40</span>
+<span class="text-primary font-bold">55%</span>
+</div>
+<div class="w-32 bg-surface-container-high h-2 rounded-full overflow-hidden">
+<div class="bg-primary-container h-full rounded-full" style="width: 55%"></div>
+</div>
+</td>
+<td class="py-space-md px-space-md">
+<span class="inline-flex items-center gap-1.5 px-space-sm py-1 rounded-full text-label-sm font-label-sm bg-primary-fixed text-on-primary-fixed">
+<span class="w-1.5 h-1.5 rounded-full bg-primary animate-ping"></span>
+                  ON TIME
+                </span>
+</td>
+<td class="py-space-md px-space-md">
+<div class="flex items-center gap-1.5 font-mono text-body-sm font-semibold text-on-surface">
+<span class="material-symbols-outlined text-primary text-[18px]">wifi</span>
+<span>98% Ping</span>
+</div>
+<span class="text-[11px] text-on-surface-variant font-mono">Lat: 17.6868 | 28ms</span>
+</td>
+<td class="py-space-md px-space-lg text-right">
+<div class="inline-flex items-center gap-space-xs">
+<button class="p-1.5 text-on-surface-variant hover:text-primary rounded-lg hover:bg-surface-container transition-colors" title="Edit Bus Config">
+<span class="material-symbols-outlined text-[18px]">edit</span>
+</button>
+<button class="p-1.5 text-primary hover:bg-surface-container rounded-lg transition-colors" title="Track Realtime">
+<span class="material-symbols-outlined text-[18px]">satellite_alt</span>
+</button>
+<button class="px-2.5 py-1 text-label-sm font-label-sm bg-surface-container text-on-surface hover:bg-surface-container-high rounded-md transition-colors" title="View Passenger Manifest">
+                    Manifest
+                  </button>
+</div>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="py-space-md px-space-lg">
+<div class="flex items-center gap-space-sm">
+<div class="w-9 h-9 rounded-lg bg-surface-container flex items-center justify-center text-primary-container font-bold">
+<span class="material-symbols-outlined text-[20px]">directions_bus</span>
+</div>
+<div>
+<div class="font-headline-sm text-headline-sm text-on-surface font-bold">AP35TX402</div>
+<div class="font-body-sm text-body-sm text-on-surface-variant font-mono">Volvo B9R Semi-Slp</div>
+</div>
+</div>
+</td>
+<td class="py-space-md px-space-md">
+<span class="font-semibold text-on-surface">Sri Krishna Exp</span>
+<span class="block text-body-sm text-on-surface-variant">Fleet ID: #TR-402</span>
+</td>
+<td class="py-space-md px-space-md">
+<div class="flex items-center gap-1 font-semibold text-on-surface">
+<span>Vizag</span>
+<span class="material-symbols-outlined text-primary text-[16px]">arrow_forward</span>
+<span>Srikakulam</span>
+</div>
+<span class="text-body-sm text-on-surface-variant">NH-16 Coastal Trunk</span>
+</td>
+<td class="py-space-md px-space-md font-mono font-medium text-on-surface">
+                09:00 AM
+              </td>
+<td class="py-space-md px-space-md">
+<div class="flex items-center justify-between text-body-sm font-semibold mb-1">
+<span>34 / 40</span>
+<span class="text-primary font-bold">85%</span>
+</div>
+<div class="w-32 bg-surface-container-high h-2 rounded-full overflow-hidden">
+<div class="bg-primary h-full rounded-full" style="width: 85%"></div>
+</div>
+</td>
+<td class="py-space-md px-space-md">
+<span class="inline-flex items-center gap-1.5 px-space-sm py-1 rounded-full text-label-sm font-label-sm bg-error-container text-on-error-container">
+<span class="w-1.5 h-1.5 rounded-full bg-error animate-pulse"></span>
+                  DELAYED (+12m)
+                </span>
+</td>
+<td class="py-space-md px-space-md">
+<div class="flex items-center gap-1.5 font-mono text-body-sm font-semibold text-on-surface">
+<span class="material-symbols-outlined text-secondary text-[18px]">wifi</span>
+<span>94% Ping</span>
+</div>
+<span class="text-[11px] text-on-surface-variant font-mono">Lat: 18.2949 | 42ms</span>
+</td>
+<td class="py-space-md px-space-lg text-right">
+<div class="inline-flex items-center gap-space-xs">
+<button class="p-1.5 text-on-surface-variant hover:text-primary rounded-lg hover:bg-surface-container transition-colors" title="Edit Bus Config">
+<span class="material-symbols-outlined text-[18px]">edit</span>
+</button>
+<button class="p-1.5 text-primary hover:bg-surface-container rounded-lg transition-colors" title="Track Realtime">
+<span class="material-symbols-outlined text-[18px]">satellite_alt</span>
+</button>
+<button class="px-2.5 py-1 text-label-sm font-label-sm bg-surface-container text-on-surface hover:bg-surface-container-high rounded-md transition-colors" title="View Passenger Manifest">
+                    Manifest
+                  </button>
+</div>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="py-space-md px-space-lg">
+<div class="flex items-center gap-space-sm">
+<div class="w-9 h-9 rounded-lg bg-surface-container flex items-center justify-center text-primary font-bold">
+<span class="material-symbols-outlined text-[20px]">directions_bus</span>
+</div>
+<div>
+<div class="font-headline-sm text-headline-sm text-on-surface font-bold">AP31ER808</div>
+<div class="font-body-sm text-body-sm text-on-surface-variant font-mono">Scania Multi-Axle</div>
+</div>
+</div>
+</td>
+<td class="py-space-md px-space-md">
+<span class="font-semibold text-on-surface">RTC Super Luxury</span>
+<span class="block text-body-sm text-on-surface-variant">Fleet ID: #AP-901</span>
+</td>
+<td class="py-space-md px-space-md">
+<div class="flex items-center gap-1 font-semibold text-on-surface">
+<span>Vizag</span>
+<span class="material-symbols-outlined text-primary text-[16px]">arrow_forward</span>
+<span>Vijayawada</span>
+</div>
+<span class="text-body-sm text-on-surface-variant">NH-16 Express Way</span>
+</td>
+<td class="py-space-md px-space-md font-mono font-medium text-on-surface">
+                09:45 AM
+              </td>
+<td class="py-space-md px-space-md">
+<div class="flex items-center justify-between text-body-sm font-semibold mb-1">
+<span>40 / 40</span>
+<span class="text-tertiary font-bold">100% (FULL)</span>
+</div>
+<div class="w-32 bg-surface-container-high h-2 rounded-full overflow-hidden">
+<div class="bg-tertiary-container h-full rounded-full" style="width: 100%"></div>
+</div>
+</td>
+<td class="py-space-md px-space-md">
+<span class="inline-flex items-center gap-1.5 px-space-sm py-1 rounded-full text-label-sm font-label-sm bg-primary-fixed text-on-primary-fixed">
+<span class="w-1.5 h-1.5 rounded-full bg-primary animate-ping"></span>
+                  ON TIME
+                </span>
+</td>
+<td class="py-space-md px-space-md">
+<div class="flex items-center gap-1.5 font-mono text-body-sm font-semibold text-on-surface">
+<span class="material-symbols-outlined text-primary text-[18px]">wifi</span>
+<span>99% Ping</span>
+</div>
+<span class="text-[11px] text-on-surface-variant font-mono">Lat: 17.1120 | 18ms</span>
+</td>
+<td class="py-space-md px-space-lg text-right">
+<div class="inline-flex items-center gap-space-xs">
+<button class="p-1.5 text-on-surface-variant hover:text-primary rounded-lg hover:bg-surface-container transition-colors" title="Edit Bus Config">
+<span class="material-symbols-outlined text-[18px]">edit</span>
+</button>
+<button class="p-1.5 text-primary hover:bg-surface-container rounded-lg transition-colors" title="Track Realtime">
+<span class="material-symbols-outlined text-[18px]">satellite_alt</span>
+</button>
+<button class="px-2.5 py-1 text-label-sm font-label-sm bg-surface-container text-on-surface hover:bg-surface-container-high rounded-md transition-colors" title="View Passenger Manifest">
+                    Manifest
+                  </button>
+</div>
+</td>
+</tr>
+<!-- Row 4 -->
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="py-space-md px-space-lg">
+<div class="flex items-center gap-space-sm">
+<div class="w-9 h-9 rounded-lg bg-surface-container flex items-center justify-center text-primary font-bold">
+<span class="material-symbols-outlined text-[20px]">directions_bus</span>
+</div>
+<div>
+<div class="font-headline-sm text-headline-sm text-on-surface font-bold">AP31MK109</div>
+<div class="font-body-sm text-body-sm text-on-surface-variant font-mono">Tata Ultra Urban 35</div>
+</div>
+</div>
+</td>
+<td class="py-space-md px-space-md">
+<span class="font-semibold text-on-surface">Coastal Metro Bus</span>
+<span class="block text-body-sm text-on-surface-variant">Fleet ID: #CT-319</span>
+</td>
+<td class="py-space-md px-space-md">
+<div class="flex items-center gap-1 font-semibold text-on-surface">
+<span>Tagarapuvalasa</span>
+<span class="material-symbols-outlined text-primary text-[16px]">arrow_forward</span>
+<span>Vizag</span>
+</div>
+<span class="text-body-sm text-on-surface-variant">Suburban Corridor S-2</span>
+</td>
+<td class="py-space-md px-space-md font-mono font-medium text-on-surface">
+                10:15 AM
+              </td>
+<td class="py-space-md px-space-md">
+<div class="flex items-center justify-between text-body-sm font-semibold mb-1">
+<span>12 / 35</span>
+<span class="text-on-surface-variant font-bold">34%</span>
+</div>
+<div class="w-32 bg-surface-container-high h-2 rounded-full overflow-hidden">
+<div class="bg-secondary h-full rounded-full" style="width: 34%"></div>
+</div>
+</td>
+<td class="py-space-md px-space-md">
+<span class="inline-flex items-center gap-1.5 px-space-sm py-1 rounded-full text-label-sm font-label-sm bg-primary-fixed text-on-primary-fixed">
+<span class="w-1.5 h-1.5 rounded-full bg-primary animate-ping"></span>
+                  ON TIME
+                </span>
+</td>
+<td class="py-space-md px-space-md">
+<div class="flex items-center gap-1.5 font-mono text-body-sm font-semibold text-on-surface">
+<span class="material-symbols-outlined text-primary text-[18px]">wifi</span>
+<span>95% Ping</span>
+</div>
+<span class="text-[11px] text-on-surface-variant font-mono">Lat: 17.9102 | 31ms</span>
+</td>
+<td class="py-space-md px-space-lg text-right">
+<div class="inline-flex items-center gap-space-xs">
+<button class="p-1.5 text-on-surface-variant hover:text-primary rounded-lg hover:bg-surface-container transition-colors" title="Edit Bus Config">
+<span class="material-symbols-outlined text-[18px]">edit</span>
+</button>
+<button class="p-1.5 text-primary hover:bg-surface-container rounded-lg transition-colors" title="Track Realtime">
+<span class="material-symbols-outlined text-[18px]">satellite_alt</span>
+</button>
+<button class="px-2.5 py-1 text-label-sm font-label-sm bg-surface-container text-on-surface hover:bg-surface-container-high rounded-md transition-colors" title="View Passenger Manifest">
+                    Manifest
+                  </button>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Table Footer / Pagination -->
+<div class="px-space-lg py-space-md bg-surface-container-low flex flex-col sm:flex-row items-center justify-between gap-space-sm">
+<span class="font-body-sm text-body-sm text-on-surface-variant">Showing 4 of 24 active units across 12 scheduled lines</span>
+<div class="flex items-center gap-1">
+<button class="px-3 py-1.5 rounded bg-surface-container text-on-surface-variant hover:text-on-surface text-label-sm font-label-sm">Previous</button>
+<button class="px-3 py-1.5 rounded bg-primary-container text-on-primary text-label-sm font-label-sm font-bold">1</button>
+<button class="px-3 py-1.5 rounded bg-surface-container hover:bg-surface-container-high text-on-surface text-label-sm font-label-sm">2</button>
+<button class="px-3 py-1.5 rounded bg-surface-container hover:bg-surface-container-high text-on-surface text-label-sm font-label-sm">3</button>
+<button class="px-3 py-1.5 rounded bg-surface-container text-on-surface-variant hover:text-on-surface text-label-sm font-label-sm">Next</button>
+</div>
+</div>
+</div>
+</section>
+<!-- Bottom Operational Grid: Left AI Chart, Right Emergency & Quick Actions -->
+<section class="px-space-lg pb-space-xl grid grid-cols-1 lg:grid-cols-12 gap-space-lg">
+<!-- Left Column: AI Route Heuristic & Delay Prediction Chart (7 cols) -->
+<div class="lg:col-span-7 bg-surface-container-lowest p-space-lg rounded-2xl shadow-sm flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between mb-space-md">
+<div class="flex items-center gap-space-sm">
+<div class="w-8 h-8 rounded-lg bg-tertiary-container flex items-center justify-center text-on-tertiary-container shadow-sm">
+<span class="material-symbols-outlined text-[20px]">psychology</span>
+</div>
+<div>
+<h3 class="font-headline-md text-headline-md text-on-surface font-bold">AI Delay Prediction Engine</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">NH-26 / Vizianagaram ➔ Vizag Toll Corridor (Heuristic Variance)</p>
+</div>
+</div>
+<span class="px-space-sm py-1 rounded-full text-label-sm font-label-sm bg-tertiary-fixed text-on-tertiary-fixed font-semibold flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">auto_awesome</span> Model v2.4 Active
+          </span>
+</div>
+<!-- Metric badges -->
+<div class="grid grid-cols-3 gap-space-sm mb-space-md">
+<div class="bg-surface-container-low p-space-sm rounded-lg">
+<div class="font-body-sm text-body-sm text-on-surface-variant">Forecast Accuracy</div>
+<div class="font-headline-sm text-headline-sm text-primary font-bold">98.4%</div>
+</div>
+<div class="bg-surface-container-low p-space-sm rounded-lg">
+<div class="font-body-sm text-body-sm text-on-surface-variant">Avg Bottleneck Delay</div>
+<div class="font-headline-sm text-headline-sm text-on-surface font-bold">+8.2 mins</div>
+</div>
+<div class="bg-surface-container-low p-space-sm rounded-lg">
+<div class="font-body-sm text-body-sm text-on-surface-variant">Toll Jam Probability</div>
+<div class="font-headline-sm text-headline-sm text-error font-bold">High (68%)</div>
+</div>
+</div>
+<!-- Simulated SVG Chart -->
+<div class="relative w-full h-56 bg-surface-container-low rounded-xl p-space-md flex flex-col justify-between overflow-hidden">
+<!-- Grid lines -->
+<div class="absolute inset-0 flex flex-col justify-between p-4 pointer-events-none opacity-20">
+<div class="w-full border-b border-outline"></div>
+<div class="w-full border-b border-outline"></div>
+<div class="w-full border-b border-outline"></div>
+<div class="w-full border-b border-outline"></div>
+</div>
+<!-- Chart SVG -->
+<svg class="w-full h-40 overflow-visible relative z-10" preserveaspectratio="none" viewbox="0 0 600 160">
+<!-- Confidence fill area -->
+<path class="fill-primary/10" d="M 0,110 Q 150,90 280,120 T 600,40 L 600,160 L 0,160 Z"></path>
+<path class="fill-tertiary/10" d="M 0,120 Q 150,110 280,135 T 600,70 L 600,160 L 0,160 Z"></path>
+<!-- Expected Delay (Dashed line) -->
+<path class="stroke-primary" d="M 0,110 Q 150,90 280,120 T 600,40" fill="none" stroke-dasharray="4,4" stroke-width="2.5"></path>
+<!-- Actual Live Ingest (Solid line) -->
+<path class="stroke-tertiary" d="M 0,120 Q 150,110 280,135 T 450,95" fill="none" stroke-width="3"></path>
+<!-- Live point pulse -->
+<circle class="fill-tertiary" cx="450" cy="95" r="5"></circle>
+<circle class="stroke-tertiary/40 fill-none animate-ping" cx="450" cy="95" r="10"></circle>
+</svg>
+<!-- Timeline X-Axis markers -->
+<div class="flex justify-between items-center text-[11px] font-mono text-on-surface-variant relative z-10 pt-1">
+<span>06:00 (Dep)</span>
+<span>07:30 (Anandapuram)</span>
+<span>08:45 (Madhurawada)</span>
+<span>10:00 (RTC Complex)</span>
+<span>11:30 (Exp Arr)</span>
+</div>
+</div>
+</div>
+<!-- Chart Legend & Toggle -->
+<div class="flex items-center justify-between mt-space-md pt-space-sm border-t border-surface-container">
+<div class="flex items-center gap-space-md text-body-sm font-medium">
+<div class="flex items-center gap-1.5">
+<span class="w-3 h-0.5 bg-primary rounded-full"></span>
+<span class="text-on-surface">Scheduled Baseline</span>
+</div>
+<div class="flex items-center gap-1.5">
+<span class="w-3 h-1 bg-tertiary-container rounded-full"></span>
+<span class="text-on-surface">AI Predicted Trend (+9m)</span>
+</div>
+</div>
+<button class="font-label-sm text-label-sm text-primary hover:underline font-bold">Full Telemetry Logs →</button>
+</div>
+</div>
+<!-- Right Column: Emergency Broadcast & Dispatch Actions (5 cols) -->
+<div class="lg:col-span-5 flex flex-col gap-space-md">
+<!-- Emergency Route Alert Dispatch Card -->
+<div class="bg-surface-container-lowest p-space-lg rounded-2xl shadow-sm">
+<div class="flex items-center gap-space-sm mb-space-sm">
+<div class="w-8 h-8 rounded-lg bg-error-container flex items-center justify-center text-error">
+<span class="material-symbols-outlined text-[20px]">campaign</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-on-surface font-bold">Emergency Operations Broadcast</h3>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-space-md">
+          Instantly transmit SMS flash notices and mobile app banner alerts to all enrolled passengers and onboard conductor terminals.
+        </p>
+<div class="space-y-space-sm">
+<div>
+<label class="block font-label-sm text-label-sm text-on-surface font-semibold mb-1">Target Corridor / Route</label>
+<select class="w-full bg-surface-container-low px-space-md py-2 rounded-lg font-body-sm text-body-sm text-on-surface focus:outline-none focus:ring-2 focus:ring-primary-container/20">
+<option>NH-26 Corridor: Vizianagaram ➔ Vizag (All Units)</option>
+<option>NH-16 Trunk: Vizag ➔ Srikakulam</option>
+<option>All 24 Active Fleet Vehicles (Global Dispatch)</option>
+</select>
+</div>
+<div>
+<label class="block font-label-sm text-label-sm text-on-surface font-semibold mb-1">Broadcast Message Payload</label>
+<textarea class="w-full bg-surface-container-low p-space-sm rounded-lg font-body-sm text-body-sm text-on-surface focus:outline-none focus:ring-2 focus:ring-primary-container/20" placeholder="e.g. Flash: Heavy roadwork near Anandapuram Junction. Expect +15 min delay. Driver alternate NH-16 bypass initiated." rows="2"></textarea>
+</div>
+<button class="w-full py-2.5 bg-error text-on-error font-label-md text-label-md rounded-lg hover:opacity-90 transition-opacity flex items-center justify-center gap-space-xs shadow-sm font-bold">
+<span class="material-symbols-outlined text-[18px]">cell_tower</span>
+<span>Broadcast Instant Alert to 1,480 Passengers</span>
+</button>
+</div>
+</div>
+<!-- Lead Transit Controller Profile Card -->
+<div class="bg-surface-container-lowest p-space-md rounded-2xl shadow-sm flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<div class="w-12 h-12 rounded-xl bg-[#0B1F3A] text-on-primary flex items-center justify-center font-bold text-lg shadow-sm">
+            SR
+          </div>
+<div>
+<div class="font-headline-sm text-headline-sm text-on-surface font-bold">S. Rao</div>
+<div class="font-body-sm text-body-sm text-on-surface-variant font-medium">Lead Transit Controller • Duty Shift #1</div>
+<div class="font-mono text-[11px] text-primary">Auth Token: TK-VIZAG-9982</div>
+</div>
+</div>
+<div class="text-right">
+<span class="inline-block px-2 py-0.5 rounded text-[11px] font-bold bg-primary-fixed text-on-primary-fixed">SHIFT ACTIVE</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Quick Action Modal: Add New Bus to Fleet (Hidden by Default) -->
+<div class="fixed inset-0 bg-inverse-surface/60 backdrop-blur-sm z-50 flex items-center justify-center p-space-md hidden" id="add-bus-modal">
+<div class="bg-surface-container-lowest w-full max-w-lg rounded-2xl shadow-2xl overflow-hidden animate-in fade-in zoom-in duration-150">
+<div class="p-space-lg bg-[#0B1F3A] text-surface-container-lowest flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-primary-fixed text-[24px]">directions_bus</span>
+<h3 class="font-headline-md text-headline-md font-bold">Add New Bus to Fleet Registry</h3>
+</div>
+<button class="p-1 rounded hover:bg-white/10 text-surface-container-lowest" onclick="document.getElementById('add-bus-modal').classList.add('hidden')">
+<span class="material-symbols-outlined text-[20px]">close</span>
+</button>
+</div>
+<div class="p-space-lg space-y-space-md">
+<div class="grid grid-cols-2 gap-space-sm">
+<div>
+<label class="block font-label-sm text-label-sm text-on-surface font-semibold mb-1">Bus License / Plate No</label>
+<input class="w-full bg-surface-container-low px-space-md py-2 rounded-lg font-body-sm text-body-sm text-on-surface focus:outline-none" placeholder="e.g. AP31BT9901" type="text"/>
+</div>
+<div>
+<label class="block font-label-sm text-label-sm text-on-surface font-semibold mb-1">Operator Organization</label>
+<input class="w-full bg-surface-container-low px-space-md py-2 rounded-lg font-body-sm text-body-sm text-on-surface focus:outline-none" placeholder="e.g. ABC Travels / APSRTC" type="text"/>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-space-sm">
+<div>
+<label class="block font-label-sm text-label-sm text-on-surface font-semibold mb-1">Assigned Route</label>
+<select class="w-full bg-surface-container-low px-space-md py-2 rounded-lg font-body-sm text-body-sm text-on-surface focus:outline-none">
+<option>Route #101: Vizianagaram ➔ Vizag</option>
+<option>Route #204: Vizag ➔ Srikakulam</option>
+<option>Route #305: Vizag ➔ Vijayawada</option>
+</select>
+</div>
+<div>
+<label class="block font-label-sm text-label-sm text-on-surface font-semibold mb-1">Total Seat Capacity</label>
+<input class="w-full bg-surface-container-low px-space-md py-2 rounded-lg font-body-sm text-body-sm text-on-surface focus:outline-none" type="number" value="40"/>
+</div>
+</div>
+<div>
+<label class="block font-label-sm text-label-sm text-on-surface font-semibold mb-1">GPS Hardware Device UUID</label>
+<input class="w-full bg-surface-container-low px-space-md py-2 rounded-lg font-mono text-body-sm text-on-surface focus:outline-none" placeholder="HW-TEL-XXXX-2024-VZG" type="text"/>
+<span class="text-[11px] text-on-surface-variant font-mono">Will automatically pair to PyMongo socket pipeline</span>
+</div>
+<div class="flex items-center justify-end gap-space-sm pt-space-sm">
+<button class="px-space-md py-2 rounded-lg bg-surface-container text-on-surface font-label-md text-label-md hover:bg-surface-container-high transition-colors" onclick="document.getElementById('add-bus-modal').classList.add('hidden')">
+            Cancel
+          </button>
+<button class="px-space-lg py-2 rounded-lg bg-primary-container text-on-primary font-label-md text-label-md font-bold hover:bg-primary transition-colors shadow-sm" onclick="document.getElementById('add-bus-modal').classList.add('hidden')">
+            Save &amp; Dispatch Bus
+          </button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<script>
+  // Simple clock simulator for live ingestion
+  function updateIngestClock() {
+    const el = document.getElementById('ingest-clock');
+    if (el) {
+      const now = new Date();
+      el.textContent = now.toLocaleTimeString('en-US', { hour12: true });
+    }
+  }
+  setInterval(updateIngestClock, 1000);
+
+  // Search filter micro-interaction
+  const searchInput = document.getElementById('bus-search');
+  if (searchInput) {
+    searchInput.addEventListener('input', function(e) {
+      const q = e.target.value.toLowerCase();
+      const rows = document.querySelectorAll('tbody tr');
+      rows.forEach(row => {
+        const text = row.innerText.toLowerCase();
+        row.style.display = text.includes(q) ? '' : 'none';
+      });
+    });
+  }
+</script></main></div></body></html>

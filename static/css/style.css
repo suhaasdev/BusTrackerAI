@@ -1,0 +1,59 @@
+:root {
+  --primary: #155EEF; --primary-dark: #0B1F3A; --primary-light: #38BDF8;
+  --ai-primary: #7C3AED; --ai-light: #F5F3FF;
+  --success: #10B981; --warning: #F59E0B; --danger: #EF4444; --info: #06B6D4;
+  --background: #F8FAFC; --surface: #FFFFFF; --surface-blue: #EFF6FF;
+  --text-primary: #172033; --text-secondary: #64748B; --text-light: #94A3B8;
+  --border: #E2E8F0; --border-light: #F1F5F9;
+  --shadow-sm: 0 2px 8px rgba(15,23,42,.06);
+  --shadow-md: 0 8px 24px rgba(15,23,42,.08);
+  --shadow-lg: 0 16px 40px rgba(15,23,42,.12);
+  --radius-sm: 8px; --radius-md: 12px; --radius-lg: 18px; --radius-xl: 24px;
+}
+* { box-sizing: border-box; }
+body { background: var(--background); color: var(--text-primary);
+  font-family: 'Inter', system-ui, -apple-system, sans-serif; }
+h1,h2,h3,h4,.brand-font { font-family: 'Plus Jakarta Sans', 'Inter', sans-serif; }
+.navbar-dark-custom { background: var(--primary-dark) !important; }
+.nav-link { color: #CBD5E1 !important; font-weight: 500; }
+.nav-link:hover, .nav-link.active { color: #fff !important; }
+.nav-link.active { background: rgba(255,255,255,.12); border-radius: 8px; }
+.btn-primary { background: var(--primary); border-color: var(--primary); border-radius: 10px; font-weight: 600; }
+.btn-primary:hover { background: #1049C6; border-color: #1049C6; }
+.btn-ai { background: var(--ai-primary); border-color: var(--ai-primary); color: #fff; border-radius: 10px; font-weight: 600; }
+.btn-ai:hover { background: #6D28D9; color: #fff; }
+.card { border: 1px solid var(--border); border-radius: var(--radius-md); box-shadow: var(--shadow-sm); }
+.card-hover:hover { box-shadow: var(--shadow-md); transform: translateY(-1px); transition: .15s; }
+.search-panel { background: var(--surface-blue); border: 1px solid #BFDBFE; border-radius: var(--radius-lg); }
+.badge-on_time { background: #ECFDF5; color: #047857; }
+.badge-delayed { background: #FFFBEB; color: #B45309; }
+.badge-cancelled { background: #FEF2F2; color: #B91C1C; }
+.badge-confirmed { background: #EFF6FF; color: #155EEF; }
+.badge-arriving { background: #ECFEFF; color: #0E7490; }
+.status-dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; margin-right: 4px; }
+.dot-green { background: var(--success); } .dot-amber { background: var(--warning); }
+.dot-red { background: var(--danger); } .dot-blue { background: var(--primary); }
+.hero { background: linear-gradient(180deg, #0B1F3A 0%, #0D2547 55%, #155EEF 130%); color: #fff;
+  border-radius: 0 0 28px 28px; }
+.hero h1 { font-weight: 800; letter-spacing: -.02em; }
+.hero .grad { background: linear-gradient(90deg, #38BDF8, #fff, #d2bbff);
+  -webkit-background-clip: text; background-clip: text; color: transparent; }
+.bus-card { background: #fff; }
+.fare-big { font-weight: 800; font-size: 1.6rem; color: var(--primary-dark); }
+.seat { width: 100%; aspect-ratio: 1/1; border-radius: 10px; font-weight: 700; border: 2px solid transparent;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; cursor: pointer; }
+.seat-available { background: #fff; border-color: var(--success); color: var(--text-primary); }
+.seat-available:hover { background: #BFDBFE; }
+.seat-selected { background: var(--primary); color: #fff; border-color: var(--primary); }
+.seat-booked { background: #CBD5E1; color: #64748B; cursor: not-allowed; border-color: #CBD5E1; }
+.chat-user { background: var(--primary); color: #fff; border-radius: 16px 16px 4px 16px; }
+.chat-ai { background: var(--ai-light); border: 1px solid #E9D5FF; border-radius: 4px 16px 16px 16px; }
+.ticket { border: 2px dashed var(--border); }
+.qrbox { font-family: monospace; background: #0B1F3A; color: #7CFC9A; border-radius: 12px; }
+.timeline-dot { width: 14px; height: 14px; border-radius: 50%; background: var(--primary); }
+.footer { background: #fff; border-top: 1px solid var(--border); }
+.live-pulse { animation: pulse 1.6s infinite; }
+@keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: .4; } }
+.map-box { min-height: 380px; border-radius: var(--radius-lg); }
+.table thead th { font-size: .75rem; text-transform: uppercase; letter-spacing: .04em; color: var(--text-secondary); }
+@media (max-width: 768px) { .fare-big { font-size: 1.3rem; } }

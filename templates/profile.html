@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block title %}Profile{% endblock %}
+{% block content %}
+<div class="container py-4 col-lg-7">
+<h3>Profile</h3>
+<div class="card p-4" id="box">Loading…</div>
+<div class="card p-4 mt-3"><h6>Change password</h6>
+<form class="row g-2" onsubmit="return chpwd(event)">
+<div class="col-md-4"><input id="c1" type="password" class="form-control" placeholder="Current" required></div>
+<div class="col-md-4"><input id="c2" type="password" class="form-control" placeholder="New (6+)" required></div>
+<div class="col-md-4"><button class="btn btn-outline-primary w-100">Update</button></div>
+</form></div>
+</div>
+{% endblock %}
+{% block scripts %}
+<script>
+(async()=>{const r=await api("/api/users/profile");if(!r.success){box.textContent=r.message;return;}
+ const u=r.data.user;
+ box.innerHTML=`<form class="row g-2" onsubmit="return save(event)">
+ <div class="col-md-6"><label class="form-label">Name</label><input id="n" class="form-control" value="${u.name||""}"></div>
+ <div class="col-md-6"><label class="form-label">Email</label><input class="form-control" value="${u.email||""}" disabled></div>
+ <div class="col-md-6"><label class="form-label">Phone</label><input id="p" class="form-control" value="${u.phone||""}"></div>
+ <div class="col-md-6"><label class="form-label">Role</label><input class="form-control" value="${u.role||""}" disabled></div>
+ <div class="col-12"><button class="btn btn-primary">Save</button>
+ <span class="small text-secondary ms-2">Bookings: ${u.stats.active} active / ${u.stats.total} total</span></div></form>`;})();
+async function save(e){e.preventDefault();const r=await api("/api/users/profile",{method:"PUT",body:JSON.stringify({name:n.value,phone:p.value})});toast(r.message,r.success);return false;}
+async function chpwd(e){e.preventDefault();const r=await api("/api/users/password",{method:"PUT",body:JSON.stringify({current_password:c1.value,new_password:c2.value})});toast(r.message,r.success);return false;}
+</script>
+{% endblock %}

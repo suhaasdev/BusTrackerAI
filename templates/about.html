@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}About{% endblock %}
+{% block content %}
+<div class="container py-5 col-lg-8">
+<h2>About BusTrackerAI</h2>
+<p>BusTrackerAI is a <b>web-based AI-enabled bus tracking and ticket booking system</b> for two roles: <b>passengers and drivers</b>.</p>
+<p>Passengers search buses, view routes, track buses live, select seats, book tickets, manage bookings and get intelligent travel info. Drivers log in, view assigned bus/route, start/end trips and share live location. The <b>Flask backend</b> exposes REST APIs, <b>MongoDB</b> stores users/buses/routes/bookings/trips/locations, and <b>rule-based AI prototypes</b> provide ETA prediction and route recommendation (ML-ready architecture).</p>
+<h5>Tech flow</h5>
+<pre class="bg-dark text-light p-3 rounded">Passenger ─┐
+             ▼
+      Web Frontend (HTML/CSS/JS)
+             ▼
+      Flask REST Backend (Python only)
+       ┌─────┼────────┐
+       ▼     ▼        ▼
+    MongoDB  AI/ML   Maps(Leaflet)
+       ▲              ▲
+       └──── Driver ──┘</pre>
+<p class="text-secondary">No mobile app. No admin module. Only Passenger + Driver. Backend strictly Python Flask — no Java.</p>
+</div>
+{% endblock %}

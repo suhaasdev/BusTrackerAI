@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block title %}Bus Details{% endblock %}
+{% block content %}
+<div class="container py-4" id="wrap"><p class="text-secondary">Loading bus…</p></div>
+{% endblock %}
+{% block scripts %}
+<script>
+const BUS_ID="{{ bus_id }}";
+(async()=>{
+ const q=new URLSearchParams(location.search); const date=q.get("date")||todayISO();
+ const r=await api(`/api/buses/${encodeURIComponent(BUS_ID)}?date=${date}`);
+ if(!r.success){document.getElementById("wrap").innerHTML=`<div class="alert alert-danger">${r.message}</div>`;return;}
+ const b=r.data.bus; const route=b.route||{}; const stops=route.stops||[b.source,b.destination];
+ document.getElementById("wrap").innerHTML=`
+ <nav class="small text-secondary mb-2"><a href="/search">Search</a> › ${b.bus_number}</nav>
+ <div class="card p-4">
+  <div class="d-flex justify-content-between flex-wrap">
+   <div><h3>${b.bus_number} <span class="badge bg-light text-dark">${b.bus_type}</span></h3>
+   <div class="text-secondary">${b.operator} · ${b.bus_name||""}</div>
+   <h5 class="mt-2">${b.source} → ${b.destination}</h5>
+   <div>Departure <b>${b.departure_time}</b> · Arrival <b>${b.arrival_time}</b> · Fare <b>₹${b.fare}</b> · <b class="text-success">${b.available_count} seats</b></div>
+   <div class="mt-2 small">Stops:<br>${stops.map((s,i)=>`${i+1}. ${s}`).join("<br>")}</div></div>
+   <div class="text-end"><span class="badge badge-on_time">${b.status}</span><br>
+   <div class="d-flex gap-1 mt-3"><a class="btn btn-outline-info" href="/tracking/${b.bus_number}">Track Bus</a>
+   <a class="btn btn-primary" href="/seats/${b.bus_number}?date=${date}">Select Seat</a></div></div>
+  </div>
+ </div>
+ <div class="card p-3 mt-3"><h6>Live status</h6><div id="live" class="small text-secondary">Loading…</div></div>`;
+ const t=await api(`/api/tracking/${encodeURIComponent(b.bus_number)}`);
+ if(t.success){const x=t.data.tracking;
+  document.getElementById("live").innerHTML=`Location: <b>${x.current_location}</b> · Speed ${x.speed} km/h · Status ${x.status} · ETA ~${x.eta_minutes} min ${x.simulated?'<span class="badge bg-warning text-dark">simulated demo data</span>':""}`;}
+})();
+</script>
+{% endblock %}
