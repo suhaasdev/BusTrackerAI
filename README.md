@@ -1,5 +1,7 @@
 # BusTrackerAI — AI-Based Smart Bus Tracking & Ticket Booking System
 
+[![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/suhaasdev/BusTrackerAI)
+
 **Web app · Passenger + Driver roles · Python Flask REST API · MongoDB · No Java anywhere.**
 
 Passengers search buses, view routes, track live, pick seats, book tickets, manage bookings and chat with an AI assistant.
@@ -16,7 +18,20 @@ Drivers log in, view assigned bus/route, start/end trips, share GPS location, vi
 ## Colour palette
 `#155EEF` primary · `#0B1F3A` navy · `#38BDF8` sky · `#10B981` success/available · `#F59E0B` warning/delay · `#EF4444` danger · `#F8FAFC` bg · `#7C3AED` AI-only purple. See `static/css/style.css`.
 
-## Quick start
+## Deploy (free: Render + MongoDB Atlas)
+
+1. **Database (free):** create a free M0 cluster at https://cloud.mongodb.com → Network Access → allow `0.0.0.0/0` → copy the connection string
+   (looks like `mongodb+srv://user:pass@cluster0.xxxxx.mongodb.net/bustrackerai`).
+2. **Web service (free):** go to https://dashboard.render.com → New → Web Service → connect repo `suhaasdev/BusTrackerAI`
+   (or click **Deploy to Render** above — `render.yaml` pre-fills everything).
+   - Build: `pip install -r requirements.txt` · Start: `gunicorn app:app ...` (already set)
+   - Environment → add `MONGO_URI` = your Atlas string (without it the app still runs in demo memory mode).
+3. Deploy → open the `https://bustrackerai.onrender.com` URL. Demo data seeds automatically on first boot.
+   Login with `user@bustrackerai.edu / Commuter#2025` (passenger) or `driver@bustrackerai.edu / Driver#2025` (driver).
+
+> Note: free Render instances sleep when idle (first load takes ~1 min to wake). Single worker is configured so demo mode stays consistent; add Atlas for real persistence.
+
+## Quick start (local)
 ```bash
 python3 -m venv venv && source venv/bin/activate   # Windows: venv\Scripts\activate
 pip install -r requirements.txt

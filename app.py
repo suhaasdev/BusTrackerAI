@@ -61,6 +61,14 @@ def create_app():
 
 app = create_app()
 
+# Auto-seed on import too (production servers like gunicorn import the
+# app instead of running __main__). Safe: seed() skips when data exists.
+try:
+    from scripts.seed_database import seed
+    seed()
+except Exception as e:
+    print("seed skipped:", e)
+
 if __name__ == "__main__":
     # auto-seed on first run (safe: skips if data exists)
     try:
