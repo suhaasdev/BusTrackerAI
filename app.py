@@ -26,8 +26,9 @@ def create_app():
     from routes.ai_routes import ai_bp
     from routes.user_routes import user_bp
     from routes.pages import pages_bp
+    from routes.admin_routes import admin_bp
 
-    for bp in (auth_bp, bus_bp, route_bp, booking_bp, trip_bp, tracking_bp, ai_bp, user_bp, pages_bp):
+    for bp in (auth_bp, bus_bp, route_bp, booking_bp, trip_bp, tracking_bp, ai_bp, user_bp, pages_bp, admin_bp):
         app.register_blueprint(bp)
 
     @app.get("/api/health")

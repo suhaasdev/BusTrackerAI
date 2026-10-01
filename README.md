@@ -47,6 +47,7 @@ python app.py               # → http://127.0.0.1:5000
 ### Demo accounts (seeded)
 - Passenger: `user@bustrackerai.edu` / `Commuter#2025`
 - Driver: `driver@bustrackerai.edu` / `Driver#2025`
+- Admin: `admin@bustrackerai.edu` / `Admin#2025` → Fleet Control at `/admin/dashboard` (stats, users, buses CRUD, bookings, tracking console, analytics)
 
 ## Architecture
 ```

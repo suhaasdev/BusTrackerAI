@@ -38,6 +38,9 @@ async function refreshNav() {
   if (u) {
     const n = document.getElementById("navName"); if (n) n.textContent = u.name || "";
     const r = document.getElementById("navRole"); if (r) r.textContent = u.role || "";
+    document.querySelectorAll('[data-nav="admin"]').forEach(e => e.classList.toggle("d-none", u.role !== "admin"));
+  } else {
+    document.querySelectorAll('[data-nav="admin"]').forEach(e => e.classList.add("d-none"));
   }
   try {
     const r = await api("/api/buses");

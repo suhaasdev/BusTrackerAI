@@ -19,7 +19,7 @@ def register():
     password = data.get("password") or ""
     role = (data.get("role") or "passenger").strip().lower()
     if role not in ("passenger", "driver"):
-        role = "passenger"
+        role = "passenger"  # admin accounts are created by seeding, never self-registered
     if not name or not email or not password:
         return error("Name, email and password are required.", "VALIDATION", 422)
     if not valid_email(email):

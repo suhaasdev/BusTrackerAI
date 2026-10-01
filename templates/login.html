@@ -6,28 +6,31 @@
 <div class="col-lg-6">
 <div class="card p-4 shadow">
 <h4>Authenticate Session</h4>
-<p class="text-secondary small">Passengers and drivers use the same login — role routes you to the right dashboard.</p>
-<div class="alert alert-info small">Demo: passenger <b>user@bustrackerai.edu / Commuter#2025</b> · driver <b>driver@bustrackerai.edu / Driver#2025</b>
-<button class="btn btn-sm btn-outline-primary ms-2" onclick="fill('user@bustrackerai.edu','Commuter#2025')">Fill passenger</button>
-<button class="btn btn-sm btn-outline-warning ms-1" onclick="fill('driver@bustrackerai.edu','Driver#2025')">Fill driver</button></div>
+<p class="text-secondary small">One login for everyone — you land on the right dashboard by role.</p>
+<ul class="nav nav-pills mb-3" id="roleTabs">
+<li class="nav-item"><button class="nav-link active" onclick="tab('p')">Passenger</button></li>
+<li class="nav-item"><button class="nav-link" onclick="tab('d')">Driver</button></li>
+<li class="nav-item"><button class="nav-link" onclick="tab('a')">Admin</button></li>
+</ul>
+<div class="alert alert-info small" id="demoBox">Demo passenger: <b>user@bustrackerai.edu / Commuter#2025</b>
+<button class="btn btn-sm btn-outline-primary ms-2" onclick="fill('user@bustrackerai.edu','Commuter#2025')">Fill</button></div>
 <form onsubmit="return doLogin(event)">
 <div class="mb-2"><label class="form-label">Email</label><input id="email" class="form-control" value="user@bustrackerai.edu" required></div>
 <div class="mb-2"><label class="form-label">Password</label><input id="pwd" type="password" class="form-control" value="Commuter#2025" required></div>
 <button class="btn btn-primary w-100">Sign In to BusTrackerAI →</button>
 </form>
-<p class="mt-2 small">No account? <a href="/register">Register</a> · Driver? <a href="/driver/login">Driver login</a></p>
+<p class="mt-2 small">No account? <a href="/register">Register</a> (passenger/driver only — admins are pre-seeded).</p>
 </div>
 </div>
 <div class="col-lg-6">
 <div class="card p-4">
-<h5>Why authenticate?</h5>
+<h5>Role guide</h5>
 <ul class="small text-secondary">
-<li>Real-time headway & stop alerts</li>
-<li>AI route & crowd optimization (prototype)</li>
-<li>Instant digital QR boarding pass</li>
-<li>Atomic seat-lock guarantee (no double booking)</li>
+<li><b>Passenger</b> — search, track, book, AI assistant</li>
+<li><b>Driver</b> — assigned bus, start/end trip, share GPS, manifest</li>
+<li><b>Admin</b> — fleet control: users, buses, bookings, tracking, analytics</li>
 </ul>
-<div class="alert alert-light small font-monospace">Passwords are Werkzeug-hashed; JWT (24h) + server session; RBAC passenger/driver.</div>
+<div class="alert alert-light small font-monospace">Werkzeug-hashed passwords · JWT (24h) + session · RBAC passenger/driver/admin.</div>
 </div>
 </div>
 </div>
@@ -35,11 +38,14 @@
 {% endblock %}
 {% block scripts %}
 <script>
+const DEMOS={p:["user@bustrackerai.edu","Commuter#2025","Demo passenger: <b>user@bustrackerai.edu / Commuter#2025</b>"],d:["driver@bustrackerai.edu","Driver#2025","Demo driver: <b>driver@bustrackerai.edu / Driver#2025</b>"],a:["admin@bustrackerai.edu","Admin#2025","Demo admin: <b>admin@bustrackerai.edu / Admin#2025</b>"]};
+function tab(k){document.querySelectorAll("#roleTabs .nav-link").forEach(b=>b.classList.remove("active"));event.target.classList.add("active");fill(DEMOS[k][0],DEMOS[k][1]);demoBox.innerHTML=DEMOS[k][2]+` <button class="btn btn-sm btn-outline-primary ms-2" onclick="fill('${DEMOS[k][0]}','${DEMOS[k][1]}')">Fill</button>`;}
 function fill(e,p){document.getElementById("email").value=e;document.getElementById("pwd").value=p;}
 async function doLogin(e){e.preventDefault();
  const r=await api("/api/auth/login",{method:"POST",body:JSON.stringify({email:document.getElementById("email").value,password:document.getElementById("pwd").value})});
  if(!r.success){toast(r.message,false);return false;}
  store.token=r.data.token; store.user=r.data.user; await refreshNav(); toast("Login successful");
- location.href=r.data.role==="driver"?"/driver/dashboard":"/dashboard"; return false;}
+ const role=r.data.role;
+ location.href=role==="admin"?"/admin/dashboard":role==="driver"?"/driver/dashboard":"/dashboard"; return false;}
 </script>
 {% endblock %}

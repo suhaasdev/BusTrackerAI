@@ -1,0 +1,110 @@
+{% extends "base.html" %}
+{% block title %}Admin Portal{% endblock %}
+{% block head %}<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>{% endblock %}
+{% block content %}
+<div class="container-fluid px-3 py-4">
+<h3><i class="fa-solid fa-shield-halved text-primary me-2"></i>Fleet Operations Control Tower <small class="text-secondary fs-6">Vizag Division Dispatch</small></h3>
+<div class="row g-2 my-3" id="kpis"><p class="text-secondary">Loading stats…</p></div>
+<ul class="nav nav-tabs" id="atabs">
+<li class="nav-item"><button class="nav-link active" data-bs-toggle="tab" data-bs-target="#tFleet">Fleet & Routes</button></li>
+<li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#tUsers">Users</button></li>
+<li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#tBooks">Bookings</button></li>
+<li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#tTrack">Tracking</button></li>
+<li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#tAnal">Analytics</button></li>
+</ul>
+<div class="tab-content pt-3">
+<div class="tab-pane fade show active" id="tFleet">
+<div class="d-flex justify-content-between align-items-center mb-2">
+<input id="fq" class="form-control w-50" placeholder="Search bus, operator, route…" oninput="filterFleet()">
+<button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#addBus"><i class="fa-solid fa-plus me-1"></i>Add Bus</button>
+</div>
+<div class="table-responsive"><table class="table table-hover align-middle">
+<thead><tr><th>Bus</th><th>Operator</th><th>Route</th><th>Dep</th><th>Seats</th><th>Fare</th><th>Status</th><th class="text-end">Actions</th></tr></thead>
+<tbody id="fleetBody"></tbody></table></div>
+</div>
+<div class="tab-pane fade" id="tUsers">
+<div class="table-responsive"><table class="table table-hover align-middle">
+<thead><tr><th>Name</th><th>Email</th><th>Phone</th><th>Role</th><th>Status</th><th class="text-end">Action</th></tr></thead>
+<tbody id="userBody"></tbody></table></div>
+</div>
+<div class="tab-pane fade" id="tBooks">
+<div class="table-responsive"><table class="table table-hover align-middle">
+<thead><tr><th>Booking</th><th>Bus</th><th>Route</th><th>Date</th><th>Seats</th><th>Amount</th><th>Status</th></tr></thead>
+<tbody id="bookBody"></tbody></table></div>
+</div>
+<div class="tab-pane fade" id="tTrack">
+<div class="card p-3 col-lg-8">
+<h6>Update bus location / status (demo GPS console)</h6>
+<form class="row g-2" onsubmit="return pushTrack(event)">
+<div class="col-md-4"><label class="form-label small">Bus</label><select id="tBus" class="form-select"></select></div>
+<div class="col-md-4"><label class="form-label small">Latitude</label><input id="tLat" class="form-control" value="18.1219"></div>
+<div class="col-md-4"><label class="form-label small">Longitude</label><input id="tLon" class="form-control" value="83.4024"></div>
+<div class="col-md-3"><label class="form-label small">Speed km/h</label><input id="tSpd" class="form-control" value="42"></div>
+<div class="col-md-3"><label class="form-label small">ETA min</label><input id="tEta" class="form-control" value="30"></div>
+<div class="col-md-3"><label class="form-label small">Status</label><select id="tStatus" class="form-select"><option>ON_TIME</option><option>DELAYED</option><option>ARRIVING</option><option>DEPARTED</option><option>COMPLETED</option><option>CANCELLED</option></select></div>
+<div class="col-md-3"><label class="form-label small">Location label</label><input id="tLoc" class="form-control" value="Gajapathinagaram Bypass"></div>
+<div class="col-12"><button class="btn btn-primary">Push update</button> <span id="tMsg" class="small ms-2"></span></div>
+</form></div>
+</div>
+<div class="tab-pane fade" id="tAnal">
+<div class="row g-3">
+<div class="col-lg-6"><div class="card p-3"><h6>Bookings per day</h6><canvas id="chDay"></canvas></div></div>
+<div class="col-lg-6"><div class="card p-3"><h6>Revenue per day (₹)</h6><canvas id="chRev"></canvas></div></div>
+<div class="col-lg-6"><div class="card p-3"><h6>Popular routes</h6><div id="popRoutes" class="small"></div></div></div>
+<div class="col-lg-6"><div class="card p-3"><h6>Bus usage (bookings)</h6><div id="busUse" class="small"></div></div></div>
+</div>
+</div>
+</div>
+</div>
+<div class="modal fade" id="addBus" tabindex="-1"><div class="modal-dialog"><div class="modal-content">
+<div class="modal-header bg-dark text-white"><h6 class="mb-0">Add bus to fleet</h6><button class="btn-close btn-close-white" data-bs-dismiss="modal"></button></div>
+<form onsubmit="return addBus(event)"><div class="modal-body row g-2">
+<div class="col-6"><input id="bNo" class="form-control" placeholder="Bus number e.g. AP31BT990" required></div>
+<div class="col-6"><input id="bOp" class="form-control" placeholder="Operator" required></div>
+<div class="col-6"><input id="bSrc" class="form-control" placeholder="Source" required></div>
+<div class="col-6"><input id="bDst" class="form-control" placeholder="Destination" required></div>
+<div class="col-6"><input id="bDep" class="form-control" placeholder="Departure HH:MM" required></div>
+<div class="col-6"><input id="bArr" class="form-control" placeholder="Arrival HH:MM" required></div>
+<div class="col-6"><select id="bType" class="form-select"><option>AC Seater</option><option>Non-AC Seater</option><option>AC Sleeper</option><option>Express</option></select></div>
+<div class="col-3"><input id="bFare" type="number" class="form-control" placeholder="Fare" required></div>
+<div class="col-3"><input id="bSeats" type="number" class="form-control" placeholder="Seats" value="40" required></div>
+</div><div class="modal-footer"><button class="btn btn-primary">Save & dispatch</button></div></form>
+</div></div></div>
+{% endblock %}
+{% block scripts %}
+<script>
+let FLEET=[];
+async function needAdmin(){const m=await api("/api/auth/me");if(!m.success||m.data.user.role!=="admin"){toast("Admin only",false);location.href="/login";return false;}return true;}
+function badge(s){s=String(s||"").toUpperCase();const c=s.includes("DELAY")?"badge-delayed":s==="DISABLED"||s==="CANCELLED"?"badge-cancelled":s==="ON_TIME"||s==="ACTIVE"||s==="CONFIRMED"?"badge-on_time":"badge-confirmed";return `<span class="badge ${c}">${s.replace("_"," ")}</span>`;}
+async function loadAll(){if(!await needAdmin())return;
+ const s=await api("/api/admin/stats");
+ if(s.success){const d=s.data;document.getElementById("kpis").innerHTML=[["Active buses",d.active_buses+" / "+d.total_buses],["Today bookings",d.today_bookings],["On-time rate",d.on_time_rate+"%"],["Revenue","₹"+d.revenue]].map(x=>`<div class="col-md-3"><div class="card p-3"><small class="text-secondary">${x[0]}</small><h3 class="mb-0">${x[1]}</h3></div></div>`).join("");}
+ const b=await api("/api/buses");if(b.success){FLEET=b.data.buses;renderFleet();
+  tBus.innerHTML=FLEET.map(x=>`<option>${x.bus_number}</option>`).join("");}
+ const u=await api("/api/admin/users");
+ if(u.success){userBody.innerHTML=u.data.users.map(x=>`<tr><td>${x.name}</td><td>${x.email}</td><td>${x.phone||"—"}</td><td><span class="badge bg-light text-dark">${x.role}</span></td><td>${badge(x.status)}</td><td class="text-end"><button class="btn btn-sm btn-outline-secondary" onclick="toggleUser('${x._id}')">${x.status==="active"?"Disable":"Enable"}</button></td></tr>`).join("");}
+ const k=await api("/api/admin/bookings");
+ if(k.success){bookBody.innerHTML=k.data.bookings.map(x=>`<tr><td class="font-monospace">${x.booking_id}</td><td>${x.bus_number}</td><td>${x.source}→${x.destination}</td><td>${x.travel_date}</td><td>${(x.seats||[]).join(",")}</td><td>₹${x.total_amount}</td><td>${badge(x.status)}</td></tr>`).join("")||`<tr><td colspan="7" class="text-secondary">No bookings yet.</td></tr>`;}
+ const a=await api("/api/admin/analytics");
+ if(a.success){const d=a.data;
+  new Chart(chDay,{type:"bar",data:{labels:d.bookings_per_day.labels,datasets:[{data:d.bookings_per_day.values,backgroundColor:"#155EEF"}]},options:{plugins:{legend:{display:false}}}});
+  new Chart(chRev,{type:"line",data:{labels:d.revenue_per_day.labels,datasets:[{data:d.revenue_per_day.values,borderColor:"#10B981",fill:false}]},options:{plugins:{legend:{display:false}}}});
+  popRoutes.innerHTML=d.popular_routes.map(x=>`<div class="d-flex justify-content-between border-bottom py-1"><span>${x[0]}</span><b>${x[1]}</b></div>`).join("");
+  busUse.innerHTML=d.bus_usage.map(x=>`<div class="d-flex justify-content-between border-bottom py-1"><span>${x[0]}</span><b>${x[1]}</b></div>`).join("");}
+}
+function renderFleet(){const q=(fq.value||"").toLowerCase();
+ fleetBody.innerHTML=FLEET.filter(b=>(b.bus_number+b.operator+b.source+b.destination).toLowerCase().includes(q)).map(b=>`<tr><td><b class="text-primary">${b.bus_number}</b></td><td>${b.operator}</td><td>${b.source}→${b.destination}</td><td>${b.departure_time}</td><td>${b.available_count}/${b.total_seats}</td><td>₹${b.fare}</td><td>${badge(b.status)}</td><td class="text-end"><div class="btn-group btn-group-sm"><button class="btn btn-outline-primary" onclick="cycleStatus('${b._id}','${b.status}')">Status</button><button class="btn btn-outline-danger" onclick="delBus('${b._id}')">Delete</button></div></td></tr>`).join("");}
+function filterFleet(){renderFleet();}
+async function addBus(e){e.preventDefault();
+ const r=await api("/api/admin/buses",{method:"POST",body:JSON.stringify({bus_number:bNo.value,operator:bOp.value,source:bSrc.value,destination:bDst.value,departure_time:bDep.value,arrival_time:bArr.value,bus_type:bType.value,fare:bFare.value,total_seats:bSeats.value})});
+ toast(r.message,r.success);if(r.success){bootstrap.Modal.getInstance(addBus).hide();loadAll();}return false;}
+async function delBus(id){if(!confirm("Delete this bus?"))return;const r=await api("/api/admin/buses/"+id,{method:"DELETE"});toast(r.message,r.success);if(r.success)loadAll();}
+const NEXT={ON_TIME:"DELAYED",DELAYED:"ARRIVING",ARRIVING:"DEPARTED",DEPARTED:"COMPLETED",COMPLETED:"ON_TIME",CANCELLED:"ON_TIME"};
+async function cycleStatus(id,st){const r=await api("/api/admin/buses/"+id,{method:"PUT",body:JSON.stringify({status:NEXT[st]||"ON_TIME"})});toast(r.message,r.success);if(r.success)loadAll();}
+async function toggleUser(id){const r=await api("/api/admin/users/"+id,{method:"PUT",body:JSON.stringify({})});toast(r.message,r.success);if(r.success)loadAll();}
+async function pushTrack(e){e.preventDefault();
+ const r=await api("/api/admin/tracking/"+encodeURIComponent(tBus.value),{method:"PUT",body:JSON.stringify({latitude:parseFloat(tLat.value),longitude:parseFloat(tLon.value),speed:parseFloat(tSpd.value),eta_minutes:parseInt(tEta.value),status:tStatus.value,current_location:tLoc.value})});
+ tMsg.textContent=r.message;toast(r.message,r.success);return false;}
+loadAll();
+</script>
+{% endblock %}

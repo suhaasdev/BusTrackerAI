@@ -37,6 +37,8 @@ def dashboard():
     uid, role, _ = current_user()
     if role == "driver":
         return redirect(url_for("pages.driver_dashboard"))
+    if role == "admin":
+        return redirect(url_for("pages.admin_dashboard"))
     return render_template("dashboard.html")
 
 
@@ -99,6 +101,12 @@ def driver_login():
 @login_required_page(role="driver")
 def driver_dashboard():
     return render_template("driver_dashboard.html")
+
+
+@pages_bp.get("/admin/dashboard")
+@login_required_page(role="admin")
+def admin_dashboard():
+    return render_template("admin_dashboard.html")
 
 
 @pages_bp.get("/logout")

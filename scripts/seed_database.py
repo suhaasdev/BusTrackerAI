@@ -88,6 +88,8 @@ def seed():
          "password": "Driver#2025", "role": "driver"},
         {"name": "K. Ramana (Driver)", "email": "ramana@example.com", "phone": "9848022320",
          "password": "password123", "role": "driver"},
+        {"name": "Fleet Admin", "email": "admin@bustrackerai.edu", "phone": "8912548900",
+         "password": "Admin#2025", "role": "admin"},
     ]
     driver_ids = {}
     for u in users:
