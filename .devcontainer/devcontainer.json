@@ -1,0 +1,10 @@
+{
+  "name": "BusTrackerAI",
+  "image": "mcr.microsoft.com/devcontainers/python:3.11",
+  "forwardPorts": [8000],
+  "portsAttributes": {
+    "8000": {"label": "BusTrackerAI", "visibility": "public", "onAutoForward": "openPreview"}
+  },
+  "postStartCommand": "pip install -q -r requirements.txt && (PORT=8000 nohup python app.py > /tmp/app.log 2>&1 &)",
+  "customizations": {"vscode": {"extensions": ["ms-python.python"]}}
+}
